@@ -1,0 +1,35 @@
+.theme--light.v-sheet{
+    background: #F8FAFC!important;
+}
+
+.learn_box_item{
+    height: 160px;
+    border-radius: 5px;
+}
+.learn_box_item_img{
+    width: 100%;
+    max-width: 140px;
+}
+.learn_box_item_title{
+    color: white;
+    font-size: 16px;
+    margin-bottom: 2px;
+}
+.learn_box_item_desc{
+    color: white;
+    font-size: 10px;
+}
+.learn_box_item_hashtag{
+    position: absolute;
+    left:15px;
+    bottom: 8px;
+    font-size: 9px;
+    color: #EDEAD0;
+}
+.learn_box_item_auther{
+    position: absolute;
+    left:15px;
+    top: 10px;
+    font-size: 9px;
+    color: #EDEAD0;
+}

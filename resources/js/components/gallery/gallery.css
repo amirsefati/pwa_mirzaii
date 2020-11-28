@@ -1,0 +1,17 @@
+.gallery_box_item{
+    border-radius: 5px;
+}
+.time_box_timer{
+    position: absolute;
+    left:25px;
+    bottom: 8px;
+    font-size: 9px;
+    color: #EDEAD0; 
+}
+.time_box_hashtag{
+    position: absolute;
+    right:25px;
+    bottom: 8px;
+    font-size: 9px;
+    color: #EDEAD0; 
+}
