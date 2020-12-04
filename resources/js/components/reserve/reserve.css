@@ -1,0 +1,47 @@
+.caclculate_sticky{
+    width: 100%;
+    height: 80px;
+    position: fixed;
+    bottom: 0;
+    background: #FF3864;
+    z-index: 99999;
+}
+.caclculate_sticky_2{
+    width: 100%;
+    height: 80px;
+    position: fixed;
+    bottom: 0;
+    background: #D4B483;
+    z-index: 99999; 
+}
+.name_cal_sticky{
+    color:white;
+    font-size:16px;
+    position: absolute;
+    top:23px;
+    right:20px;
+}
+
+.price_cal_sticky{
+    color:white;
+    font-size:16px;
+    position: absolute;
+    top:23px;
+    left:20px;
+}
+
+.payment_cal_sticky{
+    color:white;
+    font-size:22px;
+    position: absolute;
+    top:23px;
+    left:43%;
+    font-weight: bold;
+}
+.br_col{
+    border: .4px solid gray;
+}
+.td_tb{
+    border: .4px solid gray;
+    padding: 6px;
+}

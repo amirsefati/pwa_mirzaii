@@ -145,3 +145,33 @@ a{
     height: 60px;
     transition: .3s;
   }
+
+.table{
+    overflow-y: auto!important;
+}
+.table td{
+ border: 1px solid #dee2e6;
+}
+
+.login_noti_header{
+    height: 90px;
+    background: cadetblue;
+    text-align: center;
+}
+.login_noti_verify_header{
+    height: 140px;
+    background: cadetblue;
+    text-align: center;
+}
+.v-btn{
+    letter-spacing: 0px!important;
+}
+
+.link_box_6_lock{
+    background-color: #61D0A7;
+    height: 180px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 3px 3px 10px 0px rgba(0,0,0,0.35);
+    filter: grayscale(100%);
+}

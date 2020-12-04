@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\News;
+use App\Models\User;
+use App\Models\Coach;
 use App\Models\Course;
 use App\Models\Gallery;
-use App\Models\News;
+use App\Models\Reserve;
+use App\Models\Competition;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Client extends Controller
 {
@@ -22,5 +28,152 @@ class Client extends Controller
     public function getgallery(){
         $gallery = Gallery::all();
         return $gallery; 
+    }
+
+    public function getcompetition(){
+        $competition = Competition::all();
+        return $competition; 
+    }
+
+    public function getcoach(){
+        $coach = Coach::all();
+        return $coach; 
+    }
+
+
+    public function checklogin(){
+        if(Auth::check()){
+            $user = Auth::user();
+            return ['status' => '200', 'user' => $user];
+        }else{
+            return ['status' => '301'];
+        }
+    }
+
+    public function register_attempt(Request $request){
+        $name = $request->data['name'];
+        $email = $request->data['email'];
+        $password = $request->data['password'];
+        $born = $request->data['born'];
+        $tel = $request->data['tel'];
+        $code_meli = $request->data['code_meli'];
+
+        if(strlen($name) < 5){
+            return ['status'=>'300','err'=>'لطفا نام خود را کامل وارد کنید'];
+        }elseif(strlen($email) < 6){
+            return ['status'=>'300','err'=>'لطفا ایمیل خود را کامل وارد کنید'];
+        }elseif(strlen($password) < 6){
+            return ['status'=>'300','err'=>'لطفا پسورد خود را کامل وارد کنید'];
+        }elseif(strlen($tel) < 9){
+            return ['status'=>'300','err'=>'لطفا تلفن خود را کامل وارد کنید'];
+        }elseif(strlen($code_meli) < 9){
+            return ['status'=>'300','err'=>'لطفا کد ملی خود را کامل وارد کنید'];
+        }elseif(User::where('email',$email)->count() > 0){
+            return ['status'=>'300','err'=>'چنین ایمیلی قبلا در سامانه ثبت شده است'];
+        }elseif(User::where('phone',$tel)->count() > 0){
+            return ['status'=>'300','err'=>'چنین شماره تلفنی قبلا در سامانه ثبت شده است'];
+        }else{
+            $user = User::create([
+                'name' => $name,
+                'password' => $password,
+                'phone' => $tel,
+                'code_meli' => $code_meli,
+                'email' => $email,
+                'born' => $born,
+            ]);
+            Auth::loginUsingId($user->id,true);
+            return ['status'=>'200'];
+        }
+        return ['status'=> '400'];
+    }
+
+
+    public function upload_img_v(Request $request){
+
+        $request->validate([
+            'name' => 'required',
+            'code_meli' => 'required',
+            'has_gun' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+
+            'fl1' => 'required|max:5000|mimes:png,jpg,jpeg,ttf,gif,bmp',
+            'fl2' => 'required|max:5000|mimes:png,jpg,jpeg,ttf,gif,bmp',
+            'fl3' => 'required|max:5000|mimes:png,jpg,jpeg,ttf,gif,bmp'
+        ]);
+
+        if(User::where('code_meli',$request->code_meli)->count() > 1){
+            return ['status' => '300'];
+        }elseif(User::where('phone',$request->phone)->count() > 1){
+            return ['status' => '300'];
+        }else{
+            if($request->hasFile('fl1')){
+                $image = $request->file('fl1');
+                $name = Auth::user()->id . '-1-'. time() .'_' . rand(500,99999) . '.' .$image->getClientOriginalExtension();
+                $destinationPath = public_path('/documents/');
+                $image->move($destinationPath, $name);
+                $img_url1 = '/documents/' . $name ;
+            }
+    
+            if($request->hasFile('fl2')){
+                $image = $request->file('fl2');
+                $name = Auth::user()->id . '-2-'. time() .'_' . rand(500,99999) . '.' .$image->getClientOriginalExtension();
+                $destinationPath = public_path('/documents/');
+                $image->move($destinationPath, $name);
+                $img_url2 = '/documents/' . $name ;
+            }
+    
+            if($request->hasFile('fl3')){
+                $image = $request->file('fl3');
+                $name = Auth::user()->id . '-3-'. time() .'_' . rand(500,99999) . '.' .$image->getClientOriginalExtension();
+                $destinationPath = public_path('/documents/');
+                $image->move($destinationPath, $name);
+                $img_url3 = '/documents/' . $name ;
+            }
+            User::where('id',$request->id)->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'code_meli' => $request->code_meli,
+                'has_gun' => $request->has_gun,
+                'scan_shenasname' => $img_url1,
+                'scan_pic' => $img_url2,
+                'scan_bime' => $img_url3,
+                'status' => '2',
+                'kind' => $request->kind
+
+            ]);
+        }
+
+        return ['status' => '200'];
+    }
+
+    public function getreserve_date(){
+        $now = Carbon::now()->format('Y-m-d');
+        $next= Carbon::now()->addDays(15,'day')->format('Y-m-d');
+        $data = Reserve::whereBetween('d_m',[$now,$next])->get();
+        return ['status' => '200' , 'data' => $data];
+    }
+
+    public function reserv(Request $request){
+        $day =  json_decode(Reserve::where('d_j',$request->data['whdate'])->first()->data);
+        foreach($day as $d => $k){
+            if($d == $request->data['time']){
+                if(!$request->data['status']){
+                    array_push($day->$d,Auth::user()->id);
+                }else{
+                    $id = array_search(Auth::user()->id,$day->$d);
+                    unset($day->$d[$id]);
+                }
+            }
+        }
+        Reserve::where('d_j',$request->data['whdate'])->update([
+            'data' => json_encode($day)
+        ]);
+
+        $now = Carbon::now()->format('Y-m-d');
+        $next= Carbon::now()->addDays(15,'day')->format('Y-m-d');
+        $data = Reserve::whereBetween('d_m',[$now,$next])->get();
+        return ['status' => '200' , 'data' => $data];
     }
 }

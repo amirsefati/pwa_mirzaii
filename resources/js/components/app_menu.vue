@@ -45,17 +45,21 @@
             </div>
 
             <div class="col-md-2 col-6">
+                <router-link to="/competition2">
                 <div class="link_box_3">
                     <img src="./img/race.png" width="" class="img_box_link" alt="">
                     <p class="app_link_box_p">مسابقات</p>
                 </div>
+                </router-link>
             </div>
 
             <div class="col-md-2 col-6">
+                <router-link to="/coach1">
                 <div class="link_box_4">
                     <img src="./img/sche.png" width="" class="img_box_link" alt="">
                     <p class="app_link_box_p">برنامه حضور مربیان</p>
                 </div>
+                </router-link>
             </div>
 
             <div class="col-md-2 col-6">
@@ -67,15 +71,35 @@
                 </router-link>
 
             </div>
-
+                
             <div class="col-md-2 col-6">
-                <div class="link_box_6">
+
+                <div class="link_box_6" v-if="user_data.status == 3">
+                    <router-link to="/select">
+                        <img src="./img/reserve.png" width="" class="img_box_link" alt="">
+                        <p class="app_link_box_p">ثبت نام و رزرو خط</p>
+                    </router-link>
+                </div>
+
+                <div class="link_box_6_lock" v-if="user_data.status < 2">
+
+                    <img src="./img/reserve.png" width="" class="img_box_link" alt="">
+                    <p class="app_link_box_p">ثبت نام و رزرو خط</p>
+                </div>
+
+                <div class="link_box_6_lock" v-if="user_data.status == null">
+
                     <img src="./img/reserve.png" width="" class="img_box_link" alt="">
                     <p class="app_link_box_p">ثبت نام و رزرو خط</p>
                 </div>
             </div>
         </div>
-        
 
     </div>
 </template>
+
+<script>
+export default {
+    props: ["user_data"]
+}
+</script>

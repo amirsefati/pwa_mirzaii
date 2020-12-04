@@ -1,0 +1,11 @@
+.name_coach_item{
+    padding: 10px;
+    color: white;
+    font-size: 16px;
+}
+.corner_img{
+    border-radius: 15px;
+}
+.coach_box_item{
+    border-radius: 5px;
+}

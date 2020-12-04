@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\News;
+use App\Models\User;
+use App\Models\Coach;
 use App\Models\Course;
 use App\Models\Gallery;
-use App\Models\News;
+use App\Models\Competition;
+use App\Models\Reserve;
+use Carbon\Carbon;
+use Carbon\Traits\Date;
 use Illuminate\Http\Request;
+use Morilog\Jalali\Jalalian;
 
 class Manager extends Controller
 {
@@ -276,4 +283,220 @@ class Manager extends Controller
         ]);
         return redirect('/manager/manage_gallery');
     }
+
+    public function add_competition(){
+        return view('dashboard.add_competition');
+    }
+
+    public function add_competition_post(Request $request){
+
+        $request->validate([
+            'title' => 'required|max:200',
+            'timer' => 'required|max:200',
+            'img' => 'required|max:5000|mimes:png,jpg,jpeg,ttf,gif,bmp',
+        ]);
+
+        if($request->hasFile('img')){
+            $image = $request->file('img');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/competition/');
+            $image->move($destinationPath, $name);
+            $img_url = '/competition/' . $name ;
+        }
+        
+        Competition::create([
+            'title'=>$request->title,
+            'timer'=>$request->timer,
+            'desc'=>$request->desc,
+            
+            'quantity'=>$request->quantity,
+            'price'=>$request->price,
+            'award'=>$request->award,
+            'conditions'=>$request->conditions,
+            'link_signup'=>$request->link_signup,
+            'etc' => $request->etc,
+
+            'img'=>$img_url,
+
+        ]);
+        return redirect('manager/manage_competition');
+
+    }
+
+    public function manage_competition(){
+        $competition_list = Competition::all();
+        return view('dashboard.manage_competition',compact('competition_list'));
+   
+    }
+
+    public function delete_competition($id){
+        Competition::where('id',$id)->delete();
+        return redirect('/manager/manage_competition');
+    }
+
+    public function edit_competition($id){
+        $competition = Competition::where('id',$id)->first();
+        return view('dashboard.edit_competition',compact('competition'));
+    }
+
+    public function edit_competition_post(Request $request){
+        $request->validate([
+            'title' => 'required|max:250',
+            'timer' => 'required|max:250',
+            'img' => 'required|max:5000|mimes:png,jpg,jpeg,ttf,gif,bmp'
+        ]);
+
+        if($request->hasFile('img')){
+            $image = $request->file('img');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/competition/');
+            $image->move($destinationPath, $name);
+            $img_url = '/competition/' . $name ;
+        }
+        Competition::where('id',$request->id)->update([
+            'title' => $request->title,
+            'timer' => $request->timer,
+            'desc' => $request->desc,
+
+            'quantity'=>$request->quantity,
+            'price'=>$request->price,
+            'award'=>$request->award,
+            'conditions'=>$request->conditions,
+            'link_signup'=>$request->link_signup,
+            'etc' => $request->etc,
+            'img'=>$img_url,
+
+        ]);
+
+        return redirect('/manager/manage_competition');
+    
+    }
+
+
+    public function add_coach(){
+        return view('dashboard.add_coach');
+    }
+
+    public function add_coach_post(Request $request){
+        $request->validate([
+            'name' => 'required|max:200',
+            'img' => 'required|max:5000|mimes:png,jpg,jpeg,ttf,gif,bmp',
+        ]);
+
+        if($request->hasFile('img')){
+            $image = $request->file('img');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/coach/');
+            $image->move($destinationPath, $name);
+            $img_url = '/coach/' . $name ;
+        }
+        
+        Coach::create([
+            'name'=>$request->name,
+            'kind'=>$request->kind,
+            'desc'=>$request->desc,
+            
+            'hashtag'=>$request->hashtag,
+            'rank_show'=>$request->rank_show,
+            'guns'=>$request->guns, 
+
+            'img'=>$img_url,
+
+        ]);
+        return redirect('manager/manage_coach');
+  
+    }
+
+    public function manage_coach(){
+        $coach_list = Coach::all();
+        return view('dashboard.manage_coach',compact('coach_list'));
+    }
+
+    public function delete_coach($id){
+        Coach::where('id',$id)->delete();
+        return redirect('/manager/manage_coach');
+    }
+
+    public function edit_coach($id){
+        $coach = Coach::where('id',$id)->first();
+        return view('dashboard.edit_coach',compact('coach'));
+    }
+
+    public function edit_coach_post(Request $request){
+        $request->validate([
+            'name' => 'required|max:250',
+            'img' => 'required|max:5000|mimes:png,jpg,jpeg,ttf,gif,bmp'
+        ]);
+
+        if($request->hasFile('img')){
+            $image = $request->file('img');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/coach/');
+            $image->move($destinationPath, $name);
+            $img_url = '/coach/' . $name ;
+        }
+        Coach::where('id',$request->id)->update([
+            'name'=>$request->name,
+            'kind'=>$request->kind,
+            'desc'=>$request->desc,
+            
+            'hashtag'=>$request->hashtag,
+            'rank_show'=>$request->rank_show,
+            'guns'=>$request->guns, 
+
+            'img'=>$img_url,
+
+        ]);
+
+        return redirect('/manager/manage_coach');
+    
+    }
+
+
+    ############################ User 
+    public function user_no_verify(){
+        
+        $no_verify = User::where('status',2)->get();
+        return view('dashboard.users.user_no_verify',compact('no_verify'));
+    }
+
+    public function edit_user($id){
+        $user = User::where('id',$id)->first();
+        return view('dashboard.users.edit_user',compact('user'));
+    }
+
+    public function all_user(){
+        $users = User::where('status', '>' ,1)->get();
+        return view('dashboard.users.all_user',compact('users'));
+    }
+
+    public function verify_user_account(Request $request){
+    
+        User::where('id',$request->id)->update([
+            'status' => 3
+        ]);
+        return redirect('/manager/all_user');
+
+    }
+
+    public function create_reserve_data(){
+
+        $now = Jalalian::forge('today');
+        $now = explode(" ",$now);
+        $now = explode("-",$now[0]);
+        for($d = 0 ; $d < 15 ; $d++){
+            $date_j = (new Jalalian($now[0],$now[1],$now[2]))->addDays($d)->format('Y-m-d (%A)');
+            $date_m = Carbon::now()->addDays($d,'day')->format('Y-m-d');
+            $data = [1=>[12,45,34,4,34],2=>[77,65,64,3],3=>[],4=>[44,3],5=>[],6=>[],7=>[],8=>[],9=>[]];
+            if(Reserve::where('d_m',$date_m)->count() < 1 ){
+                Reserve::create([
+                    'd_j' => $date_j,
+                    'd_m' => $date_m,
+                    'data' => json_encode($data)
+                ]);
+            }
+        }
+        return 'ok';
+    }
+
 }

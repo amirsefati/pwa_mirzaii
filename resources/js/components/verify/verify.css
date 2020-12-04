@@ -1,0 +1,5 @@
+.box_upload{
+    border:.5px dashed gray;
+    border-radius: 10px;
+    min-height: 130px;
+}

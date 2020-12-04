@@ -53,3 +53,10 @@
 .ck[dir=rtl] .ck{
     font-family: sefati;
 }
+.ck-content[dir=rtl] .table th{
+    text-align: center!important;
+}
+.border_dash{
+    border: 1px dashed gray;
+    border-radius: 10px;
+}

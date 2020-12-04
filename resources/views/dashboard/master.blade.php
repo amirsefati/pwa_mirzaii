@@ -431,6 +431,21 @@
                                         نمایش
                                     </a>
                                 </li>
+
+                                <li class="app-sidebar__heading">کاربران</li>
+                                <li>
+                                    <a href="/manager/user_no_verify" class="">
+                                        <i class="metismenu-icon pe-7s-rocket"></i>
+                                        کاربران تایید نشده
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/manager/all_user" class="">
+                                        <i class="metismenu-icon pe-7s-rocket"></i>
+                                        مدیریت کاربران 
+                                    </a>
+                                </li>
                                 
                                 <li class="app-sidebar__heading">آموزش ها</li>
                                
@@ -501,18 +516,31 @@
                                     </a>
                                 </li>
 
-                                <li class="app-sidebar__heading">Charts</li>
+                                <li class="app-sidebar__heading">مسابقات</li>
                                 <li>
-                                    <a href="charts-chartjs.html">
+                                    <a href="/manager/add_competition">
                                         <i class="metismenu-icon pe-7s-graph2">
-                                        </i>ChartJS
+                                        </i>افزودن مسابقه
                                     </a>
                                 </li>
-                                <li class="app-sidebar__heading">PRO Version</li>
                                 <li>
-                                    <a href="https://dashboardpack.com/theme-details/architectui-dashboard-html-pro/" target="_blank">
+                                    <a href="/manager/manage_competition">
                                         <i class="metismenu-icon pe-7s-graph2">
-                                        </i>
+                                        </i>مدیریت مسابقه ها
+                                    </a>
+                                </li>
+                                
+                                <li class="app-sidebar__heading">برنامه حضور مربیان</li>
+                                <li>
+                                    <a href="/manager/add_coach">
+                                        <i class="metismenu-icon pe-7s-graph2">
+                                        </i>افزودن مربی و ساعت حضور
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/manager/manage_coach">
+                                        <i class="metismenu-icon pe-7s-graph2">
+                                        </i> مدیریت برنامه
                                     </a>
                                 </li>
                             </ul>
@@ -555,6 +583,17 @@
       });
     });
   });
+
+
+  function show_pass(){
+      pass = document.getElementById('pwsrd')
+      if(pass.type === 'password'){
+          pass.type = 'text'
+      }else{
+        pass.type = 'password'
+
+      }
+  }
   </script>
 </body>
 

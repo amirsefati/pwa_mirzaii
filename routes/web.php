@@ -56,6 +56,38 @@ Route::prefix('manager')->group(function(){
     Route::get('gallery/edit_gallery/{id}',[Manager::class,'edit_gallery']);
     Route::post('edit_gallery_post',[Manager::class,'edit_gallery_post']);
 
+
+    #competition
+    Route::get('add_competition',[Manager::class,'add_competition']);
+    Route::post('add_competition_post',[Manager::class,'add_competition_post']);
+
+    Route::get('manage_competition',[Manager::class,'manage_competition']);
+    Route::get('competition/delete_competition/{id}',[Manager::class,'delete_competition']);
+    Route::get('competition/edit_competition/{id}',[Manager::class,'edit_competition']);
+    Route::post('edit_competition_post',[Manager::class,'edit_competition_post']);
+
+
+    #couch 
+    Route::get('add_coach',[Manager::class,'add_coach']);
+    Route::post('add_coach_post',[Manager::class,'add_coach_post']);
+
+    Route::get('manage_coach',[Manager::class,'manage_coach']);
+    Route::get('coach/delete_coach/{id}',[Manager::class,'delete_coach']);
+    Route::get('coach/edit_coach/{id}',[Manager::class,'edit_coach']);
+    Route::post('edit_coach_post',[Manager::class,'edit_coach_post']);
+
+
+
+    #user
+    Route::get('user_no_verify',[Manager::class,'user_no_verify']);
+    Route::get('all_user',[Manager::class,'all_user']);
+    Route::get('user/edit_user/{id}',[Manager::class,'edit_user']);
+
+    Route::post('verify_user_account',[Manager::class,'verify_user_account']);
+
+    Route::get('alireza',[Manager::class,'create_reserve_data']);
+ 
+    
 });
 
 Route::prefix('api')->group(function(){
@@ -63,7 +95,18 @@ Route::prefix('api')->group(function(){
     Route::get('getlearn',[Client::class,'getlearn']);
     Route::get('getcourse',[Client::class,'getcourse']);
     Route::get('getgallery',[Client::class,'getgallery']);
+    Route::get('getcompetition',[Client::class,'getcompetition']);
+    Route::get('getcoach',[Client::class,'getcoach']);
 
+    Route::get('checklogin',[Client::class,'checklogin']);
+
+    Route::post('register_attempt',[Client::class,'register_attempt']);
+
+    Route::post('upload_img_v',[Client::class,'upload_img_v']);
+
+    Route::get('getreserve_date',[Client::class,'getreserve_date']);
+
+    Route::post('reserv',[Client::class,'reserv']);
 
     
 });
