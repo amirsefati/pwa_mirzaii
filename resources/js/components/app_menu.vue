@@ -68,7 +68,7 @@
                     </router-link>
                 </div>
 
-                <div class="link_box_6_lock" v-if="user_data.status < 2">
+                <div class="link_box_6_lock" v-if="user_data.status < 3">
 
                     <img src="./img/reserve.png" width="" class="img_box_link" alt="">
                     <p class="app_link_box_p">ثبت نام و رزرو خط</p>
