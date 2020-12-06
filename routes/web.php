@@ -86,7 +86,11 @@ Route::prefix('manager')->group(function(){
     Route::post('verify_user_account',[Manager::class,'verify_user_account']);
 
     Route::get('alireza',[Manager::class,'create_reserve_data']);
- 
+
+    Route::get('credit',[Manager::class,'creadit']);
+    Route::post('add_credit_touser',[Manager::class,'add_credit_touser']);
+
+    
     
 });
 
@@ -107,6 +111,8 @@ Route::prefix('api')->group(function(){
     Route::get('getreserve_date',[Client::class,'getreserve_date']);
 
     Route::post('reserv',[Client::class,'reserv']);
+
+    Route::post('login',[Client::class,'login']);
 
     
 });

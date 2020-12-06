@@ -446,6 +446,13 @@
                                         مدیریت کاربران 
                                     </a>
                                 </li>
+
+                                <li>
+                                    <a href="/manager/credit" class="">
+                                        <i class="metismenu-icon pe-7s-rocket"></i>
+                                        اعتبار 
+                                    </a>
+                                </li>
                                 
                                 <li class="app-sidebar__heading">آموزش ها</li>
                                

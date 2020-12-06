@@ -3,12 +3,13 @@
 }
 
 .learn_box_item{
-    height: 160px;
-    border-radius: 5px;
+    height: 140px;
+    border-radius: 15px;
 }
 .learn_box_item_img{
     width: 100%;
     max-width: 140px;
+    border-radius: 20px;
 }
 .learn_box_item_title{
     color: white;
@@ -17,12 +18,12 @@
 }
 .learn_box_item_desc{
     color: white;
-    font-size: 10px;
+    font-size: 9px;
 }
 .learn_box_item_hashtag{
     position: absolute;
-    left:15px;
-    bottom: 8px;
+    left:18px;
+    bottom: 13px;
     font-size: 9px;
     color: #EDEAD0;
 }
@@ -32,4 +33,9 @@
     top: 10px;
     font-size: 9px;
     color: #EDEAD0;
+}
+
+.v-chip.v-size--default{
+    border: .4px solid gray;
+    background: #f2f1f1!important;
 }

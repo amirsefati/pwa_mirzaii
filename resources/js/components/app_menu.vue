@@ -7,23 +7,10 @@
            </div>
        </div>
 
-        <div class="row p-3">
-            <div class="col-md-2 col-6 ">
-                <div class="app_new_box">
-
-                </div>
-            </div>
-
-            <div class="col-md-2 col-6">
-                <div class="app_new_box2">
-                    
-                </div>
-            </div>
-        </div>
 
         <hr class="hr"/>
 
-        <div class="row pr-3  pl-3">
+        <div class="row pr-3  pl-3 mb-3">
             <div class="col-md-2 col-6">
                 <router-link to="/courseb">
                 <div class="link_box">

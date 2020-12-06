@@ -9,3 +9,14 @@
 .coach_box_item{
     border-radius: 5px;
 }
+
+.border_coach_box{
+    border-radius: 10px;
+}
+.learn_box_item_auther_2{
+    position: absolute;
+    right:15px;
+    top: 10px;
+    font-size: 11px;
+    color: #EDEAD0;
+}

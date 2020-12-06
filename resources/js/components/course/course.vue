@@ -13,25 +13,12 @@
         <v-toolbar
           dark
           color="primary"
+          style="z-index:-1"
         >
-          <v-btn
-            icon
-            dark
-            @click="dialog = false"
-          >
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-          <v-toolbar-title>این خبر خاص</v-toolbar-title>
           <v-spacer>
           </v-spacer>
           <v-toolbar-items>
-            <v-btn
-              dark
-              text
-              @click="dialog = false"
-            >
-              بستن
-            </v-btn>
+            
 
 
           </v-toolbar-items>
@@ -40,21 +27,25 @@
         </v-toolbar>
         
         <v-divider></v-divider>
-            <div style="padding:20px">
+                <div style="padding:20px">
                    <span style="float:left" @click="dialog = false">
-                      بازگشت   
+                      <img  src="./../img/close.png" width="30px" alt="">
                     </span>
                 <div>
-                    <img v-bind:src="this.img" style="width:100%" alt="">
+                    <p style="font-size:18px;margin-bottom:2px">{{this.title}}</p>
+                    <p style="font-size:11px">نویسنده : {{this.author}}</p>
+
+                    <br>
+                    <img v-bind:src="this.img"  style="width:100%;border-radius:15px" alt="">
                    
-                    <p style="font-size:18px">{{this.title}}</p>
                     
-                    <p>نویسنده : {{this.author}}</p>
                     
 
                 </div>
                 <br/>
                     <div v-html="desc"></div>
+                    
+                    <hr class="hr"/>
 
                     قیمت :
                     <span style="font-size:13px">{{this.price}} هزار تومان</span>
@@ -75,12 +66,20 @@
                     ظرفیت :
                     <span style="font-size:13px">{{this.quantity}}</span>
                     <br/>
+                    <br/>
+
             </div>
 
       </v-card>
     </v-dialog>
   </v-row>
+        <br/>  
+        <div class="row">
+          <div class="col-md-12 pr-4 pb-1">
+              <p style="font-size:18px;margin-bottom:2px">بخش دوره ها</p>
 
+          </div>
+        </div>
 
        <v-row justify="space-around">
         <v-col
@@ -90,7 +89,7 @@
         >
         <v-sheet
             elevation="10"
-            class="py-4 px-1"
+            class="py-1  px-1"
         >
             <v-chip-group
             mandatory
@@ -106,15 +105,15 @@
         </v-sheet>
         </v-col>
     </v-row>
-
-    <v-row class="px-4">
+        
+    <v-row class="px-4 mb-5">
         <v-col  v-for="newb in news" :key="newb.id"
         cols="12"
         sm="6"
         md="4" 
         class="p-1"
         >
-        <div class="learn_box_item" :style="backgrd(newb.cate)">
+        <div class="learn_box_item" style="height:160px" :style="backgrd(newb.etc)">
         <v-row @click="[dialog = true,gotonews(newb)]" >
             
             <v-col
@@ -125,7 +124,7 @@
                 <v-row>
                     <v-col class="p-4">
                         <p class="learn_box_item_title">{{newb.title}}</p>
-                        <p class="learn_box_item_desc" v-html="newb.desc.substring(0,140)+' ...'">
+                        <p class="learn_box_item_desc mt-2" style="font-size:10px" v-html="newb.desc.substring(0,180)+' ...'">
                         </p>
 
                     </v-col>
@@ -136,17 +135,16 @@
           </div>
 
             <div class="learn_box_item_quantity">
-                ظرفیت :
-                <span style="font-size:13px">{{newb.quantity}} نفر</span>
+                <span style="font-size:12px">{{newb.etc}}</span>
             </div>
 
             <div class="learn_box_item_hashtag">
-                مهلت ثبت نام :
-                <span style="font-size:13px">{{newb.deadline}}</span>
+                مهلت :
+                <span style="font-size:11px">{{newb.deadline}}</span>
             </div>
 
             <div class="learn_box_item_auther">
-                {{newb.author}}
+                مربی : {{newb.author}}
             </div>
         </v-col>
         
@@ -207,24 +205,20 @@
 
         },
         backgrd:function(cate){
-            if(cate == 'تغذیه'){
+
+          if(cate == 'مربی گری'){
               return {
-                background:'red'
+                background:'#033F63'
               }
           }
-            else if(cate == 'آموزش های تخصصی تیراندازی'){
+            else if(cate == 'داوری'){
               return {
-                background:'blue'
-              }
-            }
-            else if(cate == 'روان شناسی ورزشی'){
-              return {
-                background:'green'
+                background:'#292F36'
               }
             }
             else{
               return {
-                background:'brown'
+                background:'#034748'
               }
             }
 

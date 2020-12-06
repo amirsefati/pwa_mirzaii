@@ -1,5 +1,41 @@
 <template>
+
     <div>
+
+        <div class="row">
+            <div class="col-md-1 col-1"></div>
+            <div class="col-md-10 col-10">
+                <v-row justify="center">
+                    <v-expansion-panels accordion>
+                    <v-expansion-panel
+                    >
+                        <v-expansion-panel-header>قوانین</v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                            <p style="padding:5px">
+                                - شرایط و قوانین رزرو خط
+                                امکان رزرو یا لغو رزرو حداکثر از یک روز قبل امکان پذیر می باشد.
+                                <br>
+                                - درصورت عدم حضور در زمان رزرو شده و عدم هماهنگی قبلی با مسئول جلسه محاسبه می شود.
+                                <br>
+                                - حداکثر ظرفیت در هر ساعت ۱۱ نفر می باشد.
+                            </p>             
+                        </v-expansion-panel-content>
+                    </v-expansion-panel>
+                    </v-expansion-panels>
+                </v-row>
+            </div>
+        </div>
+
+        <div class="row" style="text-align:center">
+            <div class="col-md-6 col-6">
+                تعداد رزرو با اسلحه : {{this.creadit_has_gun}}
+            </div>
+                
+            <div class="col-md-6 col-6">
+                تعداد رزرو بدون اسلحه : {{this.creadit_no_gun}}
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-md-12">
                 <div class="row p-3">
@@ -19,7 +55,7 @@
                     <tbody>
                         <tr>
                             <th style="width:33%;border:1px solid gray;">ساعت</th>
-                            <th style="width:33%;border:1px solid gray;">تعداد رزور</th>
+                            <th style="width:33%;border:1px solid gray;">تعداد رزرو </th>
                             <th style="width:33%;border:1px solid gray;">رزرو</th>
 
                         </tr>
@@ -87,11 +123,16 @@ export default {
         all_data_day : [],
         data_day : [],
         select : 0,
+        user : [],
+        creadit_has_gun : 0,
+        creadit_no_gun : 0
     }),
     created(){
         Axios.get('/api/getreserve_date')
         .then((res) => {
             this.days = res.data.data
+            this.creadit_has_gun = res.data.user.creadit_has_gun
+            this.creadit_no_gun = res.data.user.creadit_no_gun
 
         })
     },
@@ -105,6 +146,7 @@ export default {
                 data : {'status' : status , 'time' : whtime , 'whdate' : whdate}
             }).then((res)=>{
                 this.days = res.data.data
+                this.creadit_has_gun = res.data.user.creadit_has_gun
             }).then(()=>{
                 this.days.map((id)=>{
                     if(id.id == this.select){

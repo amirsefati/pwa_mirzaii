@@ -47,7 +47,7 @@
                         <div class="col-md-12">
                             <label for="editor"> توضیحات و زمان بندی :</label>
                             <textarea class="form-control" id="editor" name="desc" >
-                            <p>&nbsp;</p><p>&nbsp;</p><figure class="table"><table><thead><tr><th colspan="8">ساعات حضور در باشگاه</th></tr><tr><th>ساعت</th><th>شنبه</th><th>یکشنبه</th><th>دوشنبه</th><th>سه شنبه</th><th>چهارشنبه</th><th>پنج شنبه</th><th>جمعه</th></tr></thead><tbody><tr><td>8 الی 12</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>12 الی 14</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table></figure>
+                            <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><figure class="table"><table><thead><tr><th>تاریخ</th><th>ساعت حضور در باشگاه</th></tr></thead><tbody><tr><th>شنبه</th><td>8 الی 12 - 14 الی 16</td></tr><tr><th>یکشنبه</th><td>&nbsp;</td></tr><tr><th>دوشنبه</th><td>&nbsp;</td></tr><tr><th>سه شنبه</th><td>&nbsp;</td></tr><tr><th>چهارشنبه</th><td>&nbsp;</td></tr><tr><th>پنج شنبه</th><td>&nbsp;</td></tr><tr><th>جمعه</th><td>&nbsp;</td></tr></tbody></table></figure><p>&nbsp;</p>
                             </textarea>
                         </div>
                     </div>

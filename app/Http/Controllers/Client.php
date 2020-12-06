@@ -152,7 +152,8 @@ class Client extends Controller
         $now = Carbon::now()->format('Y-m-d');
         $next= Carbon::now()->addDays(15,'day')->format('Y-m-d');
         $data = Reserve::whereBetween('d_m',[$now,$next])->get();
-        return ['status' => '200' , 'data' => $data];
+        $user = Auth::user();
+        return ['status' => '200' , 'data' => $data , 'user' => $user];
     }
 
     public function reserv(Request $request){
@@ -161,10 +162,11 @@ class Client extends Controller
             if($d == $request->data['time']){
                 if(!$request->data['status']){
                     array_push($day->$d,Auth::user()->id);
+                    User::where('id',Auth::user()->id)->decrement('creadit_has_gun');
                 }else{
                     $id = array_search(Auth::user()->id,$day->$d);
                     unset($day->$d[$id]);
-                }
+                    User::where('id',Auth::user()->id)->increment('creadit_has_gun');                }
             }
         }
         Reserve::where('d_j',$request->data['whdate'])->update([
@@ -174,6 +176,26 @@ class Client extends Controller
         $now = Carbon::now()->format('Y-m-d');
         $next= Carbon::now()->addDays(15,'day')->format('Y-m-d');
         $data = Reserve::whereBetween('d_m',[$now,$next])->get();
-        return ['status' => '200' , 'data' => $data];
+        
+        
+        return ['status' => '200' , 'data' => $data , 'user' => User::where('id',Auth::user()->id)->first()];
+    }
+
+    public function login(Request $request){
+        $code_meli = $request->data['code_meli'];
+        $password = $request->data['password'];
+
+        if(User::where('code_meli',$code_meli)->count() > 0){
+            if(User::where('password',$password)->where('code_meli',$code_meli)->count() > 0){
+                $user = User::where('password',$password)->where('code_meli',$code_meli)->first();
+                Auth::loginUsingId($user->id);
+                return ['status' => '200' , 'user' => $user];
+            }else{
+                return ['status' => '302'];
+            }
+        }else{
+            return ['status' => '300'];
+        }
+        return ['status' => '500'];
     }
 }

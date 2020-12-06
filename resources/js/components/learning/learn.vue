@@ -13,25 +13,12 @@
         <v-toolbar
           dark
           color="primary"
+          style="z-index:-1"
         >
-          <v-btn
-            icon
-            dark
-            @click="dialog = false"
-          >
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-          <v-toolbar-title>این خبر خاص</v-toolbar-title>
           <v-spacer>
           </v-spacer>
           <v-toolbar-items>
-            <v-btn
-              dark
-              text
-              @click="dialog = false"
-            >
-              بستن
-            </v-btn>
+            
 
 
           </v-toolbar-items>
@@ -42,7 +29,7 @@
         <v-divider></v-divider>
             <div style="padding:20px">
                    <span style="float:left" @click="dialog = false">
-                      بازگشت   
+                      <img src="./../img/close.png" width="30px" alt="">
                     </span>
                 <div>
                    
@@ -55,14 +42,20 @@
                 <br/>
                     <div v-html="desc"></div>
 
-
                     <p>#{{this.hashtag}}</p>
+
             </div>
 
       </v-card>
     </v-dialog>
   </v-row>
+        <br>
+        <div class="row">
+          <div class="col-md-12 pr-4 pb-1">
+              <p style="font-size:18px;margin-bottom:2px">بخش آموزش ها</p>
 
+          </div>
+        </div>
 
        <v-row justify="space-around">
         <v-col
@@ -72,7 +65,7 @@
         >
         <v-sheet
             elevation="10"
-            class="py-4 px-1"
+            class="py-2 px-1"
         >
             <v-chip-group
             mandatory
@@ -102,9 +95,9 @@
             cols="4"
             sm="5"
             md="2"
-            class="pr-3 pl-0"
+            class="pl-0"
             >
-                <img v-bind:src="newb.img" class="learn_box_item_img" alt="">
+                <img style="padding-right:8px;margin-top:3px" v-bind:src="newb.img" class="learn_box_item_img" alt="">
             </v-col>
 
             <v-col
@@ -114,8 +107,8 @@
             class="py-1">
                 <v-row>
                     <v-col >
-                        <p class="learn_box_item_title">{{newb.title}}</p>
-                        <p class="learn_box_item_desc" v-html="newb.desc.substring(0,140)+' ...'">
+                        <p class="learn_box_item_title mt-2">{{newb.title}}</p>
+                        <p class="learn_box_item_desc mb-0 pl-1" v-html="newb.desc.substring(0,90)+' ...'">
                         </p>
 
                     </v-col>
@@ -189,7 +182,7 @@
           }
             else if(cate == 'آموزش های تخصصی تیراندازی'){
               return {
-                background:'blue'
+                background:'#1B9AAA'
               }
             }
             else if(cate == 'روان شناسی ورزشی'){
@@ -197,9 +190,14 @@
                 background:'green'
               }
             }
+            else if(cate == 'حرکات اصلاحی و آسیب شناسی'){
+              return {
+                background:'#413620'
+              }
+            }
             else{
               return {
-                background:'yellow'
+                background:'#52154E'
               }
             }
 

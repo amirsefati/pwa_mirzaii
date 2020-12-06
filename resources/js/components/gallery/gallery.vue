@@ -1,6 +1,31 @@
 <template>
     <div>
 
+<div class="text-center">
+    <v-bottom-sheet
+      v-model="sheet"
+      inset
+    >
+      
+      <v-sheet
+        class="text-center"
+        height="70%"
+      >
+        <v-btn
+          class="mt-6"
+          text
+          color="error"
+          @click="sheet = !sheet"
+        >
+          بستن
+        </v-btn>
+        <div class="my-3">
+          <img v-bind:src="this.img_hover" width="90%" alt="">
+        </div>
+      </v-sheet>
+    </v-bottom-sheet>
+  </div>
+
   <v-row justify="center">
     <v-dialog
       v-model="dialog"
@@ -69,6 +94,7 @@
                             :lazy-src="image"
                             aspect-ratio="1"
                             class="grey lighten-2"
+                            @click="showimg(image)"
                         >
                             <template v-slot:placeholder>
                             <v-row
@@ -98,70 +124,39 @@
     </v-dialog>
   </v-row>
 
-
-       <v-row justify="space-around">
-        <v-col
-        cols="12"
-        sm="12"
-        md="12"
-        >
-        <v-sheet
-            elevation="10"
-            class="py-4 px-1"
-        >
-            <v-chip-group
-            mandatory
-            active-class="primary--text"
-            >
-            <v-chip
-                v-for="tag in tags"
-                :key="tag"   
-            >
-              <span v-on:click="filter(tag)">{{ tag }}</span>  
-            </v-chip>
-            </v-chip-group>
-        </v-sheet>
-        </v-col>
-    </v-row>
-
-    <v-row class="px-4">
+    <v-row style="padding:15px">
         <v-col  v-for="newb in news" :key="newb.id"
-        cols="12"
+        cols="6"
         sm="6"
-        md="4" 
-        class="p-1"
+        md="4"
+        style="padding:2px 15px"
         >
-        <div class="gallery_box_item" :style="backgrd(newb.cate)">
         <v-row @click="[dialog = true,gotonews(newb)]" >
             
             <v-col
             cols="12"
             sm="12"
             md="12"
-            class="py-1">
+            class="py-0"
+            style="box-shadow: 3px 3px 12px 0px rgba(0,0,0,0.25);"
+            >
                 <v-row>
-                    <v-col class="p-4">
+                    <v-col class="">
                         <img v-bind:src="newb.img" width="100%" alt="">
-                        <p class="learn_box_item_title pt-2">{{newb.title}}</p>
-                        <p class="learn_box_item_desc" v-html="newb.desc.substring(0,180)+' ...'">
-                        </p>
-
+                        <p class="learn_box_item_title pt-2" style="color:black;font-size:12px">{{newb.title}}</p>
+                         <div class="learn_box_item_hashtag_3" style="color:gray">
+                            {{newb.times}}
+                          </div>
                     </v-col>
                 </v-row>
-                <div class="time_box_timer">
-                    {{newb.times}}
-                </div>
-
-                <div class="time_box_hashtag">
-                    #{{newb.hashtag}}
-                </div>
+                
             </v-col>
         </v-row>
-          </div>
 
-            
+
         </v-col>
-        
+        <br><br>
+
     </v-row>
     </div>
 </template>
@@ -188,6 +183,8 @@
       images : '',
       hashtag : '',
       kind : '',
+      sheet: false,
+      img_hover : '',
 
       search:[]
     }),
@@ -211,45 +208,11 @@
             this.kind = id.kind
 
         },
-        backgrd:function(cate){
-            if(cate == 'تغذیه'){
-              return {
-                background:'red'
-              }
-          }
-            else if(cate == 'آموزش های تخصصی تیراندازی'){
-              return {
-                background:'blue'
-              }
-            }
-            else if(cate == 'روان شناسی ورزشی'){
-              return {
-                background:'green'
-              }
-            }
-            else{
-              return {
-                background:'brown'
-              }
-            }
-
-        },
-        filter:function(txt){
-          if(txt == 'همه'){
-            this.news = this.backupnews
-
-          }else{
-            this.search = []
-            this.backupnews.map((cc)=>{
-              if(cc.etc == txt){
-                this.search.push(cc)
-              }
-              this.news = []
-              this.news = this.search
-            })
-          }
-         
+        showimg:function(img){
+            this.img_hover = img
+            this.sheet = true
         }
+        
     }    
   }
 </script>

@@ -34,7 +34,7 @@
        <div class="row login_noti_verify_header" v-if="this.login == 1">
            <div class="col-md-12">
                 <p>{{this.user.name}} عزیز به سایت خوش آمدید</p>
-                <p>برای استفاده کامل از سایت می باشد تایید هویت انجام دهید</p>
+                <p>برای استفاده کامل از برنامه می باشد تایید هویت انجام دهید</p>
                 
                 <router-link to="/verify">
                  <button class="btn btn-danger">ورود به بخش احراز هویت</button>
@@ -52,37 +52,37 @@
 
 
         <div class="row app_background_header" v-if="this.login === 3">
-           <div class="row pt-2">
-               <div class="col-md-2 col-5" style="text-align:center">
-                   <img src="./img/profile.png" class="img_profile pt-2" alt="">
-               </div>
+            <div class="col-md-3 col-4 mt-2">
+               <img src="./img/profile.png" width="100px" alt="">
+           </div>
 
-               <div class="col-md-10 col-7">
-                   <div class="row">
-                       <div class="col-md-12">
-                           <p class="name_profile">{{this.user.name}}</p>
-                       </div>
+           <div class="col-md-9 col-8 mt-4 pt-3">
+               <p style="color:white;margin-bottom:15px">{{this.user.name}}</p>
+                <p style="font-size:10px;color:white;margin-bottom:5px">کد ملی : {{this.user.code_meli}}</p>
+
+           </div>
+
+       </div>
+
+       
+           <div class="box_header_white" v-if="this.login === 3">
+               <div class="row" style="text-align:center">
+                   <div class="col-md-4 col-4">
+                       <img src="./img/t1.png" width="30px" alt="">
+                       <p class="p_in_box_header_white">تمرین</p>
                    </div>
-
-                   <div class="row">
-                       <div class="col-md-12 pb-0">
-                           <p class="code_meli_profile"> کد ملی : {{this.user.code_meli}}</p>
-                       </div>
+                   <div class="col-md-4 col-4">
+                       <img src="./img/t3.png" width="40px" alt="">
+                        <p class="p_in_box_header_white">تحلیل تمرین</p>
                    </div>
-
-                   <div class="row">
-                       <div class="col-md-12">
-                           <p class="code_b_profile"> </p>
-                       </div>
+                   <div class="col-md-4 col-4">
+                       <img src="./img/t2.png" width="40px" alt="">
+                        <p class="p_in_box_header_white" style="padding-top:4px">تحلیل اسکت</p>
                    </div>
                </div>
            </div>
-       </div>
-
-
-       <div class="row app_background_header_clippath" v-if="this.login == 3">
-
-       </div>
+        <br/>
+        <br/>
 
         <router-view :user_data="user"></router-view>
     </div>
@@ -93,7 +93,7 @@ import Axios from 'axios'
     export default {
         data: () => ({
             model: null,
-            login : 0,
+            login : null,
             user : []
         }),
         watch:{

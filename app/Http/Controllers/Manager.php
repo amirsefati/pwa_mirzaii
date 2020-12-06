@@ -499,4 +499,17 @@ class Manager extends Controller
         return 'ok';
     }
 
+    public function creadit(){
+        $users = User::where('status','3')->get();
+        return view('dashboard.users.credit',compact('users'));
+    }
+    public function add_credit_touser(Request $request){
+        User::where('id',$request->id)->update([
+            'creadit_has_gun' => $request->has_gun,
+            'creadit_no_gun' => $request->no_gun,
+        ]);
+
+        return redirect('/manager/credit');
+    }
+
 }

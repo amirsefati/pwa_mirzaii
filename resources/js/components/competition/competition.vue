@@ -13,46 +13,34 @@
         <v-toolbar
           dark
           color="primary"
+          style="z-index:-1"
         >
-          <v-btn
-            icon
-            dark
-            @click="dialog = false"
-          >
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-          <v-toolbar-title>این خبر خاص</v-toolbar-title>
           <v-spacer>
           </v-spacer>
           <v-toolbar-items>
-            <v-btn
-              dark
-              text
-              @click="dialog = false"
-            >
-              بستن
-            </v-btn>
+            
 
 
           </v-toolbar-items>
 
 
         </v-toolbar>
-        
+
+
         <v-divider></v-divider>
             <div style="padding:20px">
-                   <span style="float:left" @click="dialog = false">
-                      بازگشت   
-                    </span>
-                <div>
-                    <img v-bind:src="this.img" style="width:100%" alt="">
-                   
-                    <p style="font-size:18px">{{this.title}}</p>
-                    
-                    <p> : {{this.timer}}</p>
-                    
+                  
 
+                   <span style="float:left" @click="dialog = false">
+                      <img  src="./../img/close.png" width="30px" alt="">
+                    </span>
+                <div> 
+                    <p style="font-size:18px">{{this.title}}</p>
+                    <span style="font-size:13px">{{this.timer}}</span>
+                    <br>
+                    <img v-bind:src="this.img" style="width:100%" alt="">
                 </div>
+
                 <br/>
                     <div v-html="desc"></div>
 
@@ -60,8 +48,12 @@
                     <span style="font-size:13px">{{this.price}} هزار تومان</span>
                     <br/>
 
-                    تاریخ  مسابقه :
-                    <span style="font-size:13px">{{this.timer}}</span>
+                    جوایز :
+                    <span style="font-size:13px">{{this.award}}</span>
+                    <br/>
+
+                    ظرفیت :
+                    <span style="font-size:13px">{{this.quantity}} نفر</span>
                     <br/>
 
                     شرایط ثبت نام :
@@ -71,6 +63,8 @@
                     لینک ثبت نام :
                     <span style="font-size:13px">{{this.link_singup}}</span>
                     <br/>
+                    <br/>
+
             </div>
 
       </v-card>
@@ -78,30 +72,12 @@
   </v-row>
 
 
-       <v-row justify="space-around">
-        <v-col
-        cols="12"
-        sm="12"
-        md="12"
-        >
-        <v-sheet
-            elevation="10"
-            class="py-4 px-1"
-        >
-            <v-chip-group
-            mandatory
-            active-class="primary--text"
-            >
-            <v-chip
-                v-for="tag in tags"
-                :key="tag"   
-            >
-              <span v-on:click="filter(tag)">{{ tag }}</span>  
-            </v-chip>
-            </v-chip-group>
-        </v-sheet>
-        </v-col>
-    </v-row>
+      <div class="row mt-3 mb-2">
+        <div class="col-md-3 col-3"></div>
+        <div class="col-md-3 col-3 campetition_filter"  @click="filter('مسابقات')"><p style="margin-bottom:1px">مسابقات</p></div>
+        <div class="col-md-3 col-3 campetition_filter_2" @click="filter('نتایج')"><p style="margin-bottom:1px">نتایج</p></div>
+
+      </div>
 
     <v-row class="px-4">
         <v-col  v-for="newb in news" :key="newb.id"
@@ -110,7 +86,7 @@
         md="4" 
         class="p-1"
         >
-        <div class="learn_box_item" :style="backgrd(newb.cate)">
+        <div class="learn_box_item" :style="backgrd(newb.etc)">
         <v-row @click="[dialog = true,gotonews(newb)]" >
             
             <v-col
@@ -204,24 +180,14 @@
 
         },
         backgrd:function(cate){
-            if(cate == 'تغذیه'){
+            if(cate == 'مسابقات'){
               return {
-                background:'red'
+                background:'#6A4C93'
               }
           }
-            else if(cate == 'آموزش های تخصصی تیراندازی'){
-              return {
-                background:'blue'
-              }
-            }
-            else if(cate == 'روان شناسی ورزشی'){
-              return {
-                background:'green'
-              }
-            }
             else{
               return {
-                background:'brown'
+                background:'#1982C4'
               }
             }
 
