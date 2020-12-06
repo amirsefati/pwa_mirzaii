@@ -456,7 +456,7 @@ class Manager extends Controller
     ############################ User 
     public function user_no_verify(){
         
-        $no_verify = User::where('status',2)->get();
+        $no_verify = User::where('status','<',3)->get();
         return view('dashboard.users.user_no_verify',compact('no_verify'));
     }
 
