@@ -471,8 +471,17 @@ class Manager extends Controller
     }
 
     public function verify_user_account(Request $request){
-    
+
         User::where('id',$request->id)->update([
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'code_meli' => $request->code_meli,
+            'born' => $request->born,
+            'kind' => $request->kind,
+            'email' => $request->email,
+            'has_gun' => $request->has_gun,
+            'password' => $request->password,
+
             'status' => 3
         ]);
         return redirect('/manager/all_user');

@@ -39,9 +39,10 @@
                             <div class="col-md-6">
                                 <label for="kind"> نوع کاربری :</label>
                                 <select name="kind"  v-model="kind" class="form-control" id="">
-                                    <option value="0">دانشجو غیر دانشگاه تهرانی</option>
-                                    <option value="1">دانشجو دانشگاه تهران</option>
-                                    <option value="2">استاد و کارمند دانشگاه</option>
+                                    <option value="0">کاربری عادی</option>
+                                    <option value="1">دانشجو غیر دانشگاه تهرانی</option>
+                                    <option value="2">دانشجو دانشگاه تهران</option>
+                                    <option value="3">استاد و کارمند دانشگاه</option>
                                 </select>
                             </div>
                         </div>
@@ -71,10 +72,12 @@
                                     <input type="file" @change="onFileChange3" ref="sc3"/>
 
                                     <img v-if="url3" :src="url3" width="100%" alt="">
+
+                                    <a href="https://insurance.ifsm.ir/UserOnline/Login" style="font-size:9px;position:absolute;bottom:15px;left:20px">برای ثبت نام بیمه ورزشی روی لینک کلیک کنید</a>
                                 </div>
                             </div>
 
-                            <div v-if="this.kind === '1'" class="col-md-4" style="padding:10px">
+                            <div v-if="this.kind === '2'" class="col-md-4" style="padding:10px">
                                 <div class="box_upload p-3">
                                     <label for="scan_card_student"> کارت دانشجویی :</label>
                                     <input type="file" @change="onFileChange4" ref="sc4"/>
@@ -83,7 +86,7 @@
                                 </div>
                             </div>
 
-                            <div v-if="this.kind === '2'" class="col-md-4" style="padding:10px">
+                            <div v-if="this.kind === '3'" class="col-md-4" style="padding:10px">
                                 <div class="box_upload p-3">
                                     <label for="scan_card_student"> حکم کارگزینی :</label>
                                     <input type="file" @change="onFileChange5" ref="sc5"/>
@@ -95,7 +98,7 @@
                         </div>
 
                         <div class="row mt-3">
-                            <div class="col-md-12" style="text-align:center"     >
+                            <div class="col-md-12" style="text-align:center">
                                 <button @click="send_data" class="btn btn-success pl-5 pr-5">ارسال اطلاعات</button>
                             </div>
                         </div>

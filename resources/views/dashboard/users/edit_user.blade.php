@@ -39,11 +39,13 @@
                         <label for="kind"> نوع کاربری  :</label>
                         <select name="kind" class="form-control" id="">
                             <option value="{{$user->kind}}">
-                                @if($user->kind === 0)
+                                @if($user->kind === '0')
                                     کاربر عادی
-                                @elseif($user->kind === 1)
+                                @elseif($user->kind === '1')
+                                    دانشگاه غیر دانشگاه  تهرانی
+                                @elseif($user->kind === '2')
                                     دانشگاه تهرانی
-                                @else
+                                @elseif($user->kind === '3')
                                     استاد یا کارمند
                                 @endif
                                 (انتخاب کاربر)
@@ -106,7 +108,15 @@
 
                     <div class="col-md-4" style="text-align: center;">
                         <div class="border_dash p-3">
+                        <p> کارت دانشجویی</p>
                         <img src="{{$user->etc}}" width="100%" alt="">
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" style="text-align: center;">
+                        <div class="border_dash p-3">
+                        <p> کارت منرلت</p>
+                        <img src="{{$user->etc1}}" width="100%" alt="">
                         </div>
                     </div>
                 </div>
