@@ -50,8 +50,10 @@
                                 @endif
                                 (انتخاب کاربر)
                             </option>
-                            <option value="0">دانشجو غیر دانشگاه تهران</option>
-                            <option value="1">دانشجو دانشگاه تهران</option>
+                            <option value="0">گاربر عادی</option>
+                            <option value="1">دانشجو غیر دانشگاه تهران</option>
+                            <option value="2">دانشجو دانشگاه تهران</option>
+
                             <option value="3">استاد یا کارمند</option>
                         </select>
                     </div>
