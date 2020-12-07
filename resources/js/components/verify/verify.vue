@@ -95,8 +95,8 @@
                         </div>
 
                         <div class="row mt-3">
-                            <div class="col-md-12" style="text-align:center" @click="send_data">
-                                <button class="btn btn-success pl-5 pr-5">ارسال اطلاعات</button>
+                            <div class="col-md-12" style="text-align:center" >
+                                <button @click="send_data" class="btn btn-success pl-5 pr-5">ارسال اطلاعات</button>
                             </div>
                         </div>
                     </div>
