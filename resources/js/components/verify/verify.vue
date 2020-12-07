@@ -86,9 +86,9 @@
                             <div v-if="this.kind === '2'" class="col-md-4" style="padding:10px">
                                 <div class="box_upload p-3">
                                     <label for="scan_card_student"> حکم کارگزینی :</label>
-                                    <input type="file" @change="onFileChange4" ref="sc4"/>
+                                    <input type="file" @change="onFileChange5" ref="sc5"/>
 
-                                    <img v-if="url4" :src="url4" width="100%" alt="">
+                                    <img v-if="url5" :src="url5" width="100%" alt="">
                                 </div>
                             </div>
 
@@ -148,12 +148,14 @@ export default {
         url2 : '',
         url3 : '',
         url4 : '',
+        url5 : '',
 
         file : '',
         file1 : '',
         file2 : '',
         file3 : '',
         file4 : '',
+        file5 : '',
 
         snackbar: false,
         text: '',
@@ -203,6 +205,11 @@ export default {
         this.file4 = e.target.files[0];
         this.url4 = URL.createObjectURL(this.file4);
         },
+
+        onFileChange5(e) {
+        this.file5 = e.target.files[0];
+        this.url5 = URL.createObjectURL(this.file5);
+        },
         send_data:function(){
 
             if(this.file.length < 5){
@@ -222,6 +229,7 @@ export default {
             formdata.append('fl2',this.file2)
             formdata.append('fl3',this.file3)
             formdata.append('fl4',this.file4)
+            formdata.append('fl5',this.file5)
 
             formdata.append('name',this.name)
             formdata.append('phone',this.phone)
@@ -240,6 +248,7 @@ export default {
                 if(res.data.status === '200'){
                     this.$router.replace('/')
                 }else{
+                    console.log(res)
                     alert('اطلاعات شما با فرد دیگری یکسان است لطفا با مدیریت تماس بگیرید')
                 }
             })

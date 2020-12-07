@@ -131,6 +131,23 @@ class Client extends Controller
                 $image->move($destinationPath, $name);
                 $img_url3 = '/documents/' . $name ;
             }
+            $img_url4 = '';
+            if($request->hasFile('fl4')){
+                $image = $request->file('fl4');
+                $name = Auth::user()->id . '-4-'. time() .'_' . rand(500,99999) . '.' .$image->getClientOriginalExtension();
+                $destinationPath = public_path('/documents/');
+                $image->move($destinationPath, $name);
+                $img_url4 = '/documents/' . $name ;
+            }
+
+            $img_url5 = '';
+            if($request->hasFile('fl5')){
+                $image = $request->file('fl5');
+                $name = Auth::user()->id . '-5-'. time() .'_' . rand(500,99999) . '.' .$image->getClientOriginalExtension();
+                $destinationPath = public_path('/documents/');
+                $image->move($destinationPath, $name);
+                $img_url5 = '/documents/' . $name ;
+            }
             
             User::where('id',$request->id)->update([
                 'name' => $request->name,
@@ -141,6 +158,8 @@ class Client extends Controller
                 'scan_shenasname' => $img_url1,
                 'scan_pic' => $img_url2,
                 'scan_bime' => $img_url3,
+                'etc' => $img_url4,
+                'etc1' => $img_url5,
 
                 'status' => '2',
                 'kind' => $request->kind
