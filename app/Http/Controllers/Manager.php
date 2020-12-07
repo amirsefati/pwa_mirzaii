@@ -484,7 +484,7 @@ class Manager extends Controller
         $now = Jalalian::forge('today');
         $now = explode(" ",$now);
         $now = explode("-",$now[0]);
-        for($d = 0 ; $d < 15 ; $d++){
+        for($d = 0 ; $d < 150 ; $d++){
             $date_j = (new Jalalian($now[0],$now[1],$now[2]))->addDays($d)->format('Y-m-d (%A)');
             $date_m = Carbon::now()->addDays($d,'day')->format('Y-m-d');
             $data = [1=>[],2=>[],3=>[],4=>[],5=>[],6=>[],7=>[],8=>[],9=>[]];

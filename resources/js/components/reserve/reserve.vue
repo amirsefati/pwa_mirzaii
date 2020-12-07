@@ -39,18 +39,23 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="row p-3">
-                    <div  v-for="day in days" :key="day.id" class="col-3 br_col" style="text-align:center;padding:5px">
-                        <p @click="[select_day(day),select=day.id]" style="margin-bottom:2px;font-size:13px">{{day.d_j}}</p>
+                    <div  v-for="day in days" :key="day.id" :style="bg_color(day.id)" class="col-3 br_col" style="text-align:center;padding:5px">
+                        <p @click="[select_day(day),select=day.id]"  style="margin-bottom:2px;font-size:13px">{{day.d_j}}</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="row" v-if="this.data_day.toString().length > 5">
-            <div class="col-md-12 p-4">
-                <p>
-                {{this.all_data_day.d_j}}
-                </p>
+            <div class="col-md-12 pr-4 pl-4">
+                <div class="row">
+                    <div class="col-md-12" style="text-align:center">
+                        <p style="font-size:18px">
+                        {{this.all_data_day.d_j}}
+                        </p>
+                    </div>
+                </div>
+                
                 <table  style="width:100%;text-align:center">
                     <tbody>
                         <tr>
@@ -110,6 +115,24 @@
             </div>
         </div>
         
+        <v-snackbar
+            v-model="snackbar"
+            :timeout="timeout"
+            >
+            {{ text }}
+
+            <template v-slot:action="{ attrs }">
+                <v-btn
+                color="blue"
+                text
+                v-bind="attrs"
+                @click="snackbar = false"
+                >
+                بستن
+                </v-btn>
+            </template>
+        </v-snackbar>
+
     </div>
 </template>
 
@@ -125,8 +148,12 @@ export default {
         select : 0,
         user : [],
         creadit_has_gun : 0,
-        creadit_no_gun : 0
-    }),
+        creadit_no_gun : 0,
+
+        snackbar: false,
+        text: '',
+        timeout: 2000,
+}),
     created(){
         Axios.get('/api/getreserve_date')
         .then((res) => {
@@ -142,19 +169,46 @@ export default {
             this.data_day = JSON.parse(day.data)
         },
         reserv:function(status,whtime,whdate){
-            Axios.post('/api/reserv',{
-                data : {'status' : status , 'time' : whtime , 'whdate' : whdate}
-            }).then((res)=>{
-                this.days = res.data.data
-                this.creadit_has_gun = res.data.user.creadit_has_gun
-            }).then(()=>{
-                this.days.map((id)=>{
-                    if(id.id == this.select){
-                        this.all_data_day = id
-                        this.data_day = JSON.parse(id.data)
-                    }
-                })
-            })
+            if(status === false){
+                if(this.creadit_has_gun > 0){
+
+                    Axios.post('/api/reserv',{
+                        data : {'status' : status , 'time' : whtime , 'whdate' : whdate}
+                    }).then((res)=>{
+                        this.days = res.data.data
+                        this.creadit_has_gun = res.data.user.creadit_has_gun
+                    }).then(()=>{
+                        this.days.map((id)=>{
+                            if(id.id == this.select){
+                                this.all_data_day = id
+                                this.data_day = JSON.parse(id.data)
+                            }
+                        })
+                    })
+                }else{
+                    this.text = 'اعتبار شما صفر می باشد'
+                    this.snackbar = true
+            }
+            }else{
+                Axios.post('/api/reserv',{
+                        data : {'status' : status , 'time' : whtime , 'whdate' : whdate}
+                    }).then((res)=>{
+                        this.days = res.data.data
+                        this.creadit_has_gun = res.data.user.creadit_has_gun
+                    }).then(()=>{
+                        this.days.map((id)=>{
+                            if(id.id == this.select){
+                                this.all_data_day = id
+                                this.data_day = JSON.parse(id.data)
+                            }
+                        })
+                    })
+            }
+        },
+        bg_color:function(id){
+            if(id === this.select){
+                return 'background:#D6D6D6'
+            }
         }
     },
     

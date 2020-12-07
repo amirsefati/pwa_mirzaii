@@ -25,7 +25,7 @@
                 <router-link to="/reserve">
                     <div style="background:#E3E9FF;border-radius:20px">
                         <img src="./../img/select2.png" width="80%" alt="">
-                        <p style="font-size:18px;padding:15px;">رزور خط</p>
+                        <p style="font-size:18px;padding:15px;">رزرو خط</p>
                     </div>
                 </router-link>
             </div>

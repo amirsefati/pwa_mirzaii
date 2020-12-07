@@ -42,14 +42,14 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label for="codemali">کد ملی :</label>
-                                    <input type="text" class="form-control" v-model="code_meli">
+                                    <input type="text" @keypress="isNumber($event)" class="form-control" v-model="code_meli">
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-12">
                                     <label for="tel"> شماره تلفن :</label>
-                                    <input type="text" class="form-control" v-model="tel">
+                                    <input type="text" @keypress="isNumber($event)" class="form-control" v-model="tel">
                                 </div>
                             </div>
 
@@ -163,6 +163,15 @@ export default {
                         }, 1000);
                     }
                 })
+            }
+        },
+        isNumber: function(evt) {
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+                evt.preventDefault();;
+            } else {
+                return true;
             }
         }
     }

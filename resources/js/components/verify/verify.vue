@@ -41,7 +41,7 @@
                                 <select name="kind"  v-model="kind" class="form-control" id="">
                                     <option value="0">دانشجو غیر دانشگاه تهرانی</option>
                                     <option value="1">دانشجو دانشگاه تهران</option>
-                                    <option value="3">استاد و کارمند دانشگاه</option>
+                                    <option value="2">استاد و کارمند دانشگاه</option>
                                 </select>
                             </div>
                         </div>
@@ -73,6 +73,25 @@
                                     <img v-if="url3" :src="url3" width="100%" alt="">
                                 </div>
                             </div>
+
+                            <div v-if="this.kind === '1'" class="col-md-4" style="padding:10px">
+                                <div class="box_upload p-3">
+                                    <label for="scan_card_student"> کارت دانشجویی :</label>
+                                    <input type="file" @change="onFileChange4" ref="sc4"/>
+
+                                    <img v-if="url4" :src="url4" width="100%" alt="">
+                                </div>
+                            </div>
+
+                            <div v-if="this.kind === '2'" class="col-md-4" style="padding:10px">
+                                <div class="box_upload p-3">
+                                    <label for="scan_card_student"> حکم کارگزینی :</label>
+                                    <input type="file" @change="onFileChange4" ref="sc4"/>
+
+                                    <img v-if="url4" :src="url4" width="100%" alt="">
+                                </div>
+                            </div>
+
                         </div>
 
                         <div class="row mt-3">
@@ -128,10 +147,13 @@ export default {
         url1 : '',
         url2 : '',
         url3 : '',
+        url4 : '',
 
+        file : '',
         file1 : '',
         file2 : '',
         file3 : '',
+        file4 : '',
 
         snackbar: false,
         text: '',
@@ -177,13 +199,30 @@ export default {
         this.url3 = URL.createObjectURL(this.file3);
         },
 
+        onFileChange4(e) {
+        this.file4 = e.target.files[0];
+        this.url4 = URL.createObjectURL(this.file4);
+        },
         send_data:function(){
+
+            if(this.file.length < 5){
+                this.text = 'لطفا اسکن شناسنامه را وارد کنید'
+                this.snackbar = true
+            }else if(this.file2.length < 5){
+                this.text = 'لطفا عکس پرسنلی خود وارد وارد کنید'
+                this.snackbar = true
+            }else if(this.file3.length < 5){
+                this.text = 'لطف اسکن بیمه ورزشی را وارد کنید'
+                this.snackbar = true
+            }else{
 
             let formdata = new FormData()
 
             formdata.append('fl1',this.file)
             formdata.append('fl2',this.file2)
             formdata.append('fl3',this.file3)
+            formdata.append('fl4',this.file4)
+
             formdata.append('name',this.name)
             formdata.append('phone',this.phone)
             formdata.append('email',this.email)
@@ -205,7 +244,7 @@ export default {
                 }
             })
         }
-        
+        }
   }
 }
 </script>

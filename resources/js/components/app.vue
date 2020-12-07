@@ -53,7 +53,7 @@
 
         <div class="row app_background_header" v-if="this.login === 3">
             <div class="col-md-3 col-4 mt-2">
-               <img src="./img/profile.png" width="100px" alt="">
+               <img :src="this.user.scan_pic" style="border-radius:50%;padding:8px" width="100px" alt="">
            </div>
 
            <div class="col-md-9 col-8 mt-4 pt-3">

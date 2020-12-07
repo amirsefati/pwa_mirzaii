@@ -48,10 +48,6 @@
                     <span style="font-size:13px">{{this.price}} هزار تومان</span>
                     <br/>
 
-                    جوایز :
-                    <span style="font-size:13px">{{this.award}}</span>
-                    <br/>
-
                     ظرفیت :
                     <span style="font-size:13px">{{this.quantity}} نفر</span>
                     <br/>
@@ -117,9 +113,6 @@
                 <span style="font-size:13px">{{newb.timer}}</span>
             </div>
 
-            <div class="learn_box_item_auther">
-                {{newb.award}}
-            </div>
         </v-col>
         
     </v-row>

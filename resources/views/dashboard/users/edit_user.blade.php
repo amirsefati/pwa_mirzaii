@@ -38,7 +38,16 @@
                     <div class="col-md-3">
                         <label for="kind"> نوع کاربری  :</label>
                         <select name="kind" class="form-control" id="">
-                            <option value="{{$user->kind}}">{{$user->kind}}</option>
+                            <option value="{{$user->kind}}">
+                                @if($user->kind === 0)
+                                    کاربر عادی
+                                @elseif($user->kind === 1)
+                                    دانشگاه تهرانی
+                                @else
+                                    استاد یا کارمند
+                                @endif
+                                (انتخاب کاربر)
+                            </option>
                             <option value="0">دانشجو غیر دانشگاه تهران</option>
                             <option value="1">دانشجو دانشگاه تهران</option>
                             <option value="3">استاد یا کارمند</option>
@@ -55,7 +64,7 @@
                     <div class="col-md-4">
                         <label for="has_gun">دارای سلاح :</label>
                         <select name="has_gun" class="form-control" id="">
-                            <option value="{{$user->has_gun}}">{{$user->has_gun}}</option>
+                            <option value="{{$user->has_gun}}">{{$user->has_gun ? 'اسلحه دارد' : 'اسلحه ندارد'}} (انتخاب کاربر)</option>
                             <option value="0">اسلحه ندارد</option>
                             <option value="1">اسلحه دارد</option>
                         </select>
@@ -92,6 +101,12 @@
                         <div class="border_dash p-3">
                         <p>اسکن کارت بیمه</p>
                         <img src="{{$user->scan_bime}}" width="100%" alt="">
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" style="text-align: center;">
+                        <div class="border_dash p-3">
+                        <img src="{{$user->etc}}" width="100%" alt="">
                         </div>
                     </div>
                 </div>
