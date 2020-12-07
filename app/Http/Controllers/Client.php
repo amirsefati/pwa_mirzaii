@@ -100,7 +100,6 @@ class Client extends Controller
             'fl1' => 'required|max:5000|mimes:png,jpg,jpeg,ttf,gif,bmp',
             'fl2' => 'required|max:5000|mimes:png,jpg,jpeg,ttf,gif,bmp',
             'fl3' => 'required|max:5000|mimes:png,jpg,jpeg,ttf,gif,bmp',
-            'fl4' => 'max:5000|mimes:png,jpg,jpeg,ttf,gif,bmp'
 
         ]);
 
@@ -132,14 +131,7 @@ class Client extends Controller
                 $image->move($destinationPath, $name);
                 $img_url3 = '/documents/' . $name ;
             }
-
-            if($request->hasFile('fl4')){
-                $image = $request->file('fl4');
-                $name = Auth::user()->id . '-4-'. time() .'_' . rand(500,99999) . '.' .$image->getClientOriginalExtension();
-                $destinationPath = public_path('/documents/');
-                $image->move($destinationPath, $name);
-                $img_url4 = '/documents/' . $name ;
-            }
+            
             User::where('id',$request->id)->update([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -149,7 +141,6 @@ class Client extends Controller
                 'scan_shenasname' => $img_url1,
                 'scan_pic' => $img_url2,
                 'scan_bime' => $img_url3,
-                'etc' => $img_url4,
 
                 'status' => '2',
                 'kind' => $request->kind
