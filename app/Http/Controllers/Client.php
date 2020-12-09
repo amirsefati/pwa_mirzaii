@@ -180,16 +180,17 @@ class Client extends Controller
 
     public function reserv(Request $request){
         $day =  json_decode(Reserve::where('d_j',$request->data['whdate'])->first()->data);
-
+        $id = Auth::user()->id;
         foreach($day as $d => $k){
             if($d == $request->data['time']){
                 if(!$request->data['status']){
-                    array_push($day->$d,Auth::user()->id);
-                    User::where('id',Auth::user()->id)->decrement('creadit_has_gun');
+                    array_push($day->$d,$id);
+                    User::where('id',$id)->decrement('creadit_has_gun');
                 }else{
-                    $id = array_search(Auth::user()->id,$day->$d);
-                    unset($day->$d[$id]);
-                    User::where('id',Auth::user()->id)->increment('creadit_has_gun');                }
+                    $idl = array_search($id,$day->$d);
+                    unset($day->$d[$idl]);
+                    User::where('id',$id)->increment('creadit_has_gun');
+                }
             }
         }
         Reserve::where('d_j',$request->data['whdate'])->update([
@@ -201,7 +202,7 @@ class Client extends Controller
         $data = Reserve::whereBetween('d_m',[$now,$next])->get();
         
         
-        return ['status' => '200' , 'data' => $data , 'user' => User::where('id',Auth::user()->id)->first()];
+        return ['status' => '200' , 'data' => $data , 'user' => User::where('id',$id)->first()];
     }
 
     public function login(Request $request){

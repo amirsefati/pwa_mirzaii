@@ -67,47 +67,47 @@
                         <tr>
                             <td class="td_tb">8 - 9:30</td>
                             <td class="td_tb">{{this.data_day[1].length}} نفر</td>
-                            <td class="td_tb" @click="reserv(data_day[1].includes(user_data.id),1,all_data_day.d_j)">{{this.data_day[1].includes(this.user_data.id) ? "رزرو شده" : "رزرو"}}</td>
+                            <td class="td_tb" @click="reserv(data_day[1].includes(user_data.id),1,all_data_day.d_j)"><button :class="this.data_day[1].includes(this.user_data.id) ? 'btn btn-danger' : 'btn btn-success'">{{this.data_day[1].includes(this.user_data.id) ? "رزرو شده" : "رزرو"}}</button></td>
                         </tr>
                         <tr>
                             <td class="td_tb">9:30 - 11</td>
                             <td class="td_tb">{{this.data_day[2].length}} نفر</td>
-                            <td class="td_tb" @click="reserv(data_day[2].includes(user_data.id),2,all_data_day.d_j)">{{this.data_day[2].includes(this.user_data.id) ? "رزرو شده" : "رزرو"}}</td>
+                            <td class="td_tb" @click="reserv(data_day[2].includes(user_data.id),2,all_data_day.d_j)"><button :class="this.data_day[2].includes(this.user_data.id) ? 'btn btn-danger' : 'btn btn-success'">{{this.data_day[2].includes(this.user_data.id) ? "رزرو شده" : "رزرو"}}</button></td>
                         </tr>
                         <tr>
                             <td class="td_tb">11 - 12:30</td>
                             <td class="td_tb">{{this.data_day[3].length}} نفر</td>
-                            <td class="td_tb" @click="reserv(data_day[3].includes(user_data.id),3,all_data_day.d_j)">{{this.data_day[3].includes(this.user_data.id) ? "رزرو شده" : "رزرو"}}</td>
+                            <td class="td_tb" @click="reserv(data_day[3].includes(user_data.id),3,all_data_day.d_j)"><button :class="this.data_day[3].includes(this.user_data.id) ? 'btn btn-danger' : 'btn btn-success'">{{this.data_day[3].includes(this.user_data.id) ? "رزرو شده" : "رزرو"}}</button></td>
                         </tr>
                         <tr>
                             <td class="td_tb">12:30 - 14</td>
                             <td class="td_tb">{{this.data_day[4].length}} نفر</td>
-                            <td class="td_tb" @click="reserv(data_day[4].includes(user_data.id),4,all_data_day.d_j)">{{this.data_day[4].includes(this.user_data.id) ? "رزرو شده" : "رزرو"}}</td>
+                            <td class="td_tb" @click="reserv(data_day[4].includes(user_data.id),4,all_data_day.d_j)"><button :class="this.data_day[4].includes(this.user_data.id) ? 'btn btn-danger' : 'btn btn-success'">{{this.data_day[4].includes(this.user_data.id) ? "رزرو شده" : "رزرو"}}</button></td>
                         </tr>
                         <tr>
                             <td class="td_tb">14 - 15:30</td>
                             <td class="td_tb">{{this.data_day[5].length}} نفر</td>
-                            <td class="td_tb" @click="reserv(data_day[5].includes(user_data.id),5,all_data_day.d_j)">{{this.data_day[5].includes(this.user_data.id) ? "رزرو شده" : "رزرو"}}</td>
+                            <td class="td_tb" @click="reserv(data_day[5].includes(user_data.id),5,all_data_day.d_j)"><button :class="this.data_day[5].includes(this.user_data.id) ? 'btn btn-danger' : 'btn btn-success'">{{this.data_day[5].includes(this.user_data.id) ? "رزرو شده" : "رزرو"}}</button></td>
                         </tr>
                         <tr>
                             <td class="td_tb">15:30 - 17</td>
                             <td class="td_tb">{{this.data_day[6].length}} نفر</td>
-                            <td class="td_tb" @click="reserv(data_day[6].includes(user_data.id),6,all_data_day.d_j)">{{this.data_day[6].includes(this.user_data.id) ? "رزرو شده" : "رزرو"}}</td>
+                            <td class="td_tb" @click="reserv(data_day[6].includes(user_data.id),6,all_data_day.d_j)"><button :class="this.data_day[6].includes(this.user_data.id) ? 'btn btn-danger' : 'btn btn-success'">{{this.data_day[6].includes(this.user_data.id) ? "رزرو شده" : "رزرو"}}</button></td>
                         </tr>
                         <tr>
                             <td class="td_tb">17 - 18:30</td>
                             <td class="td_tb">{{this.data_day[7].length}} نفر</td>
-                            <td class="td_tb" @click="reserv(data_day[7].includes(user_data.id),7,all_data_day.d_j)">{{this.data_day[7].includes(this.user_data.id) ? "رزرو شده" : "رزرو"}}</td>
+                            <td class="td_tb" @click="reserv(data_day[7].includes(user_data.id),7,all_data_day.d_j)"><button :class="this.data_day[7].includes(this.user_data.id) ? 'btn btn-danger' : 'btn btn-success'">{{this.data_day[7].includes(this.user_data.id) ? "رزرو شده" : "رزرو"}}</button></td>
                         </tr>
                         <tr>
                             <td class="td_tb">18:30 - 20</td>
                             <td class="td_tb">{{this.data_day[8].length}} نفر</td>
-                            <td class="td_tb" @click="reserv(data_day[8].includes(user_data.id),8,all_data_day.d_j)">{{this.data_day[8].includes(this.user_data.id) ? "رزرو شده" : "رزرو"}}</td>
+                            <td class="td_tb" @click="reserv(data_day[8].includes(user_data.id),8,all_data_day.d_j)"><button :class="this.data_day[8].includes(this.user_data.id) ? 'btn btn-danger' : 'btn btn-success'">{{this.data_day[8].includes(this.user_data.id) ? "رزرو شده" : "رزرو"}}</button></td>
                         </tr>
                         <tr>
                             <td class="td_tb">20 - 21:30</td>
                             <td class="td_tb">{{this.data_day[9].length}} نفر</td>
-                            <td class="td_tb" @click="reserv(data_day[9].includes(user_data.id),9,all_data_day.d_j)">{{this.data_day[9].includes(this.user_data.id) ? "رزرو شده" : "رزرو"}}</td>
+                            <td class="td_tb" @click="reserv(data_day[9].includes(user_data.id),9,all_data_day.d_j)"><button :class="this.data_day[9].includes(this.user_data.id) ? 'btn btn-danger' : 'btn btn-success'">{{this.data_day[9].includes(this.user_data.id) ? "رزرو شده" : "رزرو"}}</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -153,6 +153,7 @@ export default {
         snackbar: false,
         text: '',
         timeout: 2000,
+        delay : 1
 }),
     created(){
         Axios.get('/api/getreserve_date')
@@ -169,40 +170,52 @@ export default {
             this.data_day = JSON.parse(day.data)
         },
         reserv:function(status,whtime,whdate){
-            if(status === false){
-                if(this.creadit_has_gun > 0){
+            if(this.delay === 1) {
+                this.delay = 0
+                console.log(this.delay)
+                setTimeout(() => {
+                    this.delay = 1
+                    console.log(this.delay)
+                }, 2000);
 
-                    Axios.post('/api/reserv',{
-                        data : {'status' : status , 'time' : whtime , 'whdate' : whdate}
-                    }).then((res)=>{
-                        this.days = res.data.data
-                        this.creadit_has_gun = res.data.user.creadit_has_gun
-                    }).then(()=>{
-                        this.days.map((id)=>{
-                            if(id.id == this.select){
-                                this.all_data_day = id
-                                this.data_day = JSON.parse(id.data)
-                            }
+                if(status === false){
+                    if(this.creadit_has_gun > 0){
+
+                        Axios.post('/api/reserv',{
+                            data : {'status' : status , 'time' : whtime , 'whdate' : whdate}
+                        }).then((res)=>{
+                            this.days = res.data.data
+                            this.creadit_has_gun = res.data.user.creadit_has_gun
+                        }).then(()=>{
+                            this.days.map((id)=>{
+                                if(id.id == this.select){
+                                    this.all_data_day = id
+                                    this.data_day = JSON.parse(id.data)
+                                }
+                            })
                         })
-                    })
+                    }else{
+                        this.text = 'اعتبار شما صفر می باشد'
+                        this.snackbar = true
+                }
                 }else{
-                    this.text = 'اعتبار شما صفر می باشد'
-                    this.snackbar = true
-            }
-            }else{
-                Axios.post('/api/reserv',{
-                        data : {'status' : status , 'time' : whtime , 'whdate' : whdate}
-                    }).then((res)=>{
-                        this.days = res.data.data
-                        this.creadit_has_gun = res.data.user.creadit_has_gun
-                    }).then(()=>{
-                        this.days.map((id)=>{
-                            if(id.id == this.select){
-                                this.all_data_day = id
-                                this.data_day = JSON.parse(id.data)
-                            }
+                    Axios.post('/api/reserv',{
+                            data : {'status' : status , 'time' : whtime , 'whdate' : whdate}
+                        }).then((res)=>{
+                            this.days = res.data.data
+                            this.creadit_has_gun = res.data.user.creadit_has_gun
+                        }).then(()=>{
+                            this.days.map((id)=>{
+                                if(id.id == this.select){
+                                    this.all_data_day = id
+                                    this.data_day = JSON.parse(id.data)
+                                }
+                            })
                         })
-                    })
+                }
+            }else{
+                this.text = 'لطفا تا ثبت کامل رزرو قبل صبر کنید'
+                this.snackbar = true
             }
         },
         bg_color:function(id){
