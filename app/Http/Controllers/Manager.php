@@ -16,8 +16,11 @@ use Morilog\Jalali\Jalalian;
 
 class Manager extends Controller
 {
-    public function index(){
-        return view('dashboard.index');
+    public function index($id){
+        $now = Carbon::now()->format('Y-m-d');
+        $next= Carbon::now()->addDays($id,'day')->format('Y-m-d');
+        $data = Reserve::whereBetween('d_m',[$now,$next])->orderBy('id','DESC')->first();
+        return view('dashboard.index',compact('data'));
     }
 
     public function add_learn(){

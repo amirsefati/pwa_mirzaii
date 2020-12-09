@@ -180,6 +180,7 @@ class Client extends Controller
 
     public function reserv(Request $request){
         $day =  json_decode(Reserve::where('d_j',$request->data['whdate'])->first()->data);
+
         foreach($day as $d => $k){
             if($d == $request->data['time']){
                 if(!$request->data['status']){

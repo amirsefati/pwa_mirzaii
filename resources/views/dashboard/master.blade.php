@@ -56,19 +56,19 @@
                         <li class="nav-item">
                             <a href="javascript:void(0);" class="nav-link">
                                 <i class="nav-link-icon fa fa-database"> </i>
-                                Statistics
+                                بررسی لاگ
                             </a>
                         </li>
                         <li class="btn-group nav-item">
                             <a href="javascript:void(0);" class="nav-link">
                                 <i class="nav-link-icon fa fa-edit"></i>
-                                Projects
+                                مدیریت
                             </a>
                         </li>
                         <li class="dropdown nav-item">
                             <a href="javascript:void(0);" class="nav-link">
                                 <i class="nav-link-icon fa fa-cog"></i>
-                                Settings
+                                تنظیمات
                             </a>
                         </li>
                     </ul>        </div>
@@ -426,7 +426,7 @@
                             <ul class="vertical-nav-menu">
                                 <li class="app-sidebar__heading">داشبورد</li>
                                 <li>
-                                    <a href="index.html" class="">
+                                    <a href="/manager/index/0" class="">
                                         <i class="metismenu-icon pe-7s-rocket"></i>
                                         نمایش
                                     </a>

@@ -25,7 +25,7 @@ Route::get('/{any}', function () {
 
 Route::prefix('manager')->group(function(){
     #dashboard _Panel_Manager 
-    Route::get('dashboard',[Manager::class,'index']);
+    Route::get('/index/{id}',[Manager::class,'index']);
     
     #Learn
     Route::get('add_learn',[Manager::class,'add_learn']);
