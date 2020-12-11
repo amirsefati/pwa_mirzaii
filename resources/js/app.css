@@ -166,3 +166,11 @@ a{
 .p_in_box_header_white{
     font-size: 9px;
 }
+.tb_exerxise{
+    border:.4px solid gray;
+    padding: 5px;
+}
+.tbl_exercise_td{
+    border:.4px solid gray;
+    padding: 5px;
+}

@@ -67,15 +67,15 @@
        
            <div class="box_header_white" v-if="this.login === 3">
                <div class="row" style="text-align:center">
-                   <div class="col-md-4 col-4">
+                   <div class="col-md-4 col-4"  @click="get_exerice">
                        <img src="./img/t1.png" width="30px" alt="">
                        <p class="p_in_box_header_white">تمرین</p>
                    </div>
-                   <div class="col-md-4 col-4">
+                   <div class="col-md-4 col-4" @click="get_exerice_solve">
                        <img src="./img/t3.png" width="40px" alt="">
                         <p class="p_in_box_header_white">تحلیل تمرین</p>
                    </div>
-                   <div class="col-md-4 col-4">
+                   <div class="col-md-4 col-4" @click="skat">
                        <img src="./img/t2.png" width="40px" alt="">
                         <p class="p_in_box_header_white" style="padding-top:4px">تحلیل اسکت</p>
                    </div>
@@ -85,6 +85,145 @@
         <br/>
 
         <router-view :user_data="user"></router-view>
+
+        <!-- تمرین ها  -->
+        <v-bottom-sheet v-model="sheet">
+            <v-sheet
+                class="text-center"
+                height="400px"
+            >
+                <v-btn
+                class="mt-6"
+                text
+                color="red"
+                @click="sheet = !sheet"
+                >
+                close
+                </v-btn>
+                <div class="py-3" style="text-align:center">
+                    <div style="overflow-y:auto">
+                    <table style="width:90%;margin-right:5%;">
+                    <thead>
+                        <tr>
+                        <th class="tb_exerxise">
+                            کد 
+                        </th>
+                        <th class="tb_exerxise">
+                            تاریخ تمرین
+                        </th>
+                        <th class="tb_exerxise">
+                            فایل تمرین
+                        </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                        v-for="item in this.exercise_data"
+                        :key="item.id"
+                        >
+                        <td class="tbl_exercise_td">{{ item.id }}</td>
+                        <td class="tbl_exercise_td" style="font-size:13px">{{ item.time }}</td>
+                        <td class="tbl_exercise_td" style="font-size:13px"><a :href="item.file">دانلود</a></td>
+                        </tr>
+                    </tbody>
+                    </table>
+                    </div>
+                </div>
+            </v-sheet>
+        </v-bottom-sheet>
+
+
+        <v-bottom-sheet v-model="sheet2">
+            <v-sheet
+                class="text-center"
+                height="400px"
+            >
+                <v-btn
+                class="mt-6"
+                text
+                color="red"
+                @click="sheet2 = !sheet2"
+                >
+                close
+                </v-btn>
+                <div class="py-3" style="text-align:center">
+                    <div style="overflow-y:auto">
+                    <table style="width:90%;margin-right:5%;">
+                    <thead>
+                        <tr>
+                        <th class="tb_exerxise">
+                            کد تمرین
+                        </th>
+                        <th class="tb_exerxise">
+                            تحلیل تمرین
+                        </th>
+                        <th class="tb_exerxise">
+                            فایل تحلیل
+                        </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                        v-for="item in this.exercise_data2"
+                        :key="item.id"
+                        >
+                        <td class="tbl_exercise_td">{{ item.exercise_files_id }}</td>
+                        <td class="tbl_exercise_td"  style="font-size:13px">{{item.comment}}</td>
+                        <td class="tbl_exercise_td"  style="font-size:13px"><a :href="item.file">دانلود</a></td>
+
+                        </tr>
+                    </tbody>
+                    </table>
+                    </div>
+                </div>
+            </v-sheet>
+        </v-bottom-sheet>
+
+        <v-bottom-sheet v-model="sheet3">
+            <v-sheet
+                class="text-center"
+                height="400px"
+            >
+                <v-btn
+                class="mt-6"
+                text
+                color="red"
+                @click="sheet3 = !sheet3"
+                >
+                close
+                </v-btn>
+                <div class="py-3" style="text-align:center">
+                    <div style="overflow-y:auto">
+                    <table style="width:90%;margin-right:5%;">
+                    <thead>
+                        <tr>
+                        <th class="tb_exerxise">
+                            تاریخ
+                        </th>
+                        <th class="tb_exerxise">
+                            کامنت اسکت
+                        </th>
+                        <th class="tb_exerxise">
+                            فایل اسکت
+                        </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                        v-for="item in this.exercise_data3"
+                        :key="item.id"
+                        >
+                        <td class="tbl_exercise_td" style="font-size:10px">{{ item.time }}</td>
+                        <td class="tbl_exercise_td"  style="font-size:13px">{{item.comment}}</td>
+                        <td class="tbl_exercise_td"  style="font-size:13px"><a :href="item.file">دانلود</a></td>
+
+                        </tr>
+                    </tbody>
+                    </table>
+                    </div>
+                </div>
+            </v-sheet>
+        </v-bottom-sheet>
     </div>
 </template>
 
@@ -94,7 +233,15 @@ import Axios from 'axios'
         data: () => ({
             model: null,
             login : null,
-            user : []
+            user : [],
+            sheet: false,
+            exercise_data : [],
+
+            sheet2: false,
+            exercise_data2 : [],
+            
+            sheet3: false,
+            exercise_data3 : [],
         }),
         watch:{
             '$route': 'checklogin_ff'
@@ -127,8 +274,36 @@ import Axios from 'axios'
                         alert('خطا پیش آمده است')
                     }
                 })
+            },
+            get_exerice:function(){
+                Axios.get('/api/get_exercise_data')
+                .then((res)=>{
+                    if(res.data.status === '200'){
+                        this.exercise_data = res.data.data
+                        this.sheet = true
+                    }
+                })
+            },
+            get_exerice_solve:function(){
+                 Axios.get('/api/get_exercise_solve_data')
+                .then((res)=>{
+                    if(res.data.status === '200'){
+                        this.exercise_data2 = res.data.data
+                        this.sheet2 = true
+                    }
+                })
+            },
+            skat:function(){
+                 Axios.get('/api/get_skat')
+                .then((res)=>{
+                    if(res.data.status === '200'){
+                        this.exercise_data3 = res.data.data
+                        this.sheet3 = true
+                    }
+                })
             }
         },
+
         created(){
             Axios.get('/api/checklogin')
             .then((res)=>{

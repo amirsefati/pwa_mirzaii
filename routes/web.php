@@ -91,6 +91,31 @@ Route::prefix('manager')->group(function(){
     Route::post('add_credit_touser',[Manager::class,'add_credit_touser']);
 
     
+    #three section Header 
+    Route::get('exercise_file',[Manager::class,'exercise_file']);
+    Route::get('exercise_file/{id}',[Manager::class,'exercise_file_user']);
+    Route::post('exercise_file_upload',[Manager::class,'exercise_file_upload']);
+    Route::get('exercise_file_upload_dl/{id}',[Manager::class,'exercise_file_upload_dl']);
+
+    
+    Route::get('solve_exercise_file',[Manager::class,'solve_exercise_file']);
+    Route::get('solve_exercise_file_list/{id}',[Manager::class,'solve_exercise_file_list']);
+    Route::get('solve_exercise_file_list_item/{id}',[Manager::class,'solve_exercise_file_list_item']);
+    Route::post('solve_exercise_file_list_item_upload',[Manager::class,'solve_exercise_file_list_item_upload']);
+    Route::get('exercise_file_upload_dl_solve/{id}',[Manager::class,'exercise_file_upload_dl_solve']);
+
+    
+    Route::get('skat',[Manager::class,'skat']);
+    Route::get('skat/{id}',[Manager::class,'skat_file_user']);
+    Route::get('add_skat/{id}',[Manager::class,'add_skat']);
+    Route::post('skat_file_upload',[Manager::class,'skat_file_upload']);
+    Route::get('dl_skat/{id}',[Manager::class,'dl_skat']);
+
+    
+    
+    
+    
+    
     
 });
 
@@ -114,5 +139,12 @@ Route::prefix('api')->group(function(){
 
     Route::post('login',[Client::class,'login']);
 
+    Route::get('get_exercise_data',[Client::class,'get_exercise_data']);
+
+    Route::get('get_exercise_solve_data',[Client::class,'get_exercise_solve_data']);
+
+    Route::get('get_skat',[Client::class,'get_skat']);
+
+    
     
 });

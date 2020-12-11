@@ -454,6 +454,30 @@
                                     </a>
                                 </li>
                                 
+
+                                <li class="app-sidebar__heading">فایل ها</li>
+                                <li>
+                                    <a href="/manager/exercise_file" class="">
+                                        <i class="metismenu-icon pe-7s-rocket"></i>
+                                        تمرین
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/manager/solve_exercise_file" class="">
+                                        <i class="metismenu-icon pe-7s-rocket"></i>
+                                        تحلیل تمرین 
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/manager/skat" class="">
+                                        <i class="metismenu-icon pe-7s-rocket"></i>
+                                        تمرین اسکت 
+                                    </a>
+                                </li>
+                                
+
                                 <li class="app-sidebar__heading">آموزش ها</li>
                                
                                 <!-- <li>

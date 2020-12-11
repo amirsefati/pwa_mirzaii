@@ -10,6 +10,9 @@ use App\Models\Course;
 use App\Models\Gallery;
 use App\Models\Reserve;
 use App\Models\Competition;
+use App\Models\Exercise_file;
+use App\Models\Exercise_file_solve;
+use App\Models\Skat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -221,5 +224,20 @@ class Client extends Controller
             return ['status' => '300'];
         }
         return ['status' => '500'];
+    }
+
+    public function get_exercise_data(){
+        $exercise_list = Exercise_file::where('user_id',Auth::user()->id)->get();
+        return ['status'=>'200','data' => $exercise_list];
+    }
+
+    public function get_exercise_solve_data(){
+        $exercise_list_solve = Exercise_file_solve::where('user_id',Auth::user()->id)->get();
+        return ['status'=>'200','data' => $exercise_list_solve];
+    }
+
+    public function get_skat(){
+        $skat_list = Skat::where('user_id',Auth::user()->id)->get();
+        return ['status'=>'200','data' => $skat_list];
     }
 }

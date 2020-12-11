@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\News;
+use App\Models\Skat;
 use App\Models\User;
 use App\Models\Coach;
 use App\Models\Course;
 use App\Models\Gallery;
-use App\Models\Competition;
 use App\Models\Reserve;
-use Carbon\Carbon;
 use Carbon\Traits\Date;
+use App\Models\Competition;
 use Illuminate\Http\Request;
 use Morilog\Jalali\Jalalian;
+use App\Models\Exercise_file;
+use App\Models\Exercise_file_solve;
 
 class Manager extends Controller
 {
@@ -522,6 +525,127 @@ class Manager extends Controller
         ]);
 
         return redirect('/manager/credit');
+    }
+
+    public function exercise_file(){
+        $users = User::where('status','>',2)->get();
+        return view('dashboard.three_section.exercise_file',compact('users'));
+    }
+    public function exercise_file_user($id){
+        $user = User::where('id',$id)->first();
+        $user_data = Exercise_file::where('user_id',$id)->get();
+        return view('dashboard.three_section.exercise_file_user',compact(['user','user_data']));
+    }
+
+    public function exercise_file_upload(Request $request){
+        
+
+        if($request->hasFile('file')){
+            $image = $request->file('file');
+            $name = $request->user_id . "-" . rand(1000,99999999) . '-' . time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/exercise_file/');
+            $image->move($destinationPath, $name);
+            $img_url = '/exercise_file/' . $name ;
+        }
+
+        Exercise_file::create([
+            'user_id' => $request->user_id,
+            'time' => $request->date,
+            'tag' => $request->tag,
+            'file' => $img_url,
+        ]);
+        
+        return back();
+    }
+
+    public function exercise_file_upload_dl($id){
+        Exercise_file::where('id',$id)->delete();
+        return back();
+    }
+
+    public function solve_exercise_file(){
+        $users = User::where('status','>',2)->get();
+        return view('dashboard.three_section.solve_exercise_file',compact('users'));
+    }
+
+    public function solve_exercise_file_list($id){
+        $list = Exercise_file::where('id',$id)->get();
+        return view('dashboard.three_section.solve_exercise_file_list',compact(['list','id']));
+    }
+
+    public function solve_exercise_file_list_item($id){
+        $item = Exercise_file::where('id',$id)->first();
+        return view('dashboard.three_section.solve_exercise_file_list_item',compact('item'));
+
+    }
+
+    public function solve_exercise_file_list_item_upload(Request $request){
+
+        $img_url = '';
+        if($request->hasFile('file')){
+            $image = $request->file('file');
+            $name = $request->user_id . "-" . rand(1000,99999999) . '-' . time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/solve_exercise_file/');
+            $image->move($destinationPath, $name);
+            $img_url = '/solve_exercise_file/' . $name ;
+        }
+
+        Exercise_file_solve::updateOrCreate(
+            ['exercise_files_id' => $request->comment_id,],
+            [
+            'user_id' => $request->user_id  ,
+            'exercise_files_id' => $request->comment_id,
+            'comment' => $request->comment,
+            'file' => $img_url,
+        ]);
+
+        return back();
+    }
+
+    public function exercise_file_upload_dl_solve($id){
+        Exercise_file_solve::where('id',$id)->delete();
+        return back();
+    }
+
+    public function skat(){
+        $users = User::where('status','>',2)->get();
+        return view('dashboard.three_section.skat',compact('users'));
+    }
+
+    public function skat_file_user($id){
+        $list = Skat::where('user_id',$id)->get();
+        return view('dashboard.three_section.skat_list',compact(['list','id']));
+    }
+
+    public function add_skat($id){
+        return view('dashboard.three_section.add_skat',compact('id'));
+    }
+
+    public function skat_file_upload(Request $request){
+
+        $img_url = '';
+        if($request->hasFile('file')){
+            $image = $request->file('file');
+            $name = $request->user_id . "-" . rand(1000,99999999) . '-' . time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/skat/');
+            $image->move($destinationPath, $name);
+            $img_url = '/skat/' . $name ;
+        }
+
+        Skat::create([
+            'user_id' => $request->user_id,
+            'time' => $request->date,
+            'comment' => $request->comment,
+            'file' => $img_url,
+
+        ]);
+
+        return back();
+    }
+
+    public function dl_skat($id){
+        Skat::where('id',$id)->delete();
+        return back();
     }
 
 }
