@@ -97,10 +97,10 @@
                                 </div>
                                 <div class="widget-content-left  ml-3 header-user-info">
                                     <div class="widget-heading">
-                                        مدیریت
+                                        مربی
                                     </div>
                                     <div class="widget-subheading">
-                                        پنل مدیریت سایت 
+                                        پنل  مربی 
                                     </div>
                                 </div>
                                 <div class="widget-content-right header-user-info ml-3">
@@ -426,161 +426,25 @@
                             <ul class="vertical-nav-menu">
                                 <li class="app-sidebar__heading">داشبورد</li>
                                 <li>
-                                    <a href="/manager/index/0" class="">
+                                    <a href="/couch/c_list_student" class="">
                                         <i class="metismenu-icon pe-7s-rocket"></i>
-                                        نمایش
+                                        لیست دانشجویان
                                     </a>
                                 </li>
 
-                                <li class="app-sidebar__heading">کاربران</li>
-                                <li>
-                                    <a href="/manager/user_no_verify" class="">
-                                        <i class="metismenu-icon pe-7s-rocket"></i>
-                                        کاربران تایید نشده
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="/manager/all_user" class="">
-                                        <i class="metismenu-icon pe-7s-rocket"></i>
-                                        مدیریت کاربران 
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="/manager/coach_list" class="">
-                                        <i class="metismenu-icon pe-7s-rocket"></i>
-                                        مربی ها 
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="/manager/credit" class="">
-                                        <i class="metismenu-icon pe-7s-rocket"></i>
-                                        اعتبار 
-                                    </a>
-                                </li>
                                 
-
                                 <li class="app-sidebar__heading">فایل ها</li>
-                                <li>
-                                    <a href="/manager/exercise_file" class="">
-                                        <i class="metismenu-icon pe-7s-rocket"></i>
-                                        تمرین
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="/manager/solve_exercise_file" class="">
-                                        <i class="metismenu-icon pe-7s-rocket"></i>
-                                        تحلیل تمرین 
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="/manager/skat" class="">
-                                        <i class="metismenu-icon pe-7s-rocket"></i>
-                                        تمرین اسکت 
-                                    </a>
-                                </li>
-                                
-
-                                <li class="app-sidebar__heading">آموزش ها</li>
                                
-                                <!-- <li>
-                                    <a href="#">
-                                        <i class="metismenu-icon pe-7s-diamond"></i>
-                                        Elements
-                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                                    </a>
-                                    <ul>
-                                        <li>
-                                            <a href="elements-buttons-standard.html">
-                                                <i class="metismenu-icon"></i>
-                                                Buttons
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="elements-dropdowns.html">
-                                                <i class="metismenu-icon">
-                                                </i>Dropdowns
-                                            </a>
-                                        </li>
-                                        
-                                    </ul>
-                                </li> -->
                                 
                                 
                                 <li>
-                                    <a href="/manager/add_learn">
+                                    <a href="/couch/add_learn">
                                         <i class="metismenu-icon pe-7s-display2"></i>
-                                        افزودن آموزش
+                                        لیست فایل ها  
                                     </a>
                                 </li>
 
-                                <li>
-                                    <a href="/manager/manage_learn">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
-                                         مدیریت آموزش ها
-                                    </a>
-                                </li>
-
-
-                                <li class="app-sidebar__heading">دوره ها</li>
-                                <li>
-                                    <a href="/manager/add_course">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
-                                        افزودن دوره 
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="/manager/manage_course">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
-                                        مدیریه دوره ها
-                                    </a>
-                                </li>
-                                <li class="app-sidebar__heading">گالری</li>
-                                <li>
-                                    <a href="/manager/add_gallery">
-                                        <i class="metismenu-icon pe-7s-mouse">
-                                        </i>افزودن آلبوم 
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/manager/manage_gallery">
-                                        <i class="metismenu-icon pe-7s-eyedropper">
-                                        </i>مدیریت آلبوم ها 
-                                    </a>
-                                </li>
-
-                                <li class="app-sidebar__heading">مسابقات</li>
-                                <li>
-                                    <a href="/manager/add_competition">
-                                        <i class="metismenu-icon pe-7s-graph2">
-                                        </i>افزودن مسابقه
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/manager/manage_competition">
-                                        <i class="metismenu-icon pe-7s-graph2">
-                                        </i>مدیریت مسابقه ها
-                                    </a>
-                                </li>
-                                
-                                <li class="app-sidebar__heading">برنامه حضور مربیان</li>
-                                <li>
-                                    <a href="/manager/add_coach">
-                                        <i class="metismenu-icon pe-7s-graph2">
-                                        </i>افزودن مربی و ساعت حضور
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/manager/manage_coach">
-                                        <i class="metismenu-icon pe-7s-graph2">
-                                        </i> مدیریت برنامه
-                                    </a>
-                                </li>
+                               
                             </ul>
                         </div>
                     </div>

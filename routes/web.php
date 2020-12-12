@@ -112,12 +112,25 @@ Route::prefix('manager')->group(function(){
     Route::get('dl_skat/{id}',[Manager::class,'dl_skat']);
 
     
+    Route::get('coach_list',[Manager::class,'coach_list']);
+    Route::get('to_student/{id}',[Manager::class,'to_student']);
+    Route::get('to_couch/{id}',[Manager::class,'to_couch']);
+    Route::get('show_couch/{id}',[Manager::class,'show_couch']);
+    Route::post('add_userto_couach',[Manager::class,'add_userto_couach']);
+    Route::get('dl_couch_from_student/{id}',[Manager::class,'dl_couch_from_student']);
     
-    
-    
+});
+
+Route::prefix('couch')->group(function(){
+    Route::get('c_list_student',[Manager::class,'c_list_student']);
+    Route::get('c_student/{id}',[Manager::class,'c_student']);
+    Route::post('add_solve_exercise',[Manager::class,'add_solve_exercise']);
+    Route::post('add_solve_skat',[Manager::class,'add_solve_skat']);
+
     
     
 });
+
 
 Route::prefix('api')->group(function(){
 

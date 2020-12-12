@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Morilog\Jalali\Jalalian;
 use App\Models\Exercise_file;
 use App\Models\Exercise_file_solve;
+use Illuminate\Support\Facades\Auth;
 
 class Manager extends Controller
 {
@@ -648,4 +649,90 @@ class Manager extends Controller
         return back();
     }
 
+    public function coach_list(){
+        $users = User::where('status','>',2)->get();
+        return view('dashboard.coush_list',compact('users'));
+    }
+
+    public function to_student($id){
+        User::where('id',$id)->update([
+            'etc' => null
+        ]);
+        return back();
+    }
+
+    public function to_couch($id){
+        User::where('id',$id)->update([
+            'etc' => 1
+        ]);
+        return back();
+    }
+
+    public function show_couch($id){
+        $users = User::where('status','>',2)->get();
+        return view('dashboard.show_couch',compact(['users','id']));
+    }
+
+    public function add_userto_couach(Request $request){
+        User::where('id',$request->user_id)->update([
+            'etc1' => $request->couch_user_id
+        ]);
+        return back();
+    }
+
+    public function dl_couch_from_student($id){
+        User::where('id',$id)->update([
+            'etc1' => null
+        ]);
+        return back();
+    }
+
+
+
+
+    ###########Couch Section
+    public function c_list_student(){
+        $student = User::where('etc1',Auth::user()->id)->get();
+        return view('couch.c_list_student',compact('student'));
+    }
+
+    public function c_student($id){
+        if(User::where('id',$id)->where('etc1',Auth::user()->id)->count() > 0){
+            $exercise_list = Exercise_file::where('user_id',$id)->get();
+            $skat_list = Skat::where('user_id',$id)->get();
+            $user = User::find($id);
+            return view('couch.c_student',compact(['user','exercise_list','skat_list']));
+        }else{
+            return 'دست رسی به این کاربر برای شما امکان پذیز نیست';
+        }
+    }
+
+    public function add_solve_exercise(Request $request){
+
+        $img_url = '';
+        if($request->hasFile('file')){
+            $image = $request->file('file');
+            $name =  $request->student_id . "-" . rand(1000,99999999) . '-' . time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/solve_exercise_file/');
+            $image->move($destinationPath, $name);
+            $img_url = '/solve_exercise_file/' . $name ;
+        }
+
+        Exercise_file_solve::create([
+            'exercise_files_id' => $request->file_exercise,
+            'user_id' => $request->student_id,
+            'comment' => $request->comment,
+            'file' => $img_url,
+        ]);
+
+        return back();
+    }
+
+    public function add_solve_skat(Request $request){
+
+        Skat::where('id',$request->skat_id)->update([
+            'comment' => $request->comment
+        ]); 
+        return back();
+    }
 }
