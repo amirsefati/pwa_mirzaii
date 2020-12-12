@@ -81,7 +81,11 @@
                 </div>
             </div>
         </div>
-
+        <router-link to="/about">
+        <div class="button_about_us">
+            <p style="padding-top:10px">درباره ما</p>
+        </div>
+        </router-link>
     </div>
 </template>
 

@@ -16,6 +16,7 @@ import Verify from './components/verify/verify'
 import Select from './components/reserve/select'
 import Credit from './components/reserve/credit'
 import Reserve from './components/reserve/reserve'
+import About from './components/about/about'
 
 import './app.css'
 
@@ -37,6 +38,7 @@ const router = new VueRouter({
         {path:'/select',component:Select},
         {path:'/credit',component:Credit},
         {path:'/reserve',component:Reserve},
+        {path:'/about',component:About},
 
     ]
 })
