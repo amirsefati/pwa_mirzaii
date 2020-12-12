@@ -428,7 +428,7 @@
                                 <li>
                                     <a href="/couch/c_list_student" class="">
                                         <i class="metismenu-icon pe-7s-rocket"></i>
-                                        لیست دانشجویان
+                                        لیست تیراندازان
                                     </a>
                                 </li>
 

@@ -110,17 +110,12 @@
 
                     <div class="col-md-4" style="text-align: center;">
                         <div class="border_dash p-3">
-                        <p> کارت دانشجویی</p>
-                        <img src="{{$user->etc}}" width="100%" alt="">
+                        <p> کارت دانشجویی یا منزلت</p>
+                        <img src="{{$user->etc2}}" width="100%" alt="">
                         </div>
                     </div>
 
-                    <div class="col-md-4" style="text-align: center;">
-                        <div class="border_dash p-3">
-                        <p> کارت منرلت</p>
-                        <img src="{{$user->etc1}}" width="100%" alt="">
-                        </div>
-                    </div>
+                    
                 </div>
 
                 <div class="row mt-5">

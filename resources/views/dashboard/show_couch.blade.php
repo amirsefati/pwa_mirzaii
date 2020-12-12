@@ -11,7 +11,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12" style="text-align: center;">
-                        <p>دانشجویان مربی ({{App\Models\User::find($id)->first()->name}})</p>
+                        <p>مربی تیرزاندازان  ({{App\Models\User::find($id)->first()->name}})</p>
                     </div>
                 </div>
                 <input class="form-control" id="myInput" type="text" placeholder="جست جو ...">
@@ -62,7 +62,7 @@
         <br>
         <div class="card">
             <div class="card-header">
-                افزودن دانشجو
+                افزودن تیرانداز
             </div>
             <form action="/manager/add_userto_couach" method="post">
             @csrf
@@ -70,7 +70,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12">
-                    <label for="user_id">لیست دانشجویان : </label>
+                    <label for="user_id">لیست تیراندازان : </label>
                     <select name="user_id" class="form-control" required>
                         @foreach($users as $user)
                             @if($user->etc1 == null && $user->etc == null)

@@ -152,22 +152,40 @@ class Client extends Controller
                 $img_url5 = '/documents/' . $name ;
             }
             
-            User::where('id',$request->id)->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'code_meli' => $request->code_meli,
-                'has_gun' => $request->has_gun,
-                'scan_shenasname' => $img_url1,
-                'scan_pic' => $img_url2,
-                'scan_bime' => $img_url3,
-                'etc' => $img_url4,
-                'etc1' => $img_url5,
-
-                'status' => '2',
-                'kind' => $request->kind
-
-            ]);
+            if(strlen($img_url4) > 10){
+                User::where('id',$request->id)->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'phone' => $request->phone,
+                    'code_meli' => $request->code_meli,
+                    'has_gun' => $request->has_gun,
+                    'scan_shenasname' => $img_url1,
+                    'scan_pic' => $img_url2,
+                    'scan_bime' => $img_url3,
+                    'et2' => $img_url4,
+    
+                    'status' => '2',
+                    'kind' => $request->kind
+    
+                ]);
+            }else{
+                User::where('id',$request->id)->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'phone' => $request->phone,
+                    'code_meli' => $request->code_meli,
+                    'has_gun' => $request->has_gun,
+                    'scan_shenasname' => $img_url1,
+                    'scan_pic' => $img_url2,
+                    'scan_bime' => $img_url3,
+                    'et2' => $img_url5,
+    
+                    'status' => '2',
+                    'kind' => $request->kind
+    
+                ]);
+            }
+            
         }
 
         return ['status' => '200'];

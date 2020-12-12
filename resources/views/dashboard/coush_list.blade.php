@@ -50,7 +50,7 @@
                             <td>{{$user->code_meli}}</td>
                             <td>0</td>
                             <td>
-                                <a href="/manager/to_couch/{{$user->id}}">دانشجو</a>
+                                <a href="/manager/to_couch/{{$user->id}}">تیرانداز</a>
                             
                             </td>
                         </tr>

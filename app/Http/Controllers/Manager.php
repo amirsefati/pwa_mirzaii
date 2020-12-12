@@ -689,7 +689,6 @@ class Manager extends Controller
 
 
 
-
     ###########Couch Section
     public function c_list_student(){
         $student = User::where('etc1',Auth::user()->id)->get();

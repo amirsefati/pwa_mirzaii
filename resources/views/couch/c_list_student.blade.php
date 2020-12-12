@@ -5,7 +5,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-               لیست دانشجویان  ({{Auth::user()->name}})
+               لیست تیراندازان  ({{Auth::user()->name}})
             </div>
 
             <div class="card-body">
