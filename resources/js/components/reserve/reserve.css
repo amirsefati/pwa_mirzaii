@@ -48,3 +48,14 @@
 .v-expansion-panel-content__wrap{
     padding:5px;
 }
+
+.gun_select{
+    width: 50%;
+    text-align: center;
+}
+
+.gun_s{
+    border: .4px solid gray;
+    border-radius: 5px;
+    background: #EDEBFF;
+}

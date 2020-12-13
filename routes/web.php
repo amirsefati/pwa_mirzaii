@@ -119,6 +119,13 @@ Route::prefix('manager')->group(function(){
     Route::post('add_userto_couach',[Manager::class,'add_userto_couach']);
     Route::get('dl_couch_from_student/{id}',[Manager::class,'dl_couch_from_student']);
     
+    Route::get('reserve_by_admin',[Manager::class,'reserve_by_admin']);
+    Route::post('reserved_by_admin',[Manager::class,'reserved_by_admin']);
+
+    
+    Route::get('report_reserve',[Manager::class,'report_reserve']);
+
+    
 });
 
 Route::prefix('couch')->group(function(){

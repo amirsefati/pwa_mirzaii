@@ -26,13 +26,13 @@
             </div>
         </div>
 
-        <div class="row" style="text-align:center">
-            <div class="col-md-6 col-6">
-                تعداد رزرو با اسلحه : {{this.creadit_has_gun}}
+        <div class="row" style="text-align:center;padding:0px 20px;">
+            <div class="col-md-6 col-6" :class="this.gun === '1' ? 'gun_s' : ''">
+                  با اسلحه : {{this.creadit_has_gun}} جلسه
             </div>
                 
-            <div class="col-md-6 col-6">
-                تعداد رزرو بدون اسلحه : {{this.creadit_no_gun}}
+            <div class="col-md-6 col-6" :class="this.gun === '0' ? 'gun_s' : ''">
+                  بدون اسلحه : {{this.creadit_no_gun}} جلسه
             </div>
         </div>
 
@@ -46,6 +46,7 @@
             </div>
         </div>
 
+        
         <div class="row" v-if="this.data_day.toString().length > 5">
             <div class="col-md-12 pr-4 pl-4">
                 <div class="row">
@@ -149,7 +150,7 @@ export default {
         user : [],
         creadit_has_gun : 0,
         creadit_no_gun : 0,
-
+        gun : null,
         snackbar: false,
         text: '',
         timeout: 2000,
@@ -159,9 +160,9 @@ export default {
         Axios.get('/api/getreserve_date')
         .then((res) => {
             this.days = res.data.data
+            this.gun = res.data.user.has_gun
             this.creadit_has_gun = res.data.user.creadit_has_gun
             this.creadit_no_gun = res.data.user.creadit_no_gun
-
         })
     },
     methods:{
@@ -172,38 +173,58 @@ export default {
         reserv:function(status,whtime,whdate){
             if(this.delay === 1) {
                 this.delay = 0
-                console.log(this.delay)
                 setTimeout(() => {
                     this.delay = 1
-                    console.log(this.delay)
-                }, 2000);
+                }, 1500);
 
                 if(status === false){
-                    if(this.creadit_has_gun > 0){
-
-                        Axios.post('/api/reserv',{
-                            data : {'status' : status , 'time' : whtime , 'whdate' : whdate}
-                        }).then((res)=>{
-                            this.days = res.data.data
-                            this.creadit_has_gun = res.data.user.creadit_has_gun
-                        }).then(()=>{
-                            this.days.map((id)=>{
-                                if(id.id == this.select){
-                                    this.all_data_day = id
-                                    this.data_day = JSON.parse(id.data)
-                                }
+                    if(this.gun === '1'){
+                        if(this.creadit_has_gun > 0){
+                            Axios.post('/api/reserv',{
+                                data : {'withgun' : this.creadit_has_gun , 'nogun' : this.creadit_no_gun,'status' : status , 'time' : whtime , 'whdate' : whdate}
+                            }).then((res)=>{
+                                this.days = res.data.data
+                                this.creadit_has_gun = res.data.user.creadit_has_gun
+                            }).then(()=>{
+                                this.days.map((id)=>{
+                                    if(id.id == this.select){
+                                        this.all_data_day = id
+                                        this.data_day = JSON.parse(id.data)
+                                    }
+                                })
                             })
-                        })
-                    }else{
-                        this.text = 'اعتبار شما صفر می باشد'
-                        this.snackbar = true
-                }
+                        }else{
+                            this.text = 'اعتبار شما صفر می باشد'
+                            this.snackbar = true
+                        }
+                    }else if(this.gun === '0'){
+                        if(this.creadit_no_gun > 0){
+                            Axios.post('/api/reserv',{
+                                data : {'withgun' : this.creadit_has_gun , 'nogun' : this.creadit_no_gun,'status' : status , 'time' : whtime , 'whdate' : whdate}
+                            }).then((res)=>{
+                                this.days = res.data.data
+                                this.creadit_no_gun = res.data.user.creadit_no_gun
+                            }).then(()=>{
+                                this.days.map((id)=>{
+                                    if(id.id == this.select){
+                                        this.all_data_day = id
+                                        this.data_day = JSON.parse(id.data)
+                                    }
+                                })
+                            })
+                        }else{
+                            this.text = 'اعتبار شما صفر می باشد'
+                            this.snackbar = true
+                        }
+                    }
                 }else{
                     Axios.post('/api/reserv',{
-                            data : {'status' : status , 'time' : whtime , 'whdate' : whdate}
+                            data : {'withgun' : this.creadit_has_gun , 'nogun' : this.creadit_no_gun,'status' : status , 'time' : whtime , 'whdate' : whdate}
                         }).then((res)=>{
                             this.days = res.data.data
                             this.creadit_has_gun = res.data.user.creadit_has_gun
+                            this.creadit_no_gun = res.data.user.creadit_no_gun
+
                         }).then(()=>{
                             this.days.map((id)=>{
                                 if(id.id == this.select){

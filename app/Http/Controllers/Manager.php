@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Morilog\Jalali\Jalalian;
 use App\Models\Exercise_file;
 use App\Models\Exercise_file_solve;
+use App\Models\Report;
 use Illuminate\Support\Facades\Auth;
 
 class Manager extends Controller
@@ -733,5 +734,30 @@ class Manager extends Controller
             'comment' => $request->comment
         ]); 
         return back();
+    }
+
+    public function reserve_by_admin(){
+        return view('dashboard.reserve_by_admin');
+    }
+
+    public function reserved_by_admin(Request $request){
+        Report::create([
+            'user_id' => Auth::user()->id,
+            'kind_operation' => $request->kind_operation,
+            'gun' => $request->gun,
+            'price' => $request->price,
+            'etc1' => $request->etc1,
+            'from' => 0,
+            'to' => 0,
+            'by' => 'مدیر',
+            'info' => $request->info,
+        ]);
+        
+        return redirect('/manager/report_reserve');
+    }
+
+    public function report_reserve(){
+        $payment = Report::all();
+        return view('dashboard.report_reserve',compact('payment'));
     }
 }

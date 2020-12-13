@@ -12,6 +12,7 @@ use App\Models\Reserve;
 use App\Models\Competition;
 use App\Models\Exercise_file;
 use App\Models\Exercise_file_solve;
+use App\Models\Report;
 use App\Models\Skat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -202,20 +203,78 @@ class Client extends Controller
     public function reserv(Request $request){
         $day =  json_decode(Reserve::where('d_j',$request->data['whdate'])->first()->data);
         $id = Auth::user()->id;
+        $gun = Auth::user()->has_gun;
+        $w = intval($request->data['withgun']);
+        $n = intval($request->data['nogun']);
+        $kind_operation = ' ';
         foreach($day as $d => $k){
             if($d == $request->data['time']){
                 if(!$request->data['status']){
                     array_push($day->$d,$id);
-                    User::where('id',$id)->decrement('creadit_has_gun');
+                    if($gun == '1'){
+                        User::where('id',$id)->decrement('creadit_has_gun');
+                        $w--;
+                    }else{
+                        User::where('id',$id)->decrement('creadit_no_gun');  
+                        $n--;  
+                    }
+                    $kind_operation = 'رزرو';
                 }else{
                     $idl = array_search($id,$day->$d);
                     unset($day->$d[$idl]);
-                    User::where('id',$id)->increment('creadit_has_gun');
+                    if($gun == '1'){
+                        User::where('id',$id)->increment('creadit_has_gun');
+                        $w++;
+                    }else{
+                        User::where('id',$id)->increment('creadit_no_gun');
+                        $n++;    
+                    }
+                    $kind_operation = 'لغو';
                 }
             }
         }
+        
         Reserve::where('d_j',$request->data['whdate'])->update([
             'data' => json_encode($day)
+        ]);
+        switch($request->data['time']){
+            case 1:
+                $time = '8-9:30';
+                break;
+            case 2:
+                $time = '9:30-11';
+                break;
+            case 3:
+                $time = '11-12:30';
+                break;
+            case 4:
+                $time = '12:30-14';
+                break;
+            case 5:
+                $time = '14-15:30';
+                break;
+            case 6:
+                $time = '15:30-17';
+                break;
+            case 7:
+                $time = '17-18:30';
+                break;
+            case 8:
+                $time = '18:30-20';
+                break;
+            case 9:
+                $time = '20-21:30';
+                break;
+        }
+        Report::create([
+            'user_id' => $id,
+            'kind_operation' => $kind_operation,
+            'from' =>  'w:(' .$request->data['withgun'] .') n: (' . $request->data['nogun'].')',
+            'to' => 'w:(' .$w .') n: (' . $n.')',
+            'gun' => 0,
+            'by' => 'کاربر',
+            'etc1' => $request->data['whdate'] .' -> ساعت ('. $time . ')',
+
         ]);
 
         $now = Carbon::now()->format('Y-m-d');

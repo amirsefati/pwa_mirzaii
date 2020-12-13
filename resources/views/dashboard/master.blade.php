@@ -432,6 +432,20 @@
                                     </a>
                                 </li>
 
+                                <li>
+                                    <a href="/manager/reserve_by_admin" class="">
+                                        <i class="metismenu-icon pe-7s-rocket"></i>
+                                        رزرو
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/manager/report_reserve" class="">
+                                        <i class="metismenu-icon pe-7s-rocket"></i>
+                                        گزارش
+                                    </a>
+                                </li>
+
                                 <li class="app-sidebar__heading">کاربران</li>
                                 <li>
                                     <a href="/manager/user_no_verify" class="">
