@@ -634,6 +634,50 @@
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
       });
     });
+
+    if($("#has_gun").val() === '1'){
+        $("#no_gun").prop("disabled",true)
+        $("#no_gun").val(0)
+        base = 23000
+    }else{
+        $("#with_gun").prop("disabled",true)
+        $("#with_gun").val(0)
+        base = 35000
+
+    }
+    kind = $("#kind_user").val()
+    switch(kind){
+        case '0':
+            off = 1;
+            break;
+        case '1':
+            off = 0.9;
+            break;
+        case '2':
+            off = 0.5;
+            break;
+        case '3':
+            off = 0.2;
+            break;
+    }
+        $("#price_base").text(base);
+        $("#price_off").text(off + ' % ');
+
+    $("#with_gun").change(function(){
+        count = $("#with_gun").val()
+        
+        $("#price_total").text(base * off * count + ' هزار تومان ');
+        $("#price_input").val(base * off * count);
+
+        
+    });
+    $("#no_gun").change(function(){
+        count = $("#no_gun").val()
+        
+        $("#price_total").text(base * off * count + ' هزار تومان ');
+        $("#price_input").val(base * off * count);
+
+    });
   });
 
 

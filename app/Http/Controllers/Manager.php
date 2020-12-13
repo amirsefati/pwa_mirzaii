@@ -520,11 +520,31 @@ class Manager extends Controller
         $users = User::where('status','3')->get();
         return view('dashboard.users.credit',compact('users'));
     }
-    public function add_credit_touser(Request $request){
-        User::where('id',$request->id)->update([
-            'creadit_has_gun' => $request->has_gun,
-            'creadit_no_gun' => $request->no_gun,
+
+    public function creadit_user($id){
+        $user = User::find($id);
+        return view('dashboard.users.creadit_user',compact('user'));
+    }
+    public function add_credit_touser_byadmin(Request $request){
+        Report::create([
+            'user_id' => $request->id,
+            'kind_operation' => 'مدیر اعتبار',
+            'gun' => $request->has_gun_id,
+            'price' => $request->price,
+            'from' => 0,
+            'to' => 0,
+            'by' => 'مدیر',
         ]);
+        if($request->has_gun_id == '1'){
+            User::where('id',$request->id)->update([
+                'creadit_has_gun' => $request->has_gun,
+            ]);
+        }else{
+            User::where('id',$request->id)->update([
+                'creadit_no_gun' => $request->no_gun,
+            ]);
+        }
+        
 
         return redirect('/manager/credit');
     }

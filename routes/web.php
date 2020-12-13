@@ -88,8 +88,11 @@ Route::prefix('manager')->group(function(){
     Route::get('alireza',[Manager::class,'create_reserve_data']);
 
     Route::get('credit',[Manager::class,'creadit']);
-    Route::post('add_credit_touser',[Manager::class,'add_credit_touser']);
+    Route::get('credit/{id}',[Manager::class,'creadit_user']);
 
+    Route::post('add_credit_touser_byadmin',[Manager::class,'add_credit_touser_byadmin']);
+
+    
     
     #three section Header 
     Route::get('exercise_file',[Manager::class,'exercise_file']);

@@ -18,6 +18,7 @@
                         <th>نام کاربر </th>
                         <th>کدملی</th>
                         <th>شماره تلفن</th>
+                        <th>نوع عضویت</th>
 
                         <th>عملیات</th>
 
@@ -31,30 +32,20 @@
                             <td>{{$user->name}}</td>
                             <td>{{$user->code_meli}}</td>
                             <td>{{$user->phone}}</td>
-
-
                             <td>
-                                <form action="/manager/add_credit_touser" method="POST">
-                                    @csrf
-                                    <input type="text" name="id" value="{{$user->id}}" hidden>
-                                    <div class="row" style="min-width: 500px;">
-                                        <div class="col-md-5 col-5">
-                                            <label for="has_gun">با سلاح :</label>
-                                            <input type="number" name="has_gun" class="form-control" value="{{$user->creadit_has_gun}}">
-                                        </div>
+                                @if($user->kind == 0)
+                                    <p>کاربر عادی</p>
+                                @elseif($user->kind == 1)
+                                    <p>دانشگاه غیر  تهران</p>
+                                @elseif($user->kind == 2)
+                                    <p>دانشگاه تهران</p>
 
-                                        <div class="col-md-5 col-5">
-                                            <label for="has_gun">بدون سلاح :</label>
-                                            <input type="number" name="no_gun" class="form-control" value="{{$user->creadit_no_gun}}">
-                                        </div>
-
-                                        <div class="col-md-2 col-2 mt-4">
-                                            <button class="btn btn-warning mt-1">آپدیت</button>
-                                        </div>
-                                    </div>
-                                </form>
-
+                                @elseif($user->kind == 3)
+                                    <p>استاد یا کارمند</p>
+                                @endif
                             </td>
+
+                            <td><a href="/manager/credit/{{$user->id}}"><button class="btn btn-success">اعتبار کاربر</button></a></td>
 
                         </tr>
 
