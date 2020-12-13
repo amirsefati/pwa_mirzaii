@@ -271,7 +271,7 @@ class Client extends Controller
             'kind_operation' => $kind_operation,
             'from' =>  'w:(' .$request->data['withgun'] .') n: (' . $request->data['nogun'].')',
             'to' => 'w:(' .$w .') n: (' . $n.')',
-            'gun' => 0,
+            'gun' => Auth::user()->has_gun,
             'by' => 'کاربر',
             'etc1' => $request->data['whdate'] .' -> ساعت ('. $time . ')',
 
