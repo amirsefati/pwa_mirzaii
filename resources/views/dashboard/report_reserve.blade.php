@@ -34,7 +34,7 @@
                         <tr>
                             <td>{{App\Models\User::find($pay->user_id)->name}} - {{App\Models\User::find($pay->user_id)->code_meli}}</td>
                             
-                            <td>{{$pay->gun == 1 ? 'با اسلحه' : 'بدون اسلحه'}}</td>
+                            <td>{{$pay->gun == '1' ? 'با اسلحه' : 'بدون اسلحه'}}</td>
                             <td>{{$pay->etc1}}</td>
 
                             <td>{{$pay->from}}</td>
