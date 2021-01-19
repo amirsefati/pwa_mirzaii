@@ -3,11 +3,13 @@
 
         <div class="sticky_navbar" id="sticky_navbar">
             <div class="row">
-                <div class="col-md-4 col-4" style="text-align:right;padding-right:25px;">
+                <div class="col-md-3 col-3" style="text-align:right;padding-right:25px;">
                     <img src="./img/menumobile.png" style="width:30px;" alt="">
                 </div>
-                <div class="col-md-4 col-4" style="text-align:center"></div>
-                <div class="col-md-4 col-4" style="text-align:left;padding-left:28px">
+                <div class="col-md-6 col-6 pt-3 pl-1 pr-1" style="text-align:center">
+                    <p style="color:white">آکادمی تیراندازی دانشکده فنی</p>
+                </div>
+                <div class="col-md-3 col-3" style="text-align:left;padding-left:28px">
                     <router-link to="/">
                         <img src="./img/home.png" style="width:30px;" alt="">
                     </router-link>
@@ -18,14 +20,15 @@
         </div>  
 
        <div class="row login_noti_header" v-if="this.login == 0">
-           <div class="col-md-12">
-                <p>برای استفاده از تمام امکانات سایت لازم هست که ابتدا ثبت نام کنید</p>
+           <div class="col-md-2 col-1"></div>
+           <div class="col-md-8 col-10 not_register_box">
+                <p>برای استفاده از تمام امکانات ابتدا ثبت نام کنید</p>
                 <router-link to="/login">
-                    <span>ورود به سایت </span>
+                    <span style="color:white">ورود به سامانه </span>
                 </router-link>
                     /
                 <router-link to="/signup">
-                ثبت نام
+                    <span style="color:white">ثبت نام</span>
                 </router-link> 
            </div>
            
@@ -52,17 +55,23 @@
 
 
         <div class="row app_background_header" v-if="this.login === 3">
-            <div class="col-md-3 col-4 mt-2">
-               <img :src="this.user.scan_pic" style="border-radius:50%;padding:8px" width="100px" alt="">
-           </div>
+            <div class="col-md-1 col-1"></div>
+            <div class="col-md-10 col-10">
+                <div class="row login_box_light_ok">
+                    <div class="col-md-2 col-4">
+                            
+                        <img :src="this.user.scan_pic" style="border-radius:50%;padding:3px" width="100px" alt="">
+                    </div>
 
-           <div class="col-md-9 col-8 mt-4 pt-3">
-               <p style="color:white;margin-bottom:15px">{{this.user.name}}</p>
-                <p style="font-size:10px;color:white;margin-bottom:5px">کد ملی : {{this.user.code_meli}}</p>
+                    <div class="col-md-10 col-8 mt-2 pt-3">
+                        <p style="color:white;margin-bottom:15px">{{this.user.name}}</p>
+                            <p style="font-size:10px;color:white;margin-bottom:5px">کد ملی : {{this.user.code_meli}}</p>
 
-           </div>
-
-       </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
 
        
            <div class="box_header_white" v-if="this.login === 3">

@@ -163,7 +163,7 @@ class Client extends Controller
                     'scan_shenasname' => $img_url1,
                     'scan_pic' => $img_url2,
                     'scan_bime' => $img_url3,
-                    'et2' => $img_url4,
+                    'etc2' => $img_url4,
     
                     'status' => '2',
                     'kind' => $request->kind
@@ -179,7 +179,7 @@ class Client extends Controller
                     'scan_shenasname' => $img_url1,
                     'scan_pic' => $img_url2,
                     'scan_bime' => $img_url3,
-                    'et2' => $img_url5,
+                    'etc2' => $img_url5,
     
                     'status' => '2',
                     'kind' => $request->kind

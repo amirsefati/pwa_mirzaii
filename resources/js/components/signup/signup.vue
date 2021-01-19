@@ -69,7 +69,7 @@
                             <br/>
                             <div class="row">
                                 <div class="col-md-12" style="text-align:center">
-                                    <button v-on:click="signup_m" :disabled="btn_status == 0" class="btn btn-success pr-5 pl-5" style="border-radius:20px;box-shadow: 5px 4px 20px 1px #999999;" >ورود به سامانه</button>
+                                    <button v-on:click="signup_m" :disabled="btn_status == 0" class="btn btn-success pr-5 pl-5" style="border-radius:20px;box-shadow: 5px 4px 20px 1px #999999;" >ثبت نام</button>
                                 </div>
                             </div>
                         </div>

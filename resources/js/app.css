@@ -21,10 +21,15 @@ a{
 }
 .app_background_header{
     height: 160px;
-    background: linear-gradient(to right, #4b48e1, #805ded);
+    background-image: url('./components/img/fani.jpg');
+    background-size: cover;
     border-radius: 0px 0px 40px 40px;
 }
-
+.login_box_light_ok{
+    background: #448D9C;
+    opacity: .85;
+    border-radius: 10px;
+}
 .app_news_title{
     font-size: 18px;
     padding: 5px 10px;
@@ -127,10 +132,19 @@ a{
 }
 
 .login_noti_header{
-    height: 110px;
+    height: 200px;
     background: cadetblue;
     text-align: center;
-    
+    background-image: url('./components/img/fani.jpg');
+    background-size: cover;
+    padding: 30px;
+}
+.not_register_box{
+    background: #55A4B4;
+    opacity: .9;
+    border-radius: 10px;
+    color: white;
+    padding-top: 30px;
 }
 .login_noti_verify_header{
     height: 140px;

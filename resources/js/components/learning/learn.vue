@@ -52,7 +52,7 @@
         <br>
         <div class="row">
           <div class="col-md-12 pr-4 pb-1">
-              <p style="font-size:18px;margin-bottom:2px">بخش آموزش ها</p>
+              <p style="font-size:18px;margin-bottom:2px">بخش آموزش </p>
 
           </div>
         </div>

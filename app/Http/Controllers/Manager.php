@@ -45,7 +45,7 @@ class Manager extends Controller
             $name = time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/news/');
             $image->move($destinationPath, $name);
-            $img_url = '/news/' . $name ;
+            $img_url = '/public/news/' . $name ;
         }
         
         News::create([
@@ -89,7 +89,7 @@ class Manager extends Controller
             $name = time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/news/');
             $image->move($destinationPath, $name);
-            $img_url = '/news/' . $name ;
+            $img_url = '/public/news/' . $name ;
         }
 
         News::where('id',$request->id)->update([
@@ -124,7 +124,7 @@ class Manager extends Controller
             $name = time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/course/');
             $image->move($destinationPath, $name);
-            $img_url = '/course/' . $name ;
+            $img_url = '/public/course/' . $name ;
         }
         
         Course::create([
@@ -174,7 +174,7 @@ class Manager extends Controller
             $name = time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/course/');
             $image->move($destinationPath, $name);
-            $img_url = '/course/' . $name ;
+            $img_url = '/public/course/' . $name ;
         }
         Course::where('id',$request->id)->update([
             'title' => $request->title,
@@ -212,7 +212,7 @@ class Manager extends Controller
             $name = time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/course/');
             $image->move($destinationPath, $name);
-            $img_url = '/course/' . $name ;
+            $img_url = '/public/course/' . $name ;
         }
 
         $all_images = [];
@@ -266,7 +266,7 @@ class Manager extends Controller
             $name = time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/course/');
             $image->move($destinationPath, $name);
-            $img_url = '/course/' . $name ;
+            $img_url = '/public/course/' . $name ;
         }
 
         $all_images = [];
@@ -309,7 +309,7 @@ class Manager extends Controller
             $name = time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/competition/');
             $image->move($destinationPath, $name);
-            $img_url = '/competition/' . $name ;
+            $img_url = '/public/competition/' . $name ;
         }
         
         Competition::create([
@@ -359,7 +359,7 @@ class Manager extends Controller
             $name = time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/competition/');
             $image->move($destinationPath, $name);
-            $img_url = '/competition/' . $name ;
+            $img_url = '/public/competition/' . $name ;
         }
         Competition::where('id',$request->id)->update([
             'title' => $request->title,
@@ -396,7 +396,7 @@ class Manager extends Controller
             $name = time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/coach/');
             $image->move($destinationPath, $name);
-            $img_url = '/coach/' . $name ;
+            $img_url = '/public/coach/' . $name ;
         }
         
         Coach::create([
@@ -441,7 +441,7 @@ class Manager extends Controller
             $name = time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/coach/');
             $image->move($destinationPath, $name);
-            $img_url = '/coach/' . $name ;
+            $img_url = '/public/coach/' . $name ;
         }
         Coach::where('id',$request->id)->update([
             'name'=>$request->name,
@@ -567,7 +567,7 @@ class Manager extends Controller
             $name = $request->user_id . "-" . rand(1000,99999999) . '-' . time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/exercise_file/');
             $image->move($destinationPath, $name);
-            $img_url = '/exercise_file/' . $name ;
+            $img_url = '/public/exercise_file/' . $name ;
         }
 
         Exercise_file::create([
@@ -609,7 +609,7 @@ class Manager extends Controller
             $name = $request->user_id . "-" . rand(1000,99999999) . '-' . time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/solve_exercise_file/');
             $image->move($destinationPath, $name);
-            $img_url = '/solve_exercise_file/' . $name ;
+            $img_url = '/public/solve_exercise_file/' . $name ;
         }
 
         Exercise_file_solve::updateOrCreate(
@@ -651,7 +651,7 @@ class Manager extends Controller
             $name = $request->user_id . "-" . rand(1000,99999999) . '-' . time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/skat/');
             $image->move($destinationPath, $name);
-            $img_url = '/skat/' . $name ;
+            $img_url = '/public/skat/' . $name ;
         }
 
         Skat::create([
@@ -735,7 +735,7 @@ class Manager extends Controller
             $name =  $request->student_id . "-" . rand(1000,99999999) . '-' . time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/solve_exercise_file/');
             $image->move($destinationPath, $name);
-            $img_url = '/solve_exercise_file/' . $name ;
+            $img_url = '/public/solve_exercise_file/' . $name ;
         }
 
         Exercise_file_solve::create([

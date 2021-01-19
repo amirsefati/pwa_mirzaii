@@ -26,7 +26,11 @@
                                 </div>
                                  <div>
                                     <img src="./../img/media.png" width="45px" alt="">
-                                    <span style="font-size:11px">شبکه های اجتماعی :     </span>
+                                    <span style="font-size:11px">شبکه های اجتماعی :  
+                                    <a href="http://t.co/Engshooting"><img src="./../img/telegram.png" width="30px" alt=""></a>    
+                                    <a href="http://instagram.com/Engshooting"><img src="./../img/instagram.png" width="30px" alt=""></a>    
+
+                                    </span>
                                 </div>
                                 <br>
                                 

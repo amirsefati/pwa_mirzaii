@@ -11,7 +11,7 @@
         <hr class="hr"/>
 
         <div class="row pr-3  pl-3 mb-3">
-            <div class="col-md-2 col-6">
+            <div class="col-md-4 col-6">
                 <router-link to="/courseb">
                 <div class="link_box">
                     <img src="./img/courses.png" width="" class="img_box_link" alt="">
@@ -22,7 +22,7 @@
 
             </div>
 
-            <div class="col-md-2 col-6">
+            <div class="col-md-4 col-6">
                 <router-link to="/learning">
                 <div class="link_box_2">
                     <img src="./img/learn.png" width="" class="img_box_link" alt="">
@@ -31,7 +31,7 @@
                 </router-link>
             </div>
 
-            <div class="col-md-2 col-6">
+            <div class="col-md-4 col-6">
                 <router-link to="/competition2">
                 <div class="link_box_3">
                     <img src="./img/race.png" width="" class="img_box_link" alt="">
@@ -40,7 +40,7 @@
                 </router-link>
             </div>
 
-            <div class="col-md-2 col-6">
+            <div class="col-md-4 col-6">
                 <router-link to="/coach1">
                 <div class="link_box_4">
                     <img src="./img/sche.png" width="" class="img_box_link" alt="">
@@ -49,7 +49,7 @@
                 </router-link>
             </div>
 
-            <div class="col-md-2 col-6">
+            <div class="col-md-4 col-6">
                 <router-link to="/gallery2">
                 <div class="link_box_5">
                     <img src="./img/gallery.png" width="" class="img_box_link" alt="">
@@ -59,7 +59,7 @@
 
             </div>
                 
-            <div class="col-md-2 col-6">
+            <div class="col-md-4 col-6">
 
                 <div class="link_box_6" v-if="user_data.status == 3">
                     <router-link to="/select">
