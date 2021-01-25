@@ -38,21 +38,24 @@
                             <select name="kind" class="form-control" disabled>
                                 <option value="{{$user->kind}}">
                                     @if($user->kind === '0')
-                                    کاربر عادی
+                                    دانشجوی دانشکده فنی
                                     @elseif($user->kind === '1')
-                                    دانشگاه غیر دانشگاه تهرانی
+                                    دانشجوی غیر دانشکده فنی
                                     @elseif($user->kind === '2')
-                                    دانشگاه تهرانی
+                                    اساتید و کارکنان دانشکده فنی
                                     @elseif($user->kind === '3')
-                                    استاد یا کارمند
+                                    اساتید و کارکنان غیر دانشکده فنی
+                                @elseif($user->kind === '4')
+                                    عادی
                                     @endif
                                     (انتخاب کاربر)
                                 </option>
-                                <option value="0">گاربر عادی</option>
-                                <option value="1">دانشجو غیر دانشگاه تهران</option>
-                                <option value="2">دانشجو دانشگاه تهران</option>
+                                <option value="0">دانشجوی دانشکده فنی</option>
+                                <option value="1">دانشجوی غیر دانشکده فنی</option>
+                                <option value="2">اساتید و کارکنان دانشکده فنی</option>
+                                <option value="3">اساتید و کارکنان غیر دانشکده فنی</option>
+                                <option value="4">عادی</option>
 
-                                <option value="3">استاد یا کارمند</option>
                             </select>
                         </div>
 

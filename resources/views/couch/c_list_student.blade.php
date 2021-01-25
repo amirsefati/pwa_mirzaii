@@ -35,14 +35,14 @@
                             <td>{{\Morilog\Jalali\CalendarUtils::strftime('Y-m-d H:i:s', strtotime($user->created_at))}}</td>
                             <td>
                                 @if($user->kind == 0)
-                                    <p>کاربر عادی</p>
+                                    <p>دانشجوی دانشکده فنی</p>
                                 @elseif($user->kind == 1)
-                                    <p>دانشگاه غیر  تهران</p>
+                                    <p>دانشجوی غیر دانشکده فنی</p>
                                 @elseif($user->kind == 2)
-                                    <p>دانشگاه تهران</p>
+                                    <p>اساتید و کارکنان دانشکده فنی</p>
 
                                 @elseif($user->kind == 3)
-                                    <p>استاد یا کارمند</p>
+                                    <p>اساتید و کارکنان غیر دانشکده فنی</p>
                                 @endif
                             </td>
                         </tr>

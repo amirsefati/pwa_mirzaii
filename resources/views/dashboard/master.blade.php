@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Analytics Dashboard - This is an example dashboard created using build-in elements and components.</title>
+    <title>داشبورد مدیر</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
-    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
+    <meta name="description" content="">
     <meta name="msapplication-tap-highlight" content="no">
    
 <link rel="stylesheet" href="{{asset('dashboard/main.css')}}">
@@ -16,6 +16,8 @@
 
 </head>
 <body>
+    @if(Auth::check())
+    @if(Auth::user()->email !== 'alireza.mirzaie74@gmail.com')
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <div class="app-header header-shadow">
             <div class="app-header__logo">
@@ -475,6 +477,21 @@
                                     </a>
                                 </li>
                                 
+                                <li class="app-sidebar__heading">اخبار و اطلاعیه ها</li>
+                                <li>
+                                    <a href="/manager/add_noti">
+                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                        افزودن 
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/manager/manage_noti">
+                                        <i class="metismenu-icon pe-7s-display2"></i>
+                                         مدیریت 
+                                    </a>
+                                </li>
+
 
                                 <li class="app-sidebar__heading">فایل ها</li>
                                 <li>
@@ -691,6 +708,12 @@
       }
   }
   </script>
+  @else
+  <p style="text-align: center;padding:20px;font-size:20px">دسترسی غیر مجاز</p>
+  <p style="text-align: center;"><a href="/">بازگشت به صفحه اصلی</a></p>
+  @endif
+  @endif
+
 </body>
 
 </html>

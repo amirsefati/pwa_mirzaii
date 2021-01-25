@@ -1,24 +1,29 @@
 <template>
     <div>
 
-        <div v-if="this.model > 0" class="caclculate_sticky">
+        <div v-if="this.model > 0" class="caclculate_sticky" @click="pay_go_ml">
                 <p class="name_cal_sticky">{{this.items[model].text}}</p>
 
                 <p class="price_cal_sticky">{{this.items[model].price}} تومان</p>
 
                 <p class="payment_cal_sticky">پرداخت</p>
+
+                {{this.price = this.items[model].price}}
           </div>
 
-        <div v-if="this.count > 0" class="caclculate_sticky_2">
+        <div v-if="this.count > 0" class="caclculate_sticky_2" @click="pay_go_ml">
                 <p class="name_cal_sticky">تعداد جلسات : {{this.count}} </p>
 
                 <p class="price_cal_sticky"> {{this.count * this.base_price}} تومان</p>
 
                 <p class="payment_cal_sticky">پرداخت</p>
-          </div>
+                
+                {{this.price = this.count * this.base_price}}
+
+        </div>
 
         <div class="row mt-3">
-            <div class="col-md-6 col-12 p-4 mb-3">
+            <div class="col-md-6 col-12 p-4">
                 <v-card
                     class=""
                     max-width="600"
@@ -52,10 +57,10 @@
                                 </div>
                             </v-list-item>
                         </v-list-item-group>
+                        <br>
                         </v-list>
                 </v-card>
             </div>
-          
 
             <div class="col-md-6 col-12 p-4 mb-5">
                 <v-card
@@ -115,6 +120,7 @@
 </template>
 
 <script>
+import Axios from 'axios'
 import './reserve.css'
 export default {
      data: () => ({
@@ -144,7 +150,8 @@ export default {
       ],
       model: 0,
       base_price : 35000,
-      count : 0
+      count : 0,
+      price : 0
     }),
     watch :{
         count : function(){
@@ -156,6 +163,21 @@ export default {
             if(this.model > 0){
                 this.count = 0
             }
+        }
+    },
+    methods:{
+        pay_go_ml:function(){
+            Axios.post('/api/pay_go_ml',{
+                data:{'amount':this.price}}
+            ).then((res)=>{
+                if(res.data.status === '200'){
+                    var url = '/api/gotopay/' + res.data.refid
+                    window.location.replace(url)
+                }else{
+                    alert('خطا در اتصال به درگاه')
+                }
+               
+            })
         }
     }
 }

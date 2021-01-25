@@ -76,6 +76,15 @@ Route::prefix('manager')->group(function(){
     Route::get('coach/edit_coach/{id}',[Manager::class,'edit_coach']);
     Route::post('edit_coach_post',[Manager::class,'edit_coach_post']);
 
+    #Noti
+    Route::get('add_noti',[Manager::class,'add_noti']);
+    Route::post('add_noti_post',[Manager::class,'add_noti_post']);
+
+    Route::get('manage_noti',[Manager::class,'manage_noti']);
+    Route::get('noti/delete_noti/{id}',[Manager::class,'delete_noti']);
+    Route::get('noti/edit_noti/{id}',[Manager::class,'edit_noti']);
+    Route::post('edit_noti_post',[Manager::class,'edit_noti_post']);
+
 
 
     #user
@@ -167,6 +176,18 @@ Route::prefix('api')->group(function(){
     Route::get('get_exercise_solve_data',[Client::class,'get_exercise_solve_data']);
 
     Route::get('get_skat',[Client::class,'get_skat']);
+
+    Route::post('pay_go_ml',[Client::class,'pay_go_ml']);
+    
+    Route::get('gotopay/{refid}',[Client::class,'gotopay_mellat']);
+
+    Route::post('verify_payment',[Client::class,'verify_payment']);
+
+    Route::get('logoutpanel',[Client::class,'logoutpanel']);
+
+    Route::get('get_list_payment',[Client::class,'get_list_payment']);
+
+    Route::get('get_list_reserve',[Client::class,'get_list_reserve']);
 
     
     

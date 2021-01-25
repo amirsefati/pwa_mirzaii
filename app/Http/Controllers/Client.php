@@ -12,6 +12,7 @@ use App\Models\Reserve;
 use App\Models\Competition;
 use App\Models\Exercise_file;
 use App\Models\Exercise_file_solve;
+use App\Models\Payment;
 use App\Models\Report;
 use App\Models\Skat;
 use Illuminate\Http\Request;
@@ -193,8 +194,8 @@ class Client extends Controller
     }
 
     public function getreserve_date(){
-        $now = Carbon::now()->format('Y-m-d');
-        $next= Carbon::now()->addDays(15,'day')->format('Y-m-d');
+        $now = Carbon::now()->addDays(1,'day')->format('Y-m-d');
+        $next= Carbon::now()->addDays(16,'day')->format('Y-m-d');
         $data = Reserve::whereBetween('d_m',[$now,$next])->get();
         $user = Auth::user();
         return ['status' => '200' , 'data' => $data , 'user' => $user];
@@ -316,5 +317,108 @@ class Client extends Controller
     public function get_skat(){
         $skat_list = Skat::where('user_id',Auth::user()->id)->get();
         return ['status'=>'200','data' => $skat_list];
+    }
+
+    public function pay_go_ml(Request $request){
+
+        $payment = Payment::create([
+            'user_id' => Auth::user()->id,
+            'price' => $request->data['amount'] * 10,
+            'res_code' => 0,
+            'ip' => $request->ip()
+        ]);
+
+        $terminalId		= "1661403";							//-- شناسه ترمینال
+        $userName		= "pardisf52"; 							//-- نام کاربری
+        $userPassword	= "98481076"; 							//-- کلمه عبور
+        $orderId		= $payment->id;								//-- شناسه فاکتور
+        $amount 		= $request->data['amount'] * 10; 							//-- مبلغ به ریال
+        $callBackUrl	= "https://engshooting.ut.ac.ir/api/verify_payment";	//-- لینک کال بک
+        $localDate		= date('Ymd');
+        $localTime		= date('Gis');  
+        $additionalData	= "";
+        $payerId		= 0;
+
+        //-- تبدیل اطلاعات به آرایه برای ارسال به بانک
+        $parameters = array(
+            'terminalId' 		=> $terminalId,
+            'userName' 			=> $userName,
+            'userPassword' 		=> $userPassword,
+            'orderId' 			=> $orderId,
+            'amount' 			=> $amount,
+            'localDate' 		=> $localDate,
+            'localTime' 		=> $localTime,
+            'additionalData' 	=> $additionalData,
+            'callBackUrl' 		=> $callBackUrl,
+            'payerId' 			=> $payerId
+        );
+
+        $client 	= new \nusoap_client('https://bpm.shaparak.ir/pgwchannel/services/pgw?wsdl');
+        $namespace 	='http://interfaces.core.sw.bps.com/';
+        $result 	= $client->call('bpPayRequest', $parameters, $namespace);
+
+        //-- بررسی وجود خطا
+        if ($client->fault)
+        {
+            //-- نمایش خطا
+            Payment::where('id',$payment->id)->update([
+                'res_code' => "خطا در اتصال به وب سرویس بانک"
+            ]);
+        } else {
+            
+            $err = $client->getError();
+
+            if ($err)
+            {
+                //-- نمایش خطا
+                Payment::where('id',$payment->id)->update([
+                    'res_code' => "خطا در اتصال به وب سرویس بانک"
+                ]);
+                return ['status' => '400'];
+
+            } else {
+                $res 		= explode (',',$result);
+                $ResCode 	= $res[0];
+
+                if ($ResCode == "0")
+                {
+                    Payment::where('id',$payment->id)->update([
+                        'res_code' => $res[1]
+                    ]);
+                    //-- انتقال به درگاه پرداخت
+                    return ['status'=>'200','refid'=>$res[1]];
+
+                } else {
+                    //-- نمایش خطا
+                    Payment::where('id',$payment->id)->update([
+                        'res_code' => 'Error_'.$result
+                    ]);
+                    return ['status' => '400'];
+                }
+            }
+        }
+    }
+
+    public function gotopay_mellat($refid){
+        return "<form name='myform' action='https://bpm.shaparak.ir/pgwchannel/startpay.mellat' method='POST'><input type='hidden' id='RefId' name='RefId' value='{$refid}'></form><script type='text/javascript'>window.onload = formSubmit; function formSubmit() { document.forms[0].submit(); }</script>";
+    }
+
+    public function verify_payment(Request $request){
+        return $request;
+    }
+
+    public function logoutpanel(){
+        Auth::logout();
+        return ['status' => '200'];
+    }
+
+    public function get_list_payment(){
+        $payments = Payment::where('user_id',Auth::user()->id)->get();
+        return ['status' => '200' , 'data' => $payments];
+    }
+
+    public function get_list_reserve(){
+        $reserve = Report::where('user_id',Auth::user()->id)->where('by','کاربر')->get();
+        return ['status' => '200' , 'data' => $reserve];
     }
 }

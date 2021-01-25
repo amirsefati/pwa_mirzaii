@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Morilog\Jalali\Jalalian;
 use App\Models\Exercise_file;
 use App\Models\Exercise_file_solve;
+use App\Models\Noti;
 use App\Models\Report;
 use Illuminate\Support\Facades\Auth;
 
@@ -103,6 +104,82 @@ class Manager extends Controller
         ]);
 
         return redirect('/manager/manage_learn');
+    }
+
+
+    ########### Noti
+
+    public function add_noti(){
+        return view('dashboard.add_noti');
+    }
+
+    public function add_noti_post(Request $request){
+
+        $request->validate([
+            'title' => 'required|max:200',
+            'img' => 'required|max:5000|mimes:png,jpg,jpeg,ttf,gif,bmp',
+        ]);
+
+        if($request->hasFile('img')){
+            $image = $request->file('img');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/noti/');
+            $image->move($destinationPath, $name);
+            $img_url = '/public/noti/' . $name ;
+        }
+        
+        Noti::create([
+            'title'=>$request->title,
+            'desc'=>$request->desc,
+            'link'=>$request->link,
+            'hashtag'=>$request->hashtag,
+            'level'=>$request->level,
+            'img'=>$img_url,
+        ]);
+        return redirect('manager/manage_noti');
+    }
+
+    public function manage_noti(){
+        $noti_list = Noti::all();
+        return view('dashboard.manage_noti',compact('noti_list'));
+    }
+
+    public function delete_noti($id){
+        Noti::where('id',$id)->delete();
+        return redirect('/manager/manage_noti');
+    }
+
+    public function edit_noti($id){
+        $noti = Noti::where('id',$id)->first();
+        return view('dashboard.edit_noti',compact('noti'));
+    }
+
+    public function edit_noti_post(Request $request){
+        $request->validate([
+            'title' => 'required|max:250',
+            'img' => 'max:5000|mimes:png,jpg,jpeg,ttf,gif,bmp'
+        ]);
+
+        $img_url = "";
+        if($request->hasFile('img')){
+            $image = $request->file('img');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/noti/');
+            $image->move($destinationPath, $name);
+            $img_url = '/public/noti/' . $name ;
+        }
+        Noti::where('id',$request->id)->update([
+            'title' => $request->title,
+            'desc' => $request->desc,
+            'link' => $request->link,
+            'hashtag' => $request->hashtag,
+            'level' => $request->level,
+           
+            'img'=>$img_url,
+
+        ]);
+
+        return redirect('/manager/manage_noti');
     }
 
 

@@ -3,21 +3,86 @@
 
         <div class="sticky_navbar" id="sticky_navbar">
             <div class="row">
-                <div class="col-md-3 col-3" style="text-align:right;padding-right:25px;">
-                    <img src="./img/menumobile.png" style="width:30px;" alt="">
-                </div>
-                <div class="col-md-6 col-6 pt-3 pl-1 pr-1" style="text-align:center">
-                    <p style="color:white">آکادمی تیراندازی دانشکده فنی</p>
-                </div>
-                <div class="col-md-3 col-3" style="text-align:left;padding-left:28px">
+                <div class="col-md-3 col-3" style="text-align:right;padding-right:28px">
                     <router-link to="/">
                         <img src="./img/home.png" style="width:30px;" alt="">
                     </router-link>
-
                 </div>
+                
+                 <div class="col-md-6 col-6 pt-3 pl-1 pr-1" style="text-align:center">
+                    <p style="color:white">آکادمی تیراندازی دانشکده فنی</p>
+                </div>
+                
+                <div v-if="this.login > 2" class="col-md-3 col-3" @click="click_onmanu" style="text-align:left;padding-left:25px;">
+                    <img src="./img/menumobile.png" style="width:30px;" alt="">
+                </div>
+
+                <div v-if="this.login < 3" class="col-md-3 col-3"  style="text-align:left;padding-left:25px;">
+                    <img src="./img/menumobile.png" style="width:30px;filter: grayscale(100%);" alt="">
+                </div>
+               
 
             </div>
         </div>  
+
+    <v-navigation-drawer
+      v-model="drawer"
+      absolute
+      left
+      temporary
+    >
+      <v-list
+        nav
+        dense
+      >
+        <v-list-item-group
+          v-model="group"
+          active-class="deep-purple--text text--accent-4"
+        >
+            <v-list-item>
+
+                <v-list-item-title> 
+                <div style="text-align:center">
+                <img v-bind:src="this.user.scan_pic" style="width:50%;border-radius:40%;margin-bottom:10px" alt="">
+                </div>
+                <p>{{this.user.name}}</p>
+                <p> کد کاربری : {{this.user.code_meli}} </p>
+                <p> شماره تلفن : {{this.user.phone}}</p>
+                <hr class="hr">
+                </v-list-item-title>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-title>پروفایل کاربری </v-list-item-title>
+          </v-list-item>
+
+            <router-link to="List_reserve">
+                <v-list-item>
+                    <v-list-item-title>گزارش عملکرد</v-list-item-title>
+                </v-list-item>
+            </router-link>
+
+            <router-link to="List_payment">
+                <v-list-item >
+                    <v-list-item-title>گزارش پرداختی</v-list-item-title>
+                </v-list-item>
+            </router-link>
+
+            <a  v-if="this.user.etc === '1'" href="/couch/c_list_student">
+                <v-list-item>
+                    
+                    <v-list-item-title> پنل مربی</v-list-item-title>
+                    
+                </v-list-item>
+            </a>
+          <v-list-item>
+              
+            <v-list-item-title v-on:click="logout">خروج</v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+
 
        <div class="row login_noti_header" v-if="this.login == 0">
            <div class="col-md-2 col-1"></div>
@@ -64,8 +129,11 @@
                     </div>
 
                     <div class="col-md-10 col-8 mt-2 pt-3">
-                        <p style="color:white;margin-bottom:15px">{{this.user.name}}</p>
-                            <p style="font-size:10px;color:white;margin-bottom:5px">کد ملی : {{this.user.code_meli}}</p>
+                        <p style="color:white;margin-bottom:15px">{{this.user.name}}
+                            <span v-if="this.user.etc === '1'" style="font-size:12px;padding:10px"><a href="/couch/c_list_student"> پنل مربی </a></span>
+                        </p>
+
+                        <p style="font-size:10px;color:white;margin-bottom:5px">کد ملی : {{this.user.code_meli}}</p>
 
                     </div>
                 </div>
@@ -251,9 +319,16 @@ import Axios from 'axios'
             
             sheet3: false,
             exercise_data3 : [],
+
+            drawer: false,
+            group: null,
         }),
         watch:{
-            '$route': 'checklogin_ff'
+            '$route': 'checklogin_ff',
+            
+            group () {
+            this.drawer = false
+      },
         },
         methods:{
             checklogin_ff:function(){
@@ -308,6 +383,23 @@ import Axios from 'axios'
                     if(res.data.status === '200'){
                         this.exercise_data3 = res.data.data
                         this.sheet3 = true
+                    }
+                })
+            },
+            click_onmanu:function(){
+                window.scrollTo(0,0);
+                this.drawer = !this.drawer
+            },
+
+            logout:function(){
+                Axios.get('/api/logoutpanel')
+                .then((res)=>{
+                    if(res.data.status === '200'){
+                        setTimeout(() => {
+                            window.location.replace('/')
+                        }, 1000);
+                    }else{
+
                     }
                 })
             }

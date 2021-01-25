@@ -39,10 +39,12 @@
                             <div class="col-md-6">
                                 <label for="kind"> نوع کاربری :</label>
                                 <select name="kind"  v-model="kind" class="form-control" id="">
-                                    <option value="0">کاربری عادی</option>
-                                    <option value="1">دانشجو غیر دانشگاه تهرانی</option>
-                                    <option value="2">دانشجو دانشگاه تهران</option>
-                                    <option value="3">استاد و کارمند دانشگاه</option>
+                                    <option value="0">دانشجوی دانشکده فنی</option>
+                                    <option value="1">دانشجوی غیر دانشکده فنی</option>
+                                    <option value="2">اساتید و کارکنان دانشکده فنی</option>
+                                    <option value="3">اساتید و کارکنان غیر دانشکده فنی</option>
+                                    <option value="4">عادی</option>
+
                                 </select>
                             </div>
                         </div>

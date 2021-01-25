@@ -12,7 +12,7 @@
                         <v-expansion-panel-header>قوانین</v-expansion-panel-header>
                         <v-expansion-panel-content>
                             <p style="padding:5px">
-                                - شرایط و قوانین رزرو خط
+                                -
                                 امکان رزرو یا لغو رزرو حداکثر از یک روز قبل امکان پذیر می باشد.
                                 <br>
                                 - درصورت عدم حضور در زمان رزرو شده و عدم هماهنگی قبلی با مسئول جلسه محاسبه می شود.
