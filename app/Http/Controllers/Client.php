@@ -4,19 +4,24 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\News;
+use App\Models\Noti;
+use App\Models\Skat;
 use App\Models\User;
 use App\Models\Coach;
 use App\Models\Course;
+use App\Models\Report;
 use App\Models\Gallery;
+use App\Models\Payment;
 use App\Models\Reserve;
 use App\Models\Competition;
+use App\Models\Configsysyem;
+use Illuminate\Http\Request;
 use App\Models\Exercise_file;
 use App\Models\Exercise_file_solve;
-use App\Models\Payment;
-use App\Models\Report;
-use App\Models\Skat;
-use Illuminate\Http\Request;
+use App\Models\Offcode;
+use App\Models\Offreport;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class Client extends Controller
 {
@@ -77,7 +82,10 @@ class Client extends Controller
             return ['status'=>'300','err'=>'چنین ایمیلی قبلا در سامانه ثبت شده است'];
         }elseif(User::where('phone',$tel)->count() > 0){
             return ['status'=>'300','err'=>'چنین شماره تلفنی قبلا در سامانه ثبت شده است'];
-        }else{
+        }elseif(User::where('code_meli',$code_meli)->count() > 0){
+            return ['status'=>'300','err'=>'چنین کدملی قبلا در سامانه ثبت شده است'];
+        }
+        else{
             $user = User::create([
                 'name' => $name,
                 'password' => $password,
@@ -421,4 +429,205 @@ class Client extends Controller
         $reserve = Report::where('user_id',Auth::user()->id)->where('by','کاربر')->get();
         return ['status' => '200' , 'data' => $reserve];
     }
+
+    public function get_new_home(){
+        $noti = Noti::orderBy('id','desc')->take(4)->get();
+        return ['status' => '200' , 'news' => $noti];
+    }
+
+    public function allnews_id($id){
+        $news = 'news-' . $id;
+        if(!Session::has($news)){
+            Noti::where('id',$id)->increment('etc1');
+            Session::put($news,'1');
+        }
+        $news = Noti::where('id',$id)->first();
+        return view('news',compact('news'));
+    }
+
+    public function getallnews(){
+        $news = Noti::all();
+        return ['status' =>'200' , 'news' => $news];
+    }
+
+    public function reserv_manager(Request $request){
+
+        $day =  json_decode(Reserve::where('d_j',$request->data['whdate'])->first()->data);
+        $id = Auth::user()->id;
+        $gun = Auth::user()->has_gun;
+        $w = intval($request->data['withgun']);
+        $n = intval($request->data['nogun']);
+        $kind_operation = ' ';
+        foreach($day as $d => $k){
+            if($d == $request->data['time']){
+                if(!$request->data['status']){
+                    $day->$d = [];
+
+                    // if($gun == '1'){
+                    //     User::where('id',$id)->decrement('creadit_has_gun');
+                    //     $w--;
+                    // }else{
+                    //     User::where('id',$id)->decrement('creadit_no_gun');  
+                    //     $n--;  
+                    // }
+                    $kind_operation = 'آزاد سازی جلسه';
+                }else{
+                    $day->$d = [];
+                    array_push($day->$d,-1);
+
+                    // if($gun == '1'){
+                    //     User::where('id',$id)->increment('creadit_has_gun');
+                    //     $w++;
+                    // }else{
+                    //     User::where('id',$id)->increment('creadit_no_gun');
+                    //     $n++;    
+                    // }
+                    $kind_operation = 'لغو جلسه';
+                }
+            }
+        }
+        
+        Reserve::where('d_j',$request->data['whdate'])->update([
+            'data' => json_encode($day)
+        ]);
+        switch($request->data['time']){
+            case 1:
+                $time = '8-9:30';
+                break;
+            case 2:
+                $time = '9:30-11';
+                break;
+            case 3:
+                $time = '11-12:30';
+                break;
+            case 4:
+                $time = '12:30-14';
+                break;
+            case 5:
+                $time = '14-15:30';
+                break;
+            case 6:
+                $time = '15:30-17';
+                break;
+            case 7:
+                $time = '17-18:30';
+                break;
+            case 8:
+                $time = '18:30-20';
+                break;
+            case 9:
+                $time = '20-21:30';
+                break;
+        }
+        Report::create([
+            'user_id' => $id,
+            'kind_operation' =>  $kind_operation,
+            'from' =>  '',
+            'to' => '',
+            'gun' => Auth::user()->has_gun,
+            'by' => 'مدیر',
+            'etc1' => $request->data['whdate'] .' -> ساعت ('. $time . ')',
+        ]);
+
+        $now = Carbon::now()->format('Y-m-d');
+        $next= Carbon::now()->addDays(15,'day')->format('Y-m-d');
+        $data = Reserve::whereBetween('d_m',[$now,$next])->get();
+        
+        return ['status' => '200' , 'data' => $data , 'user' => User::where('id',$id)->first()];
+
+    }
+
+    public function get_price_by_userlevel(){
+        $config = Configsysyem::all();
+        $user = Auth::user();
+
+        $base_price = 0;
+        $off = 0;
+        $off_10 = 0;
+        $off_20 = 0;
+        $off_30 = 0;
+
+        foreach($config as $c){
+            if($c->name == 'Off_10'){
+                $off_10 = $c->value;
+            }elseif($c->name == 'Off_20'){
+                $off_20 = $c->value;
+            }elseif($c->name == 'Off_30'){
+                $off_30 = $c->value; 
+            }
+        }   
+            if($user->has_gun == "1"){
+                foreach($config as $c){
+                    if($c->name == 'Price_with_gun'){
+                        $base_price = $c->value;
+                    }
+            }
+            }else{
+                foreach($config as $c){
+                    if($c->name == 'Price_no_gun'){
+                        $base_price = $c->value;
+                    }
+                }
+            }
+            if($user->kind == '0'){
+                foreach($config as $c){
+                    if($c->name == 'Off_student_fanni'){
+                        $off = $c->value;
+                    }
+                }
+            }elseif($user->kind == '1'){
+                foreach($config as $c){
+                    if($c->name == 'Off_student'){
+                        $off = $c->value;
+                    }
+                }
+
+            }elseif($user->kind == '2'){
+                foreach($config as $c){
+                    if($c->name == 'Off_master_fanni'){
+                        $off = $c->value;
+                    }
+                }
+
+            }elseif($user->kind == '3'){
+                foreach($config as $c){
+                    if($c->name == 'Off_master'){
+                        $off = $c->value;
+                    }
+                }
+                
+            }elseif($user->kind == '4'){
+                $off = "1";
+            }
+
+        
+        return ["off_10" => $off_10,"off_20" => $off_20,"off_30" => $off_30,"off" => $off ,"base_price" => $base_price];
+        }
+    
+    public function verify_offcode(Request $request){
+        $off_code = $request->data['off_code'];
+        $user = Auth::user();
+        $code = Offcode::where('name',$off_code)->first();
+        if($code == null){
+            return ['status'=>'300'];
+        }else{
+            $use_code = Offreport::where('id',$code->id)->where('status','1')->get();
+            if(count($use_code) <= $code->count ){
+                if(date($code->to) > date('Y-m-d')){
+                    Offreport::create([
+                        'user_id' => $user->id,
+                        'offcode_id' => $code->id,
+                        'status' => 0,
+                        'price' => $code->value,
+                    ]);
+                    return ['status' => '200' ,'off_amount'=>$code->value];
+                }else{
+                    return ['status'=>'302'];
+                }
+            }else{
+                return ['status'=>'301'];
+            }
+        }
+    }
 }
+

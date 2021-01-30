@@ -123,7 +123,7 @@ a{
     height: 60px;
     transition: .3s;
   }
-
+  
 .table{
     overflow-y: auto!important;
 }
@@ -195,3 +195,16 @@ a{
     color: snow;
     text-align: center ;
 }
+
+li:first-child {
+    color: black;
+    -webkit-animation: glow 1s ease-in-out infinite alternate;
+    -moz-animation: glow 1s ease-in-out infinite alternate;
+    animation: glow 1s ease-in-out infinite alternate;
+  }
+  
+  @-webkit-keyframes glow {
+    from {
+      text-shadow: 0 0 1px #fff, 0 0 1.1px #fff, 0 0 1.2px #F5F5F5, 0 0 1.3px #EBEBEB, 0 0 1.4px #B8B8B8, 0 0 1.5px #999999, 0 0 1.6px #707070;
+    }
+  }

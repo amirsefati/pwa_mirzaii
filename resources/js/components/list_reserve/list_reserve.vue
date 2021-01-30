@@ -1,5 +1,6 @@
 <template>
     <div style="padding:15px">
+        <p>گزارش عملکرد</p>
         <v-data-table
             :headers="headers"
             :items="items"

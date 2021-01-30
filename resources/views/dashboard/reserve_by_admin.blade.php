@@ -14,12 +14,13 @@
                     <div class="col-md-6">
                         <label for="kind_operation"> نوع عملیات :</label>
                         <select name="kind_operation" class="form-control" id="">
-                            <option value="توسط مدیر">توسط مدیر</option>
+                            <option value="رزرو مدیریت">توسط مدیر</option>
                         </select>
                     </div>
                     <div class="col-md-6">
                         <label for="gun">مالکیت اسلحه :</label>
-                        <select name="gun" class="form-control" id="">
+                        <select name="gun" class="form-control" id="reserve_by_admin_select" required>
+                            <option > انتخاب کنید ...</option>
                             <option value="0">اسلحه ندارد</option>
                             <option value="1">اسلحه دارد</option>
                         </select>
@@ -36,7 +37,7 @@
                 <div class="row mt-3">
                     <div class="col-md-4">
                         <label for="price">قیمت :</label>
-                        <input type="text" name="price" class="form-control">
+                        <input type="text" name="price" id="price_reserve" class="form-control" readonly>
                     </div>
 
                     <div class="col-md-4">
@@ -45,7 +46,7 @@
                     </div>
 
                     <div class="col-md-4 pt-1" style="text-align:center">
-                        <button class="btn btn-success mt-4 pr-5 pl-5">ثبت رزرو جلسه</button>
+                        <button class="btn btn-success mt-4 pr-5 pl-5">ثبت رزرو جلسه و پرداخت</button>
                     </div>
                 </div>
                 </form>

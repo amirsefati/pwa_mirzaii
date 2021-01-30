@@ -23,7 +23,7 @@ class CreateNotisTable extends Migration
             $table->string('level')->nullable();
             $table->string('hashtag')->nullable();
 
-            $table->string('etc1')->nullable();
+            $table->integer('etc1')->default(0);
             $table->string('etc2')->nullable();
             $table->string('etc3')->nullable();
 

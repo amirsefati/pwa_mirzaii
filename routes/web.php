@@ -137,6 +137,17 @@ Route::prefix('manager')->group(function(){
     
     Route::get('report_reserve',[Manager::class,'report_reserve']);
 
+    Route::get('settings',[Manager::class,'settings']);
+
+    Route::post('add_setttings',[Manager::class,'add_setttings']);
+
+    Route::get('off_code',[Manager::class,'off_code']);
+
+    Route::post('add_coupen',[Manager::class,'add_coupen']);
+
+    Route::get('delete_coupen/{id}',[Manager::class,'delete_coupen']);
+
+    
     
 });
 
@@ -150,7 +161,11 @@ Route::prefix('couch')->group(function(){
     
 });
 
+Route::prefix('news')->group(function(){
+    Route::get('allnews',[Client::class,'allnews']);
+    Route::get('allnews/{id}',[Client::class,'allnews_id']);
 
+});
 Route::prefix('api')->group(function(){
 
     Route::get('getlearn',[Client::class,'getlearn']);
@@ -189,6 +204,15 @@ Route::prefix('api')->group(function(){
 
     Route::get('get_list_reserve',[Client::class,'get_list_reserve']);
 
-    
+    Route::get('get_new_home',[Client::class,'get_new_home']);
+
+    Route::get('getallnews',[Client::class,'getallnews']);
+
+    Route::post('reserv_manager',[Client::class,'reserv_manager']);
+
+    Route::get('get_price_by_userlevel',[Client::class,'get_price_by_userlevel']);
+
+    Route::post('verify_offcode',[Client::class,'verify_offcode']);
+
     
 });

@@ -64,11 +64,11 @@
 
                 </div>
                  رشته تخصصی :
-                    <span style="font-size:13px">{{this.guns}} نفر</span>
+                    <span style="font-size:13px">{{this.guns}} </span>
                     <br/>
 
                      هشتگ :
-                    <span style="font-size:13px">{{this.hashtag}} نفر</span>
+                    <span style="font-size:13px">{{this.hashtag}} </span>
                     <br/>
                     <br/>
                     <div v-html="desc"></div>

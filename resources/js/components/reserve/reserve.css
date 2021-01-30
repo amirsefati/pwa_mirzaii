@@ -16,7 +16,7 @@
 }
 .name_cal_sticky{
     color:white;
-    font-size:16px;
+    font-size:12px;
     position: absolute;
     top:23px;
     right:20px;
@@ -24,7 +24,7 @@
 
 .price_cal_sticky{
     color:white;
-    font-size:16px;
+    font-size:13px;
     position: absolute;
     top:23px;
     left:20px;
@@ -33,9 +33,8 @@
 .payment_cal_sticky{
     color:white;
     font-size:22px;
-    position: absolute;
-    top:23px;
-    left:43%;
+    text-align: center;
+    margin-top: 17px;
     font-weight: bold;
 }
 .br_col{

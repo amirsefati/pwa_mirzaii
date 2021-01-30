@@ -52,7 +52,7 @@
                         <div class="row mt-3">
                             <div class="col-md-4" style="padding:10px">
                                 <div class="box_upload p-3">
-                                    <label for="scan_shenasname"> اسکن فایل شناسنامه :</label>
+                                    <label for="scan_shenasname"> اسکن  کارت ملی :</label>
                                     <input type="file" @change="onFileChange" ref="sc1"/>
 
                                     <img v-if="url1" :src="url1" width="100%" alt="">
@@ -61,7 +61,7 @@
 
                             <div class="col-md-4" style="padding:10px">
                                 <div class="box_upload p-3">
-                                    <label for="scan_shenasname"> اسکن فایل عکس پرسنلی :</label>
+                                    <label for="scan_shenasname"> اسکن  عکس پرسنلی :</label>
                                     <input type="file" @change="onFileChange2" ref="sc2"/>
 
                                     <img v-if="url2" :src="url2" width="100%" alt="">
@@ -79,7 +79,7 @@
                                 </div>
                             </div>
 
-                            <div v-if="this.kind === '2'" class="col-md-4" style="padding:10px">
+                            <div v-if="this.kind < 2" class="col-md-4" style="padding:10px">
                                 <div class="box_upload p-3">
                                     <label for="scan_card_student"> کارت دانشجویی :</label>
                                     <input type="file" @change="onFileChange4" ref="sc4"/>
@@ -88,9 +88,9 @@
                                 </div>
                             </div>
 
-                            <div v-if="this.kind === '3'" class="col-md-4" style="padding:10px">
+                            <div v-if="this.kind < 4 && this.kind > 1" class="col-md-4" style="padding:10px">
                                 <div class="box_upload p-3">
-                                    <label for="scan_card_student"> حکم کارگزینی :</label>
+                                    <label for="scan_card_student"> کارت شناسایی کارمندان و اساتید  :</label>
                                     <input type="file" @change="onFileChange5" ref="sc5"/>
 
                                     <img v-if="url5" :src="url5" width="100%" alt="">
@@ -218,7 +218,7 @@ export default {
         send_data:function(){
 
             if(this.file.length < 5){
-                this.text = 'لطفا اسکن شناسنامه را وارد کنید'
+                this.text = 'لطفا اسکن کارت ملی را وارد کنید'
                 this.snackbar = true
             }else if(this.file2.length < 5){
                 this.text = 'لطفا عکس پرسنلی خود وارد وارد کنید'

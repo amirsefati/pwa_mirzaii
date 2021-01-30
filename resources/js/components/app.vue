@@ -75,10 +75,25 @@
                     
                 </v-list-item>
             </a>
-          <v-list-item>
-              
+
+            <router-link   v-if="this.user.email === 'sefati100@gmail.com'" to="/reserve_manager">
+                <v-list-item>
+                    
+                    <v-list-item-title> مدیریت جلسات</v-list-item-title>
+                    
+                </v-list-item>
+            </router-link>
+
+            <a v-if="this.user.email === 'sefati100@gmail.com'" href="/manager/index/0">
+                <v-list-item>
+                    
+                    <v-list-item-title> مدیریت برنامه</v-list-item-title>
+                    
+                </v-list-item>
+            </a>
+            <v-list-item>
             <v-list-item-title v-on:click="logout">خروج</v-list-item-title>
-          </v-list-item>
+            </v-list-item>
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
@@ -102,7 +117,7 @@
        <div class="row login_noti_verify_header" v-if="this.login == 1">
            <div class="col-md-12">
                 <p>{{this.user.name}} عزیز به سایت خوش آمدید</p>
-                <p>برای استفاده کامل از برنامه می باشد تایید هویت انجام دهید</p>
+                <p>برای استفاده کامل از برنامه باید تایید هویت انجام دهید</p>
                 
                 <router-link to="/verify">
                  <button class="btn btn-danger">ورود به بخش احراز هویت</button>

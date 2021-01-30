@@ -73,6 +73,9 @@
                                 تنظیمات
                             </a>
                         </li>
+
+                        
+                        
                     </ul>        </div>
                 <div class="app-header-right">
                     <div class="header-btn-lg pr-0">
@@ -448,6 +451,20 @@
                                     </a>
                                 </li>
 
+                                <li>
+                                    <a href="/manager/settings" class="">
+                                        <i class="metismenu-icon pe-7s-rocket"></i>
+                                        تنظیمات
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/manager/off_code" class="">
+                                        <i class="metismenu-icon pe-7s-rocket"></i>
+                                        کد تخفیف
+                                    </a>
+                                </li>
+
                                 <li class="app-sidebar__heading">کاربران</li>
                                 <li>
                                     <a href="/manager/user_no_verify" class="">
@@ -627,6 +644,12 @@
                                 @yield('content')
                        </div>
         </div>
+
+            <div style="display: none;">
+                @foreach(\App\Models\Configsysyem::all() as $config)
+                    <input type="text" id="{{$config->name}}" value="{{$config->value}}">
+                @endforeach
+            </div>
     </div>
 <script type="text/javascript" src="{{asset('dashboard/scripts/main.js')}}"></script>
 <script type="text/javascript" src="{{asset('dashboard/scripts/jquery.min.js')}}"></script>
@@ -652,30 +675,38 @@
       });
     });
 
-    if($("#has_gun").val() === '1'){
-        $("#no_gun").prop("disabled",true)
-        $("#no_gun").val(0)
-        base = 23000
-    }else{
-        $("#with_gun").prop("disabled",true)
-        $("#with_gun").val(0)
-        base = 35000
+    $("#reserve_by_admin_select").change(function(){
+        if($("#reserve_by_admin_select").val() === '1'){
+            $("#price_reserve").val($("#Price_no_gun").val())
+        }else{
+            $("#price_reserve").val($("#Price_with_gun").val())
+        }
+    })
 
+    if($("#has_gun").val() === '0'){
+        base = $("#Price_no_gun").val()
+    }else{
+        base = $("#Price_with_gun").val()
+        
     }
+    var off = 0
     kind = $("#kind_user").val()
     switch(kind){
         case '0':
-            off = 1;
+            off = $("#Off_student_fanni").val();
             break;
         case '1':
-            off = 0.9;
+            off = $("#Off_student").val();
             break;
         case '2':
-            off = 0.5;
+            off = $("#Off_master_fanni").val();
             break;
         case '3':
-            off = 0.2;
+            off = $("#Off_master").val();
             break;
+        case '4':
+            off = 1;
+            break
     }
         $("#price_base").text(base);
         $("#price_off").text(off + ' % ');

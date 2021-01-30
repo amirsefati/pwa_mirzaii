@@ -2,11 +2,17 @@
     <div>
         
        <div class="row">
-           <div class="col-md-12">
-               <p class="app_news_title">اخبار و اطلاعیه ها</p>
-               <p>یه خبر کسشعر </p>
-               <p>کسشعترین اخبار رو از اینجا دنبال کنید</p>
-               <p>چگونه طراحی مضخرف داشته باشیم و برینیم به کارخومون</p>
+           <div class="col-md-1 col-1 p-0"></div>
+           <div class="col-md-10 col-10 p-0">
+               <router-link to="news_noti">
+               <p style="font-size:20px">اخبار و اطلاعیه ها</p></router-link>
+               <ul style="padding:5px">
+                   <li v-for="item in news" :key="item.id">
+                       <a v-bind:href="'/news/allnews/'+item.id">
+                       <p id="glow" style="font-size:12px;margin:2px">{{item.title}}</p>
+                       </a>
+                    </li>
+               </ul>
            </div>
        </div>
 
@@ -93,7 +99,19 @@
 </template>
 
 <script>
+import Axios from 'axios'
 export default {
-    props: ["user_data"]
+    props: ["user_data"],
+    data:()=>({
+        news : []
+    }),
+    created(){
+        Axios.get('/api/get_new_home')
+        .then((res)=>{
+            if(res.data.status === '200'){
+                this.news = res.data.news
+            }
+        })
+    }
 }
 </script>

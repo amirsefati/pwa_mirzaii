@@ -8,7 +8,7 @@
             <div class="card-header">
                 اعتبار سنجی کاربر
             </div>
-            <form action="/manager/verify_user_account" method="POST">
+            <form action="/manager/verify_user_account" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="text" name="id" value="{{$user->id}}" hidden>
             <div class="card-body">
@@ -94,6 +94,8 @@
                         <div class="border_dash p-3">
                         <p> اسکن کارت ملی </p>
                         <img src="{{$user->scan_shenasname}}" width="100%" alt="">
+                        <input type="file" name="scan_shenasname_n">
+                        <input style="display: none;" type="text" name="scan_shenasname" value="{{$user->scan_shenasname}}">
                         </div>
                     </div>
 
@@ -101,6 +103,8 @@
                         <div class="border_dash p-3">
                         <p>اسکن عکس پرسنلی</p>
                         <img src="{{$user->scan_pic}}" width="100%" alt="">
+                        <input type="file" name="scan_pic_n">
+                        <input style="display: none;" type="text" name="scan_pic" value="{{$user->scan_pic}}">
                         </div>
                     </div>
 
@@ -108,13 +112,19 @@
                         <div class="border_dash p-3">
                         <p>اسکن کارت بیمه</p>
                         <img src="{{$user->scan_bime}}" width="100%" alt="">
+                        <input type="file" name="scan_bime_n">
+                        <input style="display: none;" type="text" name="scan_bime" value="{{$user->scan_bime}}">
+
                         </div>
                     </div>
 
                     <div class="col-md-4" style="text-align: center;">
                         <div class="border_dash p-3">
-                        <p> کارت دانشجویی یا منزلت</p>
+                        <p> کارت دانشجویی </p>
                         <img src="{{$user->etc2}}" width="100%" alt="">
+                        <input type="file" name="etc2_n">
+                        <input style="display: none;" type="text" name="etc2" value="{{$user->etc2}}">
+
                         </div>
                     </div>
 

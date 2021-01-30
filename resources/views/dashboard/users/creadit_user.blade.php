@@ -1,7 +1,6 @@
 @extends('dashboard.master')
 @section('content')
 
-
 <div class="row">
     <div class="col-md-12">
         <div class="card mb-5">
@@ -75,13 +74,16 @@
 
                     <div class="row mt-5" >
                         <div class="col-md-6 col-6">
-                            <label for="has_gun">با سلاح :</label>
-                            <input id="with_gun" type="number" name="has_gun" class="form-control" placeholder="{{$user->creadit_has_gun}}" required>
+                            <div style="display: none;">
+                                <input type="text" name="from" value="{{'w:('.$user->creadit_has_gun.')'.'  n:('.$user->creadit_no_gun.')'}}">
+                            </div>
+                            <label for="has_gun">با سلاح ({{$user->creadit_has_gun}} جلسه):</label>
+                            <input id="with_gun" type="number" name="has_gun" class="form-control" value="{{$user->creadit_has_gun}}" required>
                         </div>
 
                         <div class="col-md-6 col-6">
-                            <label for="has_gun">بدون سلاح :</label>
-                            <input id="no_gun" type="number" name="no_gun" class="form-control" placeholder="{{$user->creadit_no_gun}}" required>
+                            <label for="has_gun">بدون سلاح ({{$user->creadit_no_gun}} جلسه):</label>
+                            <input id="no_gun" type="number" name="no_gun" class="form-control" value="{{$user->creadit_no_gun}}" required>
                         </div>
                     </div>
                     <br>

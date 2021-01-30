@@ -19,6 +19,8 @@ import Reserve from './components/reserve/reserve'
 import About from './components/about/about'
 import List_payment from './components/list_payment/list_payment'
 import List_reserve from './components/list_reserve/list_reserve'
+import News from './components/news/new'
+import Reserve_manager from './components/reserve/Reserve_manager'
 
 import './app.css'
 
@@ -43,7 +45,9 @@ const router = new VueRouter({
         {path:'/about',component:About},
         {path:'/List_payment',component:List_payment},
         {path:'/List_reserve',component:List_reserve},
-
+        {path:'/news_noti',component:News},
+        {path:'/reserve_manager',component:Reserve_manager},
+    
     ]
 })
 

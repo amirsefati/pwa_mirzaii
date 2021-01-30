@@ -12,11 +12,13 @@ use App\Models\Gallery;
 use App\Models\Reserve;
 use Carbon\Traits\Date;
 use App\Models\Competition;
+use App\Models\Configsysyem;
 use Illuminate\Http\Request;
 use Morilog\Jalali\Jalalian;
 use App\Models\Exercise_file;
 use App\Models\Exercise_file_solve;
 use App\Models\Noti;
+use App\Models\Offcode;
 use App\Models\Report;
 use Illuminate\Support\Facades\Auth;
 
@@ -557,6 +559,43 @@ class Manager extends Controller
 
     public function verify_user_account(Request $request){
 
+        
+        $scan_shenasname = $request->scan_shenasname;
+        if($request->hasFile('scan_shenasname_n')){
+            $image = $request->file('scan_shenasname_n');
+            $name = rand(100,99999).'-'.time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/documents/');
+            $image->move($destinationPath, $name);
+            $scan_shenasname = '/public/documents/' . $name ;
+        }
+
+        $scan_pic = $request->scan_pic;
+        if($request->hasFile('scan_pic_n')){
+            $image = $request->file('scan_pic_n');
+            $name = rand(100,99999).'-'.time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/documents/');
+            $image->move($destinationPath, $name);
+            $scan_pic = '/public/documents/' . $name ;
+        }
+
+        $scan_bime = $request->scan_bime;
+        if($request->hasFile('scan_bime_n')){
+            $image = $request->file('scan_bime_n');
+            $name = rand(100,99999).'-'.time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/documents/');
+            $image->move($destinationPath, $name);
+            $scan_bime = '/public/documents/' . $name ;
+        }
+
+        $etc2 = $request->etc2;
+        if($request->hasFile('etc2_n')){
+            $image = $request->file('etc2_n');
+            $name = rand(100,99999).'-'.time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/documents/');
+            $image->move($destinationPath, $name);
+            $etc2 = '/public/documents/' . $name ;
+        }
+
         User::where('id',$request->id)->update([
             'name' => $request->name,
             'phone' => $request->phone,
@@ -566,6 +605,11 @@ class Manager extends Controller
             'email' => $request->email,
             'has_gun' => $request->has_gun,
             'password' => $request->password,
+
+            'scan_shenasname' => $scan_shenasname,
+            'scan_pic' => $scan_pic,
+            'scan_bime' => $scan_bime,
+            'etc2' => $etc2,
 
             'status' => 3
         ]);
@@ -607,10 +651,11 @@ class Manager extends Controller
             'user_id' => $request->id,
             'kind_operation' => 'مدیر اعتبار',
             'gun' => $request->has_gun_id,
-            'price' => $request->price,
-            'from' => 0,
-            'to' => 0,
+            'price' => 0,
+            'from' => $request->from,
+            'to' => 'w:(' . $request->has_gun . ')' . 'n:(' . $request->no_gun .')',
             'by' => 'مدیر',
+            'info' => 'اعتبار مدیریت'
         ]);
         if($request->has_gun_id == '1'){
             User::where('id',$request->id)->update([
@@ -856,5 +901,45 @@ class Manager extends Controller
     public function report_reserve(){
         $payment = Report::all();
         return view('dashboard.report_reserve',compact('payment'));
+    }
+
+    public function settings(){
+        $configs = Configsysyem::all();
+        return view('dashboard.settings',compact('configs'));
+    }
+
+    public function add_setttings(Request $request){
+        Configsysyem::updateOrCreate(
+            ['name' => $request->name],
+            [
+                'name' => $request->name,
+                'value' => $request->value,
+ 
+            ]
+        );
+        return back();
+    }
+
+    public function off_code(){
+        $coupen = Offcode::all();
+        return view('dashboard.off_code',compact('coupen'));
+    }
+
+    public function add_coupen(Request $request){
+        Offcode::create([
+            'name' => $request->name,
+            'kind' => $request->kind,
+            'value' => $request->value,
+            'from' => $request->from,
+            'to' => $request->to,
+            'count' => $request->count,
+            'kind_user' => $request->kind_user,
+        ]);
+        return back();
+    }
+
+    public function delete_coupen($id){
+        Offcode::find($id)->delete();
+        return back();
     }
 }

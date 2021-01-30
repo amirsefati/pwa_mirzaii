@@ -72,7 +72,7 @@
                        
                         
                         <div class="col-md-3">
-                            <label for="img"> عکس مربی :
+                            <label for="img"> عکس خبر :
                                 (کاور :
                                 <img src="{{$noti->img}}" width="30px" alt="">
                                 )
