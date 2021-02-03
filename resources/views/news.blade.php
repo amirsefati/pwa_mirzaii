@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <hr>
-                {{strip_tags($news->desc)}}
+                {!!$news->desc!!}
                 </div>
             </div>
             </div>

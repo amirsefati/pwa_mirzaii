@@ -286,8 +286,8 @@ class Client extends Controller
 
         ]);
 
-        $now = Carbon::now()->format('Y-m-d');
-        $next= Carbon::now()->addDays(15,'day')->format('Y-m-d');
+        $now = Carbon::now()->addDays(1,'day')->format('Y-m-d');
+        $next= Carbon::now()->addDays(16,'day')->format('Y-m-d');
         $data = Reserve::whereBetween('d_m',[$now,$next])->get();
         
         
@@ -529,7 +529,7 @@ class Client extends Controller
             'etc1' => $request->data['whdate'] .' -> ساعت ('. $time . ')',
         ]);
 
-        $now = Carbon::now()->format('Y-m-d');
+        $now = Carbon::now()->addDays(1,'day')->format('Y-m-d');
         $next= Carbon::now()->addDays(15,'day')->format('Y-m-d');
         $data = Reserve::whereBetween('d_m',[$now,$next])->get();
         
