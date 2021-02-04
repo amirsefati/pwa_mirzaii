@@ -416,15 +416,15 @@ class Client extends Controller
         $userName		= "pardisf52"; 							
         $userPassword	= "98481076"; 
 
-        $ResCode 		= (isset($_POST['ResCode']) && $_POST['ResCode'] != "") ? $_POST['ResCode'] : "";
+        $ResCode 		= (isset($request->ResCode) && $request->ResCode != "") ? $request->ResCode : "";
            
         if ($ResCode == '0')
         {
             $client 				= new nusoap_client('https://bpm.shaparak.ir/pgwchannel/services/pgw?wsdl');
             $namespace 				='http://interfaces.core.sw.bps.com/';
-            $orderId 				= (isset($_POST['SaleOrderId']) && $_POST['SaleOrderId'] != "") ? $_POST['SaleOrderId'] : "";
-            $verifySaleOrderId 		= (isset($_POST['SaleOrderId']) && $_POST['SaleOrderId'] != "") ? $_POST['SaleOrderId'] : "";
-            $verifySaleReferenceId 	= (isset($_POST['SaleReferenceId']) && $_POST['SaleReferenceId'] != "") ? $_POST['SaleReferenceId'] : "";
+            $orderId 				= (isset($request->SaleOrderId) && $request->SaleOrderId != "") ? $request->SaleOrderId : "";
+            $verifySaleOrderId 		= (isset($request->SaleOrderId) && $request->SaleOrderId != "") ? $request->SaleOrderId : "";
+            $verifySaleReferenceId 	= (isset($request->SaleReferenceId) && $request->SaleReferenceId != "") ? $request->SaleReferenceId : "";
 
             $parameters = array(
                 'terminalId' 		=> $terminalId,
