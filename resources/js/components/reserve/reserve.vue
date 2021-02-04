@@ -40,7 +40,7 @@
             <div class="col-md-12">
                 <div class="row p-3">
                     <div  v-for="day in days" :key="day.id" :style="bg_color(day.id)" class="col-3 br_col" style="text-align:center;padding:5px">
-                        <p @click="[select_day(day),select=day.id]"  style="margin-bottom:2px;font-size:13px">{{day.d_j}}</p>
+                        <p @click="[select_day(day),select=day.id]"  style="margin-bottom:2px;font-size:13px;cursor:grab">{{day.d_j}}</p>
                     </div>
                 </div>
             </div>

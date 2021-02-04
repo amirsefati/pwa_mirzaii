@@ -47,7 +47,7 @@ const router = new VueRouter({
         {path:'/List_reserve',component:List_reserve},
         {path:'/news_noti',component:News},
         {path:'/reserve_manager',component:Reserve_manager},
-    
+        
     ]
 })
 

@@ -54,8 +54,9 @@
                                 </v-list-item-content>
 
                                 <div v-if="item.price > 10000">
-                                    {{item.price}}  تومان
-                                </div>
+                                    <p style="color:#9A031E;font-size:10px;margin:3px;text-decoration: line-through">{{item.no_off}}  تومان</p>
+                                    <p style="color:green">{{item.price}}  تومان</p>
+                               </div>
                             </v-list-item>
                         </v-list-item-group>
                         <br>
@@ -91,7 +92,7 @@
                             <div class="col-md-6 col-6">
                                 <div>
                                     <button class="btn btn-success" @click="count < 9 ? count ++ : count">+</button>
-                                        {{this.count}}
+                                        <span style="padding:4px">{{this.count}}</span>
                                     <button class="btn btn-danger" @click="count > 0 ? count -- : count">-</button>
                                 </div>
                             </div>
@@ -176,35 +177,55 @@ export default {
         .then((res)=>{
             this.base_price = res.data.base_price * res.data.off
             this.items[1].price = res.data.base_price * 10 * res.data.off * res.data.off_10
+            this.items[1].no_off = res.data.base_price * 10 * res.data.off
+
             this.items[2].price = res.data.base_price * 20 * res.data.off * res.data.off_20
+            this.items[2].no_off = res.data.base_price * 20 * res.data.off
+
             this.items[3].price = res.data.base_price * 30 * res.data.off * res.data.off_30
+            this.items[3].no_off = res.data.base_price * 30 * res.data.off
+
+            this.off_10 = res.data.off_10
+            this.off_20 = res.data.off_20
+            this.off_30 = res.data.off_30
+            this.off = res.data.off
 
         })
     },
     props: ["user_data"],
      data: () => ({
-        base_price : 0, 
+        base_price : 0,
+
+        off_10 : 0,
+        off_20 : 0,
+        off_30 : 0,
+        off : 0,
+
         items: [
             {
                 text: 'انتخاب بسته ها',
                 icon:'./../images/334.png',
-                price: 0
+                price: 0,
+                no_off:0
             },
             {
                 text: 'شارژ 10 جلسه ای ',
                 icon:'./../images/boronze.png',
-                price: 0
+                price: 0,
+                no_off:0
             },
             {
                 text: 'شارژ 20 جلسه ای',
                 icon:'./../images/silver.png',
-                price: 0
+                price: 0,
+                no_off:0
 
             },
             {
                 text: 'شارژ 30 جلسه ای',
                 icon:'./../images/gold.png',
-                price: 0
+                price: 0,
+                no_off:0
 
             },
         ],
