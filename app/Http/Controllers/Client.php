@@ -444,25 +444,43 @@ class Client extends Controller
                 if($result == 0)
                 {
                     //-- تمام مراحل پرداخت به درستی انجام شد.
-                    die("عملیات پرداخت با موفقیت انجام شد, شناسه پیگیری تراکنش : {$verifySaleReferenceId}");
+                    Payment::where('id',$request->orderId)->update([
+                        'status' => 1,
+                        'saleReferenceId' => $verifySaleReferenceId,
+                        'etc1' => $request->ResCode
+                    ]);
+                    return ['status' => '200' , 'code' => $verifySaleReferenceId];
                 } else {
                     $client->call('bpReversalRequest', $parameters, $namespace);			
 
                     //-- نمایش خطا
-                    $error_msg = (isset($result) && $result != "") ? $result : "خطا در ثبت درخواست واریز وجه";
-                    die($error_msg);
+                    //$error_msg = (isset($result) && $result != "") ? $result : "خطا در ثبت درخواست واریز وجه";
+                    Payment::where('id',$request->orderId)->update([
+                        'status' => 0,
+                        'saleReferenceId' => $verifySaleReferenceId,
+                        'etc1' => $request->ResCode,
+                        'etc2' => 'خطا در ثبت درخواست واریز وجه'
+                    ]);
+                    return ['status' => '300' , 'code' => 'خطا در ثبت درخواست واریز وجه'];
                 }
             } else {
                 $client->call('bpReversalRequest', $parameters, $namespace);
-                
-                //-- نمایش خطا
-                $error_msg = (isset($result) && $result != "") ? $result : "خطا در عملیات وریفای تراکنش";
-                die($error_msg);
+                Payment::where('id',$request->orderId)->update([
+                    'status' => 0,
+                    'saleReferenceId' => $verifySaleReferenceId,
+                    'etc1' => $request->ResCode,
+                    'etc2' => 'خطا در عملیات وریفای تراکنش'
+                ]);
+                return ['status' => '300' , 'code' => 'خطا در عملیات وریفای تراکنش'];
             }
         } else {
-            //-- نمایش خطا
-            $error_msg = (isset($ResCode) && $ResCode != "") ? $ResCode : "تراکنش ناموفق";
-            die($error_msg);
+            Payment::where('id',$request->orderId)->update([
+                'status' => 0,
+                'etc1' => $request->ResCode,
+                'etc2' => 'تراکنش ناموفق'
+            ]);
+            return ['status' => '300' , 'code' => 'تراکنش ناموفق'];
+
         }
     }
 
