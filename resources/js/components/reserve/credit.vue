@@ -206,33 +206,37 @@ export default {
                 text: 'انتخاب بسته ها',
                 icon:'./../images/334.png',
                 price: 0,
-                no_off:0
+                no_off:0,
+                package : 'c0'
             },
             {
                 text: 'شارژ 10 جلسه ای ',
                 icon:'./../images/boronze.png',
                 price: 0,
-                no_off:0
+                no_off:0,
+                package : '10'
+
             },
             {
                 text: 'شارژ 20 جلسه ای',
                 icon:'./../images/silver.png',
                 price: 0,
-                no_off:0
-
+                no_off:0,
+                package : '20'
             },
             {
                 text: 'شارژ 30 جلسه ای',
                 icon:'./../images/gold.png',
                 price: 0,
-                no_off:0
-
+                no_off:0,
+                package : '30'
             },
         ],
         model: 0,
         count : 0,
         price : 0,
         off_code : ' ',
+        package: '',
         
         snackbar: false,
         text: '',
@@ -244,18 +248,20 @@ export default {
         count : function(){
             if(this.count > 0 ){
                 this.model = 0
+                this.package = this.count
             }
         },
         model : function(){
             if(this.model > 0){
                 this.count = 0
+                this.package = this.items[this.model].package
             }
         }
     },
     methods:{
         pay_go_ml:function(){
             Axios.post('/api/pay_go_ml',{
-                data:{'amount':this.price}}
+                data:{'amount':this.price,'package':this.package}}
             ).then((res)=>{
                 if(res.data.status === '200'){
                     var url = '/api/gotopay/' + res.data.refid

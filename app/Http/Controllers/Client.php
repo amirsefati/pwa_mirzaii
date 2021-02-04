@@ -333,7 +333,8 @@ class Client extends Controller
             'user_id' => Auth::user()->id,
             'price' => $request->data['amount'] * 10,
             'res_code' => 0,
-            'ip' => $request->ip()
+            'ip' => $request->ip(),
+            'etc2' => $request->data['package']
         ]);
 
         $terminalId		= "1661403";							//-- شناسه ترمینال
@@ -399,7 +400,7 @@ class Client extends Controller
                 } else {
                     //-- نمایش خطا
                     Payment::where('id',$payment->id)->update([
-                        'res_code' => 'Error_'.$result
+                        'etc1' => $result,
                     ]);
                     return ['status' => '400'];
                 }
@@ -444,23 +445,26 @@ class Client extends Controller
                 if($result == 0)
                 {
                     //-- تمام مراحل پرداخت به درستی انجام شد.
-                    Payment::where('id',$request->SaleOrderId)->update([
+                    $pay = Payment::where('id',$request->SaleOrderId)->update([
                         'status' => 1,
                         'saleReferenceId' => $verifySaleReferenceId,
                         'etc1' => $request->ResCode
                     ]);
+                    $user_has_gun = Auth::user();
+                    if($user_has_gun == '1'){
+                        User::where('id',$user_has_gun->id)->increment('creadit_has_gun',intval($pay->etc2));
+                    }else{
+                        User::where('id',$user_has_gun->id)->increment('creadit_no_gun',intval($pay->etc2));
+                    }
                     return ['status' => '200' , 'code' => $verifySaleReferenceId];
                 } else {
                     $client->call('bpReversalRequest', $parameters, $namespace);			
-
-                    //-- نمایش خطا
-                    //$error_msg = (isset($result) && $result != "") ? $result : "خطا در ثبت درخواست واریز وجه";
                     Payment::where('id',$request->SaleOrderId)->update([
                         'status' => 0,
                         'saleReferenceId' => $verifySaleReferenceId,
                         'etc1' => $request->ResCode,
-                        'etc2' => 'خطا در ثبت درخواست واریز وجه'
                     ]);
+
                     return ['status' => '300' , 'code' => 'خطا در ثبت درخواست واریز وجه'];
                 }
             } else {
@@ -469,7 +473,6 @@ class Client extends Controller
                     'status' => 0,
                     'saleReferenceId' => $verifySaleReferenceId,
                     'etc1' => $request->ResCode,
-                    'etc2' => 'خطا در عملیات وریفای تراکنش'
                 ]);
                 return ['status' => '300' , 'code' => 'خطا در عملیات وریفای تراکنش'];
             }
@@ -477,7 +480,6 @@ class Client extends Controller
             Payment::where('id',$request->SaleOrderId)->update([
                 'status' => 0,
                 'etc1' => $request->ResCode,
-                'etc2' => 'تراکنش ناموفق'
             ]);
             return ['status' => '300' , 'code' => 'تراکنش ناموفق'];
 
