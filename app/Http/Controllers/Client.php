@@ -444,7 +444,7 @@ class Client extends Controller
                 if($result == 0)
                 {
                     //-- تمام مراحل پرداخت به درستی انجام شد.
-                    Payment::where('id',$request->orderId)->update([
+                    Payment::where('id',$request->SaleOrderId)->update([
                         'status' => 1,
                         'saleReferenceId' => $verifySaleReferenceId,
                         'etc1' => $request->ResCode
@@ -455,7 +455,7 @@ class Client extends Controller
 
                     //-- نمایش خطا
                     //$error_msg = (isset($result) && $result != "") ? $result : "خطا در ثبت درخواست واریز وجه";
-                    Payment::where('id',$request->orderId)->update([
+                    Payment::where('id',$request->SaleOrderId)->update([
                         'status' => 0,
                         'saleReferenceId' => $verifySaleReferenceId,
                         'etc1' => $request->ResCode,
@@ -465,7 +465,7 @@ class Client extends Controller
                 }
             } else {
                 $client->call('bpReversalRequest', $parameters, $namespace);
-                Payment::where('id',$request->orderId)->update([
+                Payment::where('id',$request->SaleOrderId)->update([
                     'status' => 0,
                     'saleReferenceId' => $verifySaleReferenceId,
                     'etc1' => $request->ResCode,
@@ -474,7 +474,7 @@ class Client extends Controller
                 return ['status' => '300' , 'code' => 'خطا در عملیات وریفای تراکنش'];
             }
         } else {
-            Payment::where('id',$request->orderId)->update([
+            Payment::where('id',$request->SaleOrderId)->update([
                 'status' => 0,
                 'etc1' => $request->ResCode,
                 'etc2' => 'تراکنش ناموفق'
