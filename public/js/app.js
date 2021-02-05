@@ -10806,9 +10806,8 @@ var render = function() {
                     _vm._s(
                       (this.price =
                         this.count * this.base_price - this.off_amount > 0
-                          ? (this.count * this.base_price - this.off_amount) /
-                            1000
-                          : (this.count * this.base_price) / 1000)
+                          ? this.count * this.base_price - this.off_amount
+                          : this.count * this.base_price)
                     ) +
                     "\n            "
                 )
