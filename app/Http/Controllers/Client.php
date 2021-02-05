@@ -346,7 +346,7 @@ class Client extends Controller
         $localDate		= date('Ymd');
         $localTime		= date('Gis');  
         $additionalData	= "";
-        $payerId		= 0;
+        $payerId		= '1703522522157';
 
         //-- تبدیل اطلاعات به آرایه برای ارسال به بانک
         $parameters = array(
@@ -421,7 +421,7 @@ class Client extends Controller
            
         if ($ResCode == '0')
         {
-            $client 				= new nusoap_client('https://bpm.shaparak.ir/pgwchannel/services/pgw?wsdl');
+            $client 				= new \nusoap_client('https://bpm.shaparak.ir/pgwchannel/services/pgw?wsdl');
             $namespace 				='http://interfaces.core.sw.bps.com/';
             $orderId 				= (isset($request->SaleOrderId) && $request->SaleOrderId != "") ? $request->SaleOrderId : "";
             $verifySaleOrderId 		= (isset($request->SaleOrderId) && $request->SaleOrderId != "") ? $request->SaleOrderId : "";
@@ -445,17 +445,19 @@ class Client extends Controller
                 if($result == 0)
                 {
                 //-- تمام مراحل پرداخت به درستی انجام شد.
-                    $pay = Payment::where('id',$request->SaleOrderId)->update([
+                    Payment::where('id',$request->SaleOrderId)->update([
                         'status' => 1,
                         'saleReferenceId' => $verifySaleReferenceId,
                         'etc1' => $request->ResCode
                     ]);
                     $user_id = Payment::find($request->SaleOrderId)->user_id;
                     $user_has_gun = User::find($user_id);
+                    $pay = Payment::find($request->SaleOrderId);
+
                     if($user_has_gun->user_has_gun == '1'){
-                        User::where('id',$user_has_gun->id)->increment('creadit_has_gun',intval($pay->etc2));
+                        User::where('id',$user_has_gun->id)->increment('creadit_has_gun',intval(Payment::find($request->SaleOrderId)->etc2));
                     }else{
-                        User::where('id',$user_has_gun->id)->increment('creadit_no_gun',intval($pay->etc2));
+                        User::where('id',$user_has_gun->id)->increment('creadit_no_gun',intval(Payment::find($request->SaleOrderId)->etc2));
                     }
                     return view('verify_pay',['status' => '200' , 'code' => $verifySaleReferenceId,'pay'=>$pay]);
                 //-- تمام مراحل پرداخت به درستی انجام شد.
