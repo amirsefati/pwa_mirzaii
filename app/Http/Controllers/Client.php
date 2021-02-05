@@ -461,29 +461,34 @@ class Client extends Controller
 
                 } else {
                     $client->call('bpReversalRequest', $parameters, $namespace);			
-                    $p = Payment::where('id',$request->SaleOrderId)->update([
+                    Payment::where('id',$request->SaleOrderId)->update([
                         'status' => 0,
                         'saleReferenceId' => $verifySaleReferenceId,
                         'etc1' => $request->ResCode,
                     ]);
-                    return view('verify_pay',['status' => '300' , 'code' => 'خطا در ثبت درخواست واریز وجه' , 'id' => $p]);
+                    $p = Payment::find($request->SaleOrderId);
+
+                    return view('verify_pay',['status' => '300' , 'code' => 'خطا در ثبت درخواست واریز وجه' , 'id' => $p,'user'=>Auth::user()]);
                 }
             } else {
                 $client->call('bpReversalRequest', $parameters, $namespace);
-                $p = Payment::where('id',$request->SaleOrderId)->update([
+                Payment::where('id',$request->SaleOrderId)->update([
                     'status' => 0,
                     'saleReferenceId' => $verifySaleReferenceId,
                     'etc1' => $request->ResCode,
                 ]);
-                return view('verify_pay',['status' => '300' , 'code' => 'خطا در عملیات وریفای تراکنش' , 'id' => $p]);
+                $p = Payment::find($request->SaleOrderId);
+
+                return view('verify_pay',['status' => '300' , 'code' => 'خطا در عملیات وریفای تراکنش' , 'id' => $p,'user'=>Auth::user()]);
 
             }
         } else {
-            $p = Payment::where('id',$request->SaleOrderId)->update([
+            Payment::where('id',$request->SaleOrderId)->update([
                 'status' => 0,
                 'etc1' => $request->ResCode,
             ]);
-            return view('verify_pay',['status' => '300' , 'code' => 'تراکنش ناموفق' , 'id' => $p]);
+            $p = Payment::find($request->SaleOrderId);
+            return view('verify_pay',['status' => '300' , 'code' => 'تراکنش ناموفق' , 'id' => $p,'user'=>Auth::user()]);
 
         }
     }

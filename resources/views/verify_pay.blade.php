@@ -93,10 +93,10 @@
                                     </div>
                                     <div class="row" style="text-align: center;">
                                         <div class="col-md-6 p-3">
-                                            {{Auth::user()->code_meli}} : کد ملی 
+                                            {{$user->code_meli}} : کد ملی 
                                         </div>
                                         <div class="col-md-6 p-3">
-                                        نام کاربری  :   {{Auth::user()->name}} 
+                                        نام کاربری  :   {{$user->name}} 
                                         </div>
                                     </div>
 
