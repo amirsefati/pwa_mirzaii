@@ -93,10 +93,10 @@
                                     </div>
                                     <div class="row" style="text-align: center;">
                                         <div class="col-md-6 p-3">
-                                            {{$user->code_meli}} : کد ملی 
+                                            {{\App\Models\User::find($user)->code_meli}} : کد ملی 
                                         </div>
                                         <div class="col-md-6 p-3">
-                                        نام کاربری  :   {{$user->name}} 
+                                        نام کاربری  :   {{\App\Models\User::find($user)->name}} 
                                         </div>
                                     </div>
 
