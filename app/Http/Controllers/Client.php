@@ -468,7 +468,7 @@ class Client extends Controller
                     ]);
                     $p = Payment::find($request->SaleOrderId);
 
-                    return view('verify_pay',['status' => '300' , 'code' => 'خطا در ثبت درخواست واریز وجه' , 'id' => $p,'user'=>User::find($request->SaleOrderId)->user_id]);
+                    return view('verify_pay',['status' => '300' , 'code' => 'خطا در ثبت درخواست واریز وجه' , 'id' => $p,'user'=>Payment::find($request->SaleOrderId)->user_id]);
                 }
             } else {
                 $client->call('bpReversalRequest', $parameters, $namespace);
@@ -479,7 +479,7 @@ class Client extends Controller
                 ]);
                 $p = Payment::find($request->SaleOrderId);
 
-                return view('verify_pay',['status' => '300' , 'code' => 'خطا در عملیات وریفای تراکنش' , 'id' => $p,'user'=>User::find($request->SaleOrderId)->user_id]);
+                return view('verify_pay',['status' => '300' , 'code' => 'خطا در عملیات وریفای تراکنش' , 'id' => $p,'user'=>Payment::find($request->SaleOrderId)->user_id]);
 
             }
         } else {
@@ -488,7 +488,7 @@ class Client extends Controller
                 'etc1' => $request->ResCode,
             ]);
             $p = Payment::find($request->SaleOrderId);
-            return view('verify_pay',['status' => '300' , 'code' => 'تراکنش ناموفق' , 'id' => $p,'user'=>User::find($request->SaleOrderId)->user_id]);
+            return view('verify_pay',['status' => '300' , 'code' => 'تراکنش ناموفق' , 'id' => $p,'user'=>Payment::find($request->SaleOrderId)->user_id]);
 
         }
     }
