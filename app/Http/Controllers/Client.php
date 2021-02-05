@@ -301,7 +301,7 @@ class Client extends Controller
         if(User::where('code_meli',$code_meli)->count() > 0){
             if(User::where('password',$password)->where('code_meli',$code_meli)->count() > 0){
                 $user = User::where('password',$password)->where('code_meli',$code_meli)->first();
-                Auth::loginUsingId($user->id);
+                Auth::loginUsingId($user->id,true);
                 return ['status' => '200' , 'user' => $user];
             }else{
                 return ['status' => '302'];
@@ -444,44 +444,46 @@ class Client extends Controller
 
                 if($result == 0)
                 {
-                    //-- تمام مراحل پرداخت به درستی انجام شد.
+                //-- تمام مراحل پرداخت به درستی انجام شد.
                     $pay = Payment::where('id',$request->SaleOrderId)->update([
                         'status' => 1,
                         'saleReferenceId' => $verifySaleReferenceId,
                         'etc1' => $request->ResCode
                     ]);
                     $user_has_gun = Auth::user();
-                    if($user_has_gun == '1'){
+                    if($user_has_gun->user_has_gun == '1'){
                         User::where('id',$user_has_gun->id)->increment('creadit_has_gun',intval($pay->etc2));
                     }else{
                         User::where('id',$user_has_gun->id)->increment('creadit_no_gun',intval($pay->etc2));
                     }
-                    return ['status' => '200' , 'code' => $verifySaleReferenceId];
+                    return view('verify_pay',['status' => '200' , 'code' => $verifySaleReferenceId,'pay'=>$pay]);
+                //-- تمام مراحل پرداخت به درستی انجام شد.
+
                 } else {
                     $client->call('bpReversalRequest', $parameters, $namespace);			
-                    Payment::where('id',$request->SaleOrderId)->update([
+                    $p = Payment::where('id',$request->SaleOrderId)->update([
                         'status' => 0,
                         'saleReferenceId' => $verifySaleReferenceId,
                         'etc1' => $request->ResCode,
                     ]);
-
-                    return ['status' => '300' , 'code' => 'خطا در ثبت درخواست واریز وجه'];
+                    return view('verify_pay',['status' => '300' , 'code' => 'خطا در ثبت درخواست واریز وجه' , 'id' => $p]);
                 }
             } else {
                 $client->call('bpReversalRequest', $parameters, $namespace);
-                Payment::where('id',$request->SaleOrderId)->update([
+                $p = Payment::where('id',$request->SaleOrderId)->update([
                     'status' => 0,
                     'saleReferenceId' => $verifySaleReferenceId,
                     'etc1' => $request->ResCode,
                 ]);
-                return ['status' => '300' , 'code' => 'خطا در عملیات وریفای تراکنش'];
+                return view('verify_pay',['status' => '300' , 'code' => 'خطا در عملیات وریفای تراکنش' , 'id' => $p]);
+
             }
         } else {
-            Payment::where('id',$request->SaleOrderId)->update([
+            $p = Payment::where('id',$request->SaleOrderId)->update([
                 'status' => 0,
                 'etc1' => $request->ResCode,
             ]);
-            return ['status' => '300' , 'code' => 'تراکنش ناموفق'];
+            return view('verify_pay',['status' => '300' , 'code' => 'تراکنش ناموفق' , 'id' => $p]);
 
         }
     }

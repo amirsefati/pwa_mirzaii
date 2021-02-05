@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Client;
 use App\Http\Controllers\Manager;
+use App\Models\Payment;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +23,11 @@ Route::get('/{any}', function () {
     return view('welcome');
 });
 
+Route::get('/haha/verify',function(){
+    $pay = Payment::find(23);
+    return view('verify_pay',['status' => '300' , 'code' => '12320349923','id'=>$pay]);
+
+});
 
 Route::prefix('manager')->group(function(){
     #dashboard _Panel_Manager 
