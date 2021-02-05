@@ -450,7 +450,8 @@ class Client extends Controller
                         'saleReferenceId' => $verifySaleReferenceId,
                         'etc1' => $request->ResCode
                     ]);
-                    $user_has_gun = Auth::user();
+                    $user_id = Payment::find($request->SaleOrderId)->user_id;
+                    $user_has_gun = User::find($user_id);
                     if($user_has_gun->user_has_gun == '1'){
                         User::where('id',$user_has_gun->id)->increment('creadit_has_gun',intval($pay->etc2));
                     }else{
