@@ -447,7 +447,14 @@
                                 <li>
                                     <a href="/manager/report_reserve" class="">
                                         <i class="metismenu-icon pe-7s-rocket"></i>
-                                        گزارش
+                                        گزارش رزرو
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/manager/report_user_info" class="">
+                                        <i class="metismenu-icon pe-7s-rocket"></i>
+                                        گزارش  کاربر
                                     </a>
                                 </li>
 

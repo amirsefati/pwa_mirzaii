@@ -126,7 +126,7 @@ class Client extends Controller
                 $name = Auth::user()->id . '-1-'. time() .'_' . rand(500,99999) . '.' .$image->getClientOriginalExtension();
                 $destinationPath = public_path('/documents/');
                 $image->move($destinationPath, $name);
-                $img_url1 = '/documents/' . $name ;
+                $img_url1 = '/public/documents/' . $name ;
             }
     
             if($request->hasFile('fl2')){
@@ -134,7 +134,7 @@ class Client extends Controller
                 $name = Auth::user()->id . '-2-'. time() .'_' . rand(500,99999) . '.' .$image->getClientOriginalExtension();
                 $destinationPath = public_path('/documents/');
                 $image->move($destinationPath, $name);
-                $img_url2 = '/documents/' . $name ;
+                $img_url2 = '/public/documents/' . $name ;
             }
     
             if($request->hasFile('fl3')){
@@ -142,7 +142,7 @@ class Client extends Controller
                 $name = Auth::user()->id . '-3-'. time() .'_' . rand(500,99999) . '.' .$image->getClientOriginalExtension();
                 $destinationPath = public_path('/documents/');
                 $image->move($destinationPath, $name);
-                $img_url3 = '/documents/' . $name ;
+                $img_url3 = '/public/documents/' . $name ;
             }
             $img_url4 = '';
             if($request->hasFile('fl4')){
@@ -150,7 +150,7 @@ class Client extends Controller
                 $name = Auth::user()->id . '-4-'. time() .'_' . rand(500,99999) . '.' .$image->getClientOriginalExtension();
                 $destinationPath = public_path('/documents/');
                 $image->move($destinationPath, $name);
-                $img_url4 = '/documents/' . $name ;
+                $img_url4 = '/public/documents/' . $name ;
             }
 
             $img_url5 = '';
@@ -159,7 +159,7 @@ class Client extends Controller
                 $name = Auth::user()->id . '-5-'. time() .'_' . rand(500,99999) . '.' .$image->getClientOriginalExtension();
                 $destinationPath = public_path('/documents/');
                 $image->move($destinationPath, $name);
-                $img_url5 = '/documents/' . $name ;
+                $img_url5 = '/public/documents/' . $name ;
             }
             
             if(strlen($img_url4) > 10){

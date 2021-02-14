@@ -19,6 +19,7 @@ use App\Models\Exercise_file;
 use App\Models\Exercise_file_solve;
 use App\Models\Noti;
 use App\Models\Offcode;
+use App\Models\Payment;
 use App\Models\Report;
 use Illuminate\Support\Facades\Auth;
 
@@ -941,5 +942,17 @@ class Manager extends Controller
     public function delete_coupen($id){
         Offcode::find($id)->delete();
         return back();
+    }
+
+    public function report_user_info(){
+        $users = User::where('status','>','2')->get();
+        return view('dashboard.report_user_info',compact('users'));
+    }
+
+    public function report_user_info_user($id){
+        $payment = Payment::where('user_id',$id)->get();
+        $report = Report::where('user_id',$id)->get();
+        $user = User::find($id);
+        return view('dashboard.report_user_info_user',compact(['payment','report','user']));
     }
 }

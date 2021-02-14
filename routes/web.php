@@ -33,6 +33,11 @@ Route::prefix('manager')->group(function(){
     #dashboard _Panel_Manager 
     Route::get('/index/{id}',[Manager::class,'index']);
     
+
+    
+    Route::get('report_user_info',[Manager::class,'report_user_info']);
+    Route::get('report_user_info_user/{id}',[Manager::class,'report_user_info_user']);
+    
     #Learn
     Route::get('add_learn',[Manager::class,'add_learn']);
     Route::post('add_learn_post',[Manager::class,'add_learn_post']);
