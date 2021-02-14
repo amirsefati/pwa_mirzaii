@@ -28,7 +28,7 @@
                         @foreach($all as $data)
                         <tr>
                             <td>{{($data->kind_operation == null ? 'واریز' : 'رزرو')}}</td>
-                            <td> {{$data->kind_operation}} - {{$data->etc1}} <span style="color:cornflowerblue">{{($data->price > 1000) ? ($data->price/1000 . ' هزار تومان - ' . ' رسید خرید  '  . $data->saleReferenceId ) : ''}}</span></td>
+                            <td> {{$data->kind_operation}} / {{$data->etc1}} / <span style="color:cornflowerblue">{{($data->price > 10000) ? ($data->price/10000 . ' هزار تومان - ' . ' رسید خرید  '  . $data->saleReferenceId ) : ''}}</span></td>
                             <td>{{\Morilog\Jalali\CalendarUtils::strftime('Y-m-d H:i:s', strtotime($data->created_at))}}</td>
                         </tr>
                         @endforeach

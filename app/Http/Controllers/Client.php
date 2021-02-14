@@ -453,13 +453,13 @@ class Client extends Controller
                     $user_id = Payment::find($request->SaleOrderId)->user_id;
                     $user_has_gun = User::find($user_id);
                     $pay = Payment::find($request->SaleOrderId);
-
+                    $user_data = User::find($user_id);
                     if($user_has_gun->user_has_gun == '1'){
                         User::where('id',$user_has_gun->id)->increment('creadit_has_gun',intval(Payment::find($request->SaleOrderId)->etc2));
                     }else{
                         User::where('id',$user_has_gun->id)->increment('creadit_no_gun',intval(Payment::find($request->SaleOrderId)->etc2));
                     }
-                    return view('verify_pay',['status' => '200' , 'code' => $verifySaleReferenceId,'pay'=>$pay]);
+                    return view('verify_pay',['status' => '200' , 'code' => $verifySaleReferenceId,'pay'=>$pay,'user_data'=>$user_data]);
                 //-- تمام مراحل پرداخت به درستی انجام شد.
 
                 } else {
