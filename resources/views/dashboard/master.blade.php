@@ -706,8 +706,7 @@
     })
 
     $("#reserve_by_admin_select").change(function(){
-        alert(off)
-        if($("#reserve_by_admin_select").val() === '1'){
+        if($("#reserve_by_admin_select").val() === '0'){
             $("#price_reserve").val($("#Price_no_gun").val()*off)
         }else{
             $("#price_reserve").val($("#Price_with_gun").val()*off)
