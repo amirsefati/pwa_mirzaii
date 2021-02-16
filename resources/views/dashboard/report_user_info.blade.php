@@ -14,6 +14,7 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
+                        <th>پروفایل </th>
                         <th>نام کاربر </th>
                         <th> کد ملی </th>
                         <th> نوع کاربری </th>

@@ -251,7 +251,12 @@ export default {
                 }
             }).then((res)=>{
                 if(res.data.status === '200'){
-                    this.$router.replace('/')
+                    this.text = 'مدارک با موفقیت ارسال شد'
+                    this.snackbar = true
+                    setTimeout(() => {
+                        this.$router.replace('/')
+                    }, 900);
+
                 }else{
                     console.log(res)
                     alert('اطلاعات شما با فرد دیگری یکسان است لطفا با مدیریت تماس بگیرید')

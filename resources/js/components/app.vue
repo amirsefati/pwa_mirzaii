@@ -52,9 +52,6 @@
                 </v-list-item-title>
           </v-list-item>
 
-          <v-list-item>
-            <v-list-item-title>پروفایل کاربری </v-list-item-title>
-          </v-list-item>
 
             <router-link to="List_reserve">
                 <v-list-item>

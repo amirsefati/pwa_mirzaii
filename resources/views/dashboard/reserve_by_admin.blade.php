@@ -30,19 +30,21 @@
                 <div class="row mt-4">
                     <div class="col-md-12">
                         <label for="info">اطلاعات رزرو کننده :</label>
-                        <input type="text" name="info"  class="form-control">
+                        <input type="text" name="info"  class="form-control" placeholder="نام-کدملی-شماره تلفن" required>
                     </div>
                 </div>
                 
                 <div class="row mt-3">
                     <div class="col-md-4">
                         <label for="price">قیمت :</label>
-                        <input type="text" name="price" id="price_reserve" class="form-control" readonly>
+                        <input type="text" name="price" id="price_reserve" class="form-control" readonly required>
                     </div>
 
                     <div class="col-md-4">
                         <label for="etc">ساعت رزرو :</label>
-                        <input type="text" name="etc1" class="form-control">
+                        <input type="text" name="etc1" class="form-control" value="00-00-1399 () -> ساعت () ">
+                        <small>مثال :  1399-11-19 (یکشنبه) -> ساعت (9:30-11)</small><br>
+                        <small>مثال : 1399-11-15 (چهارشنبه) -> ساعت (8-9:30)</small>
                     </div>
 
                     <div class="col-md-4 pt-1" style="text-align:center">

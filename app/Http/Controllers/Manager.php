@@ -884,6 +884,15 @@ class Manager extends Controller
     }
 
     public function reserved_by_admin(Request $request){
+        
+        $payment = Payment::create([
+            'user_id' => Auth::user()->id,
+            'price' => $request->price * 10,
+            'res_code' => 0,
+            'ip' => $request->ip(),
+            'etc2' => 1
+        ]);
+
         Report::create([
             'user_id' => Auth::user()->id,
             'kind_operation' => $request->kind_operation,
@@ -892,11 +901,80 @@ class Manager extends Controller
             'etc1' => $request->etc1,
             'from' => 0,
             'to' => 0,
-            'by' => 'مدیر',
+            'by' => 'رزرو توسط مدیر',
             'info' => $request->info,
+            'etc2' => $payment->id
         ]);
-        
-        return redirect('/manager/report_reserve');
+
+        $terminalId		= "1661403";							//-- شناسه ترمینال
+        $userName		= "pardisf52"; 							//-- نام کاربری
+        $userPassword	= "98481076"; 							//-- کلمه عبور
+        $orderId		= $payment->id;								//-- شناسه فاکتور
+        $amount 		= $request->price * 10; 							//-- مبلغ به ریال
+        $callBackUrl	= "https://engshooting.ut.ac.ir/api/verify_payment";	//-- لینک کال بک
+        $localDate		= date('Ymd');
+        $localTime		= date('Gis');  
+        $additionalData	= "";
+        $payerId		= '1703522522157';
+
+        //-- تبدیل اطلاعات به آرایه برای ارسال به بانک
+        $parameters = array(
+            'terminalId' 		=> $terminalId,
+            'userName' 			=> $userName,
+            'userPassword' 		=> $userPassword,
+            'orderId' 			=> $orderId,
+            'amount' 			=> $amount,
+            'localDate' 		=> $localDate,
+            'localTime' 		=> $localTime,
+            'additionalData' 	=> $additionalData,
+            'callBackUrl' 		=> $callBackUrl,
+            'payerId' 			=> $payerId
+        );
+
+        $client 	= new \nusoap_client('https://bpm.shaparak.ir/pgwchannel/services/pgw?wsdl');
+        $namespace 	='http://interfaces.core.sw.bps.com/';
+        $result 	= $client->call('bpPayRequest', $parameters, $namespace);
+
+        //-- بررسی وجود خطا
+        if ($client->fault)
+        {
+            //-- نمایش خطا
+            Payment::where('id',$payment->id)->update([
+                'res_code' => "خطا در اتصال به وب سرویس بانک"
+            ]);
+        } else {
+            
+            $err = $client->getError();
+
+            if ($err)
+            {
+                //-- نمایش خطا
+                Payment::where('id',$payment->id)->update([
+                    'res_code' => "خطا در اتصال به وب سرویس بانک"
+                ]);
+                return ['status' => '400'];
+
+            } else {
+                $res 		= explode (',',$result);
+                $ResCode 	= $res[0];
+
+                if ($ResCode == "0")
+                {
+                    Payment::where('id',$payment->id)->update([
+                        'res_code' => $res[1]
+                    ]);
+                    //-- انتقال به درگاه پرداخت
+                    return "<form name='myform' action='https://bpm.shaparak.ir/pgwchannel/startpay.mellat' method='POST'><input type='hidden' id='RefId' name='RefId' value='{$res[1]}'></form><script type='text/javascript'>window.onload = formSubmit; function formSubmit() { document.forms[0].submit(); }</script>";
+                } else {
+                    //-- نمایش خطا
+                    Payment::where('id',$payment->id)->update([
+                        'etc1' => $result,
+                    ]);
+                    return ['status' => 'خطا در انتقال به بانک'];
+                }
+            }
+        }
+
     }
 
     public function report_reserve(){

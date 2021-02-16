@@ -95,7 +95,7 @@ class Client extends Controller
                 'born' => $born,
             ]);
             Auth::loginUsingId($user->id,true);
-            return ['status'=>'200'];
+            return ['status'=>'200','err'=>' ثبت نام با موفقیت انجام شد'];
         }
         return ['status'=> '400'];
     }
@@ -195,10 +195,9 @@ class Client extends Controller
     
                 ]);
             }
-            
+            return ['status' => '200'];
         }
 
-        return ['status' => '200'];
     }
 
     public function getreserve_date(){
