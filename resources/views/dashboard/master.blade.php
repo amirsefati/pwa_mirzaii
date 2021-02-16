@@ -681,59 +681,38 @@
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
       });
     });
+  });
 
-    $("#reserve_by_admin_select").change(function(){
-        if($("#reserve_by_admin_select").val() === '1'){
-            $("#price_reserve").val($("#Price_no_gun").val())
-        }else{
-            $("#price_reserve").val($("#Price_with_gun").val())
-        }
+  var off = 1
+  $("#kind").change(function(){
+        kind = $("#kind").val()
+        switch(kind){
+            case '0':
+                off = $("#Off_student_fanni").val();
+                break;
+            case '1':
+                off = $("#Off_student").val();
+                break;
+            case '2':
+                off = $("#Off_master_fanni").val();
+                break;
+            case '3':
+                off = $("#Off_master").val();
+                break;
+            case '4':
+                off = 1;
+                break
+            }
     })
 
-    if($("#has_gun").val() === '0'){
-        base = $("#Price_no_gun").val()
-    }else{
-        base = $("#Price_with_gun").val()
-        
-    }
-    var off = 0
-    kind = $("#kind_user").val()
-    switch(kind){
-        case '0':
-            off = $("#Off_student_fanni").val();
-            break;
-        case '1':
-            off = $("#Off_student").val();
-            break;
-        case '2':
-            off = $("#Off_master_fanni").val();
-            break;
-        case '3':
-            off = $("#Off_master").val();
-            break;
-        case '4':
-            off = 1;
-            break
-    }
-        $("#price_base").text(base);
-        $("#price_off").text(off + ' % ');
-
-    $("#with_gun").change(function(){
-        count = $("#with_gun").val()
-        
-        $("#price_total").text(base * off * count + ' هزار تومان ');
-        $("#price_input").val(base * off * count);
-
-        
-    });
-    $("#no_gun").change(function(){
-        count = $("#no_gun").val()
-        
-        $("#price_total").text(base * off * count + ' هزار تومان ');
-        $("#price_input").val(base * off * count);
-
-    });
-  });
+    $("#reserve_by_admin_select").change(function(){
+        alert(off)
+        if($("#reserve_by_admin_select").val() === '1'){
+            $("#price_reserve").val($("#Price_no_gun").val()*off)
+        }else{
+            $("#price_reserve").val($("#Price_with_gun").val()*off)
+        }
+    })
 
 
   function show_pass(){

@@ -11,13 +11,25 @@
                 <form action="/manager/reserved_by_admin" method="post">
                 @csrf
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <label for="kind_operation"> نوع عملیات :</label>
                         <select name="kind_operation" class="form-control" id="">
                             <option value="رزرو مدیریت">توسط مدیر</option>
                         </select>
                     </div>
-                    <div class="col-md-6">
+
+                    <div class="col-md-5">
+                        <label for="kind"> کاربری  :</label>
+                        <select class="form-control" id="kind">
+                            <option value="4">عادی</option>
+                            <option value="0">دانشجوی دانشکده فنی</option>
+                            <option value="1">دانشجوی غیر دانشکده فنی</option>
+                            <option value="2">اساتید و کارکنان دانشکده فنی</option>
+                            <option value="3">اساتید و کارکنان غیر دانشکده فنی</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
                         <label for="gun">مالکیت اسلحه :</label>
                         <select name="gun" class="form-control" id="reserve_by_admin_select" required>
                             <option > انتخاب کنید ...</option>
