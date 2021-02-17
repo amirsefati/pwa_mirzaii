@@ -16,14 +16,13 @@
                     <thead>
                     <tr>
                         <th>کاربر </th>
-                        <th>سلاح </th>
-                        <th>ساعت </th>
-                        <th>اعتبار قبلی </th>
-                        <th>نوع عملیات </th>
-                        <th>اعتبار بعدی </th>
-                        <th>هزینه </th>
-                        <th>اطلاعات </th>
-                        <th>توسط </th>
+                        <th>کد درگاه </th>
+                        <th>قیمت </th>
+                        <th>وضعیت </th>
+                        <th>کد پرداخت </th>
+                        <th>ای پی </th>
+                        <th>کد وضعیت </th>
+                        <th>تعداد جلسه </th>
                         <th>تاریخ </th>
 
 
@@ -33,17 +32,20 @@
 
                     @foreach($payment as $pay)
                         <tr>
-                            <td>{{App\Models\User::find($pay->user_id)->name}} - {{App\Models\User::find($pay->user_id)->code_meli}}</td>
+                            <td>{{App\Models\User::find($pay->user_id)->name}} 
+                                @if($pay->user_id == '2') <!--  یعنی مدیر بود-->
+                                   <span style="font-size: 9px;color:red">رزرو برای </span> <span style="font-size:7px">{{(App\Models\Report::where('etc2',$pay->id)->first()) ? (App\Models\Report::where('etc2',$pay->id)->first()->info) : ''}}</span>
+                                @endif
+                            </td>
                             
-                            <td>{{$pay->gun == '1' ? 'با اسلحه' : 'بدون اسلحه'}}</td>
-                            <td>{{$pay->etc1}}</td>
+                            <td>{{$pay->res_code}}</td>
 
-                            <td>{{$pay->from}}</td>
-                            <td>{{$pay->kind_operation}}</td>
-                            <td>{{$pay->to}}</td>
                             <td>{{$pay->price}}</td>
-                            <td>{{$pay->info}}</td>
-                            <td>{{$pay->by}}</td>
+                            <td>{{($pay->status == 1) ? 'موفق' : 'لغو'}}</td>
+                            <td>{{$pay->saleRefrenceid}}</td>
+                            <td>{{$pay->ip}}</td>
+                            <td>{{$pay->etc1}}</td>
+                            <td>{{$pay->etc2}}</td>
                             <td style="font-size:9px">{{\Morilog\Jalali\CalendarUtils::strftime('Y-m-d H:i:s', strtotime($pay->created_at))}}</td>
 
                         </tr>

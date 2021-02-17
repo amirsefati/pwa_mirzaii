@@ -159,7 +159,8 @@ Route::prefix('manager')->group(function(){
     Route::get('delete_coupen/{id}',[Manager::class,'delete_coupen']);
 
     
-    
+    Route::get('report_payment',[Manager::class,'report_payment']);
+
 });
 
 Route::prefix('couch')->group(function(){

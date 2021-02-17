@@ -978,7 +978,7 @@ class Manager extends Controller
     }
 
     public function report_reserve(){
-        $payment = Report::all();
+        $payment = Report::orderBy('created_at','DESC')->get();
         return view('dashboard.report_reserve',compact('payment'));
     }
 
@@ -1032,5 +1032,10 @@ class Manager extends Controller
         $report = Report::where('user_id',$id)->get();
         $user = User::find($id);
         return view('dashboard.report_user_info_user',compact(['payment','report','user']));
+    }
+
+    public function report_payment(){
+        $payment = Payment::orderBy('created_at','DESC')->get();
+        return view('dashboard.report_payment',compact('payment'));
     }
 }
