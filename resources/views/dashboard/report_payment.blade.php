@@ -42,7 +42,7 @@
 
                             <td>{{$pay->price}}</td>
                             <td>{{($pay->status == 1) ? 'موفق' : 'لغو'}}</td>
-                            <td>{{$pay->saleRefrenceid}}</td>
+                            <td>{{$pay->saleReferenceId}}</td>
                             <td>{{$pay->ip}}</td>
                             <td>{{$pay->etc1}}</td>
                             <td>{{$pay->etc2}}</td>
