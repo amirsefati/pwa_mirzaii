@@ -453,7 +453,7 @@ class Client extends Controller
                     $user_has_gun = User::find($user_id);
                     $pay = Payment::find($request->SaleOrderId);
                     $user_data = User::find($user_id);
-                    if($user_has_gun->user_has_gun == '1'){
+                    if($user_has_gun->user_has_gun == 1){
                         User::where('id',$user_has_gun->id)->increment('creadit_has_gun',intval(Payment::find($request->SaleOrderId)->etc2));
                     }else{
                         User::where('id',$user_has_gun->id)->increment('creadit_no_gun',intval(Payment::find($request->SaleOrderId)->etc2));
