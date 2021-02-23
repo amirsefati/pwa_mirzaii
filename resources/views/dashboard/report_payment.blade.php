@@ -40,7 +40,7 @@
                             </td>
                             <td>
                             @if($pay->user_id == '2') <!--  یعنی مدیر بود-->
-                                <div style="display: none;">
+                                <div >
                                 {{(App\Models\Report::where('etc2',$pay->id)->first()) ? ($etc3_t = App\Models\Report::where('etc2',$pay->id)->first()->etc3) : $etc3_t = '' }}
                                 </div>
                                 @if($etc3_t == 0)
