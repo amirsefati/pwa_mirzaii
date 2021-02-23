@@ -417,52 +417,68 @@ class Client extends Controller
         $userPassword	= "98481076"; 
 
         $ResCode 		= (isset($request->ResCode) && $request->ResCode != "") ? $request->ResCode : "";
-           
-        if ($ResCode == '0')
-        {
-            $client 				= new \nusoap_client('https://bpm.shaparak.ir/pgwchannel/services/pgw?wsdl');
-            $namespace 				='http://interfaces.core.sw.bps.com/';
-            $orderId 				= (isset($request->SaleOrderId) && $request->SaleOrderId != "") ? $request->SaleOrderId : "";
-            $verifySaleOrderId 		= (isset($request->SaleOrderId) && $request->SaleOrderId != "") ? $request->SaleOrderId : "";
-            $verifySaleReferenceId 	= (isset($request->SaleReferenceId) && $request->SaleReferenceId != "") ? $request->SaleReferenceId : "";
+            if(Payment::where('id',$request->SaleOrderId)->status == 1){
 
-            $parameters = array(
-                'terminalId' 		=> $terminalId,
-                'userName' 			=> $userName,
-                'userPassword' 		=> $userPassword,
-                'orderId' 			=> $orderId,
-                'saleOrderId' 		=> $verifySaleOrderId,
-                'saleReferenceId' 	=> $verifySaleReferenceId
-            );
+                return ['تراکنش تکراری'];
 
-            $result = $client->call('bpVerifyRequest', $parameters, $namespace);
-
-            if($result == 0)
+            }
+            
+            if ($ResCode == '0')
             {
-                $result = $client->call('bpSettleRequest', $parameters, $namespace);
+                $client 				= new \nusoap_client('https://bpm.shaparak.ir/pgwchannel/services/pgw?wsdl');
+                $namespace 				='http://interfaces.core.sw.bps.com/';
+                $orderId 				= (isset($request->SaleOrderId) && $request->SaleOrderId != "") ? $request->SaleOrderId : "";
+                $verifySaleOrderId 		= (isset($request->SaleOrderId) && $request->SaleOrderId != "") ? $request->SaleOrderId : "";
+                $verifySaleReferenceId 	= (isset($request->SaleReferenceId) && $request->SaleReferenceId != "") ? $request->SaleReferenceId : "";
+
+                $parameters = array(
+                    'terminalId' 		=> $terminalId,
+                    'userName' 			=> $userName,
+                    'userPassword' 		=> $userPassword,
+                    'orderId' 			=> $orderId,
+                    'saleOrderId' 		=> $verifySaleOrderId,
+                    'saleReferenceId' 	=> $verifySaleReferenceId
+                );
+
+                $result = $client->call('bpVerifyRequest', $parameters, $namespace);
 
                 if($result == 0)
                 {
-                //-- تمام مراحل پرداخت به درستی انجام شد.
-                    Payment::where('id',$request->SaleOrderId)->update([
-                        'status' => 1,
-                        'saleReferenceId' => $verifySaleReferenceId,
-                        'etc1' => $request->ResCode
-                    ]);
-                    $user_id = Payment::find($request->SaleOrderId)->user_id;
-                    $user_has_gun = User::find($user_id);
-                    $pay = Payment::find($request->SaleOrderId);
-                    $user_data = User::find($user_id);
-                    if($user_has_gun->user_has_gun == 1){
-                        User::where('id',$user_has_gun->id)->increment('creadit_has_gun',intval(Payment::find($request->SaleOrderId)->etc2));
-                    }else{
-                        User::where('id',$user_has_gun->id)->increment('creadit_no_gun',intval(Payment::find($request->SaleOrderId)->etc2));
-                    }
-                    return view('verify_pay',['status' => '200' , 'code' => $verifySaleReferenceId,'pay'=>$pay,'user_data'=>$user_data]);
-                //-- تمام مراحل پرداخت به درستی انجام شد.
+                    $result = $client->call('bpSettleRequest', $parameters, $namespace);
 
+                    if($result == 0)
+                    {
+                    //-- تمام مراحل پرداخت به درستی انجام شد.
+                        Payment::where('id',$request->SaleOrderId)->update([
+                            'status' => 1,
+                            'saleReferenceId' => $verifySaleReferenceId,
+                            'etc1' => $request->ResCode
+                        ]);
+                        $user_id = Payment::find($request->SaleOrderId)->user_id;
+                        $user_has_gun = User::find($user_id);
+                        $pay = Payment::find($request->SaleOrderId);
+                        $user_data = User::find($user_id);
+                        if($user_has_gun->user_has_gun == 1){
+                            User::where('id',$user_has_gun->id)->increment('creadit_has_gun',intval(Payment::find($request->SaleOrderId)->etc2));
+                        }else{
+                            User::where('id',$user_has_gun->id)->increment('creadit_no_gun',intval(Payment::find($request->SaleOrderId)->etc2));
+                        }
+                        return view('verify_pay',['status' => '200' , 'code' => $verifySaleReferenceId,'pay'=>$pay,'user_data'=>$user_data]);
+                    //-- تمام مراحل پرداخت به درستی انجام شد.
+
+                    } else {
+                        $client->call('bpReversalRequest', $parameters, $namespace);			
+                        Payment::where('id',$request->SaleOrderId)->update([
+                            'status' => 0,
+                            'saleReferenceId' => $verifySaleReferenceId,
+                            'etc1' => $request->ResCode,
+                        ]);
+                        $p = Payment::find($request->SaleOrderId);
+
+                        return view('verify_pay',['status' => '300' , 'code' => 'خطا در ثبت درخواست واریز وجه' , 'id' => $p,'user'=>Payment::find($request->SaleOrderId)->user_id]);
+                    }
                 } else {
-                    $client->call('bpReversalRequest', $parameters, $namespace);			
+                    $client->call('bpReversalRequest', $parameters, $namespace);
                     Payment::where('id',$request->SaleOrderId)->update([
                         'status' => 0,
                         'saleReferenceId' => $verifySaleReferenceId,
@@ -470,29 +486,19 @@ class Client extends Controller
                     ]);
                     $p = Payment::find($request->SaleOrderId);
 
-                    return view('verify_pay',['status' => '300' , 'code' => 'خطا در ثبت درخواست واریز وجه' , 'id' => $p,'user'=>Payment::find($request->SaleOrderId)->user_id]);
+                    return view('verify_pay',['status' => '300' , 'code' => 'خطا در عملیات وریفای تراکنش' , 'id' => $p,'user'=>Payment::find($request->SaleOrderId)->user_id]);
+
                 }
             } else {
-                $client->call('bpReversalRequest', $parameters, $namespace);
                 Payment::where('id',$request->SaleOrderId)->update([
                     'status' => 0,
-                    'saleReferenceId' => $verifySaleReferenceId,
                     'etc1' => $request->ResCode,
                 ]);
                 $p = Payment::find($request->SaleOrderId);
-
-                return view('verify_pay',['status' => '300' , 'code' => 'خطا در عملیات وریفای تراکنش' , 'id' => $p,'user'=>Payment::find($request->SaleOrderId)->user_id]);
+                return view('verify_pay',['status' => '300' , 'code' => 'تراکنش ناموفق' , 'id' => $p,'user'=>Payment::find($request->SaleOrderId)->user_id]);
 
             }
-        } else {
-            Payment::where('id',$request->SaleOrderId)->update([
-                'status' => 0,
-                'etc1' => $request->ResCode,
-            ]);
-            $p = Payment::find($request->SaleOrderId);
-            return view('verify_pay',['status' => '300' , 'code' => 'تراکنش ناموفق' , 'id' => $p,'user'=>Payment::find($request->SaleOrderId)->user_id]);
-
-        }
+        
     }
 
     public function logoutpanel(){
