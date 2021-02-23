@@ -903,7 +903,8 @@ class Manager extends Controller
             'to' => 0,
             'by' => 'رزرو توسط مدیر',
             'info' => $request->info,
-            'etc2' => $payment->id
+            'etc2' => $payment->id,
+            'etc3' => $request->kind_etc3
         ]);
 
         $terminalId		= "1661403";							//-- شناسه ترمینال

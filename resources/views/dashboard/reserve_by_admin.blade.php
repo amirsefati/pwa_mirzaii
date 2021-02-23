@@ -20,7 +20,7 @@
 
                     <div class="col-md-5">
                         <label for="kind"> کاربری  :</label>
-                        <select class="form-control" id="kind">
+                        <select class="form-control" name="kind_etc3" id="kind">
                             <option value="4">عادی</option>
                             <option value="0">دانشجوی دانشکده فنی</option>
                             <option value="1">دانشجوی غیر دانشکده فنی</option>
