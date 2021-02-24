@@ -417,11 +417,6 @@ class Client extends Controller
         $userPassword	= "98481076"; 
 
         $ResCode 		= (isset($request->ResCode) && $request->ResCode != "") ? $request->ResCode : "";
-            if(Payment::where('id',$request->SaleOrderId)->status == 1){
-
-                return ['تراکنش تکراری'];
-
-            }
             
             if ($ResCode == '0')
             {
